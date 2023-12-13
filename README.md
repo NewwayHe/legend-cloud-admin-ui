@@ -29,7 +29,7 @@
 > 这是一个基于 vue-admin-template 管理后台。
 > 平台管理系统
 
-## 前端技术
+## 主要前端技术点
 1. 框架--vue,vue-router,vuex。
 2. 第三方请求库--axios。
 3. UI框架--element。
