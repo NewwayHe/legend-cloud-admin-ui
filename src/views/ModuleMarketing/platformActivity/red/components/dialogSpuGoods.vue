@@ -21,10 +21,20 @@
                 <!-- 自定义选择列 -->
                 <el-table-column width="42" align="center">
                     <template slot="header" slot-scope="scope">
-                        <el-checkbox v-model="checkAll" :disabled="!groupList.length" size="small" @change="cusHandleAllSelect" :indeterminate="customCheckHalf"></el-checkbox>
+                        <el-checkbox
+                            v-model="checkAll"
+                            :disabled="!groupList.length"
+                            size="small"
+                            :indeterminate="customCheckHalf"
+                            @change="cusHandleAllSelect"
+                        ></el-checkbox>
                     </template>
                     <template slot-scope="scope">
-                        <el-checkbox v-model="scope.row.customChecked" size="small" @change="(selected)=>cusHandleSingleSelect(scope.row,selected)"></el-checkbox>
+                        <el-checkbox
+                            v-model="scope.row.customChecked"
+                            size="small"
+                            @change="(selected) => cusHandleSingleSelect(scope.row, selected)"
+                        ></el-checkbox>
                     </template>
                 </el-table-column>
                 <el-table-column prop="shopName" label="店铺名称" align="left">
@@ -40,7 +50,15 @@
             </el-table>
         </div>
         <el-row type="flex" justify="space-between" align="middle" class="mt-10 dialog-paging">
-            <el-checkbox class="pl-10 font-12" v-model="checkAll" @change="cusHandleAllSelect" :indeterminate="customCheckHalf" :disabled="!groupList.length">全选</el-checkbox>
+            <el-checkbox
+                v-model="checkAll"
+                class="pl-10 font-12"
+                :indeterminate="customCheckHalf"
+                :disabled="!groupList.length"
+                @change="cusHandleAllSelect"
+            >
+                全选
+            </el-checkbox>
             <el-pagination
                 small
                 layout="prev, pager, next"
@@ -89,7 +107,7 @@ export default {
                 shopName: ''
             },
             tempShopIds: [], // 商品传入的临时数据。用于组件缓存数据
-            selShopIds: [],    //深拷贝的临时数据。用于勾选状态判断
+            selShopIds: [], //深拷贝的临时数据。用于勾选状态判断
             groupList: [], // 表格数据
             tableListLoading: false
         }
@@ -97,11 +115,11 @@ export default {
     computed: {
         // 半选
         customCheckHalf() {
-            if(this.checkAll) {
+            if (this.checkAll) {
                 return false
-            }else if(this.groupList.length && this.selShopIds.length) {
+            } else if (this.groupList.length && this.selShopIds.length) {
                 return true
-            }else {
+            } else {
                 return false
             }
         },
@@ -138,18 +156,18 @@ export default {
                 })
                 .then((res) => {
                     this.tableListLoading = false
-                    if(res.code) {
+                    if (res.code) {
                         this.group.total = res.data.total
-						if(res.data&&res.data.resultList){
-							this.groupList = res.data.resultList.map((item)=>{
-							    if(this.selShopIds.includes(item.id)) {
-							        item.customChecked = true
-							    }else {
-							        item.customChecked = false
-							    }
-							    return item;
-							})
-						}
+                        if (res.data && res.data.resultList) {
+                            this.groupList = res.data.resultList.map((item) => {
+                                if (this.selShopIds.includes(item.id)) {
+                                    item.customChecked = true
+                                } else {
+                                    item.customChecked = false
+                                }
+                                return item
+                            })
+                        }
                     }
                 })
                 .catch((err) => {
@@ -200,29 +218,28 @@ export default {
         },
 
         // 单行选择
-        cusHandleSingleSelect(row,selected) {
-            console.log('单行--',row,selected)
-            row.customChecked = selected;
-            if(selected) {
-                if(!this.selShopIds.includes(row.id)) {
+        cusHandleSingleSelect(row, selected) {
+            console.log('单行--', row, selected)
+            row.customChecked = selected
+            if (selected) {
+                if (!this.selShopIds.includes(row.id)) {
                     this.selShopIds.push(row.id)
                 }
-            }else {
+            } else {
                 let index = this.selShopIds.indexOf(row.id)
-                if(index > -1) {
-                    this.selShopIds.splice(index,1)
+                if (index > -1) {
+                    this.selShopIds.splice(index, 1)
                 }
             }
         },
         // 全选
         cusHandleAllSelect(selected) {
-            this.groupList.forEach((item)=>{
-                this.cusHandleSingleSelect(item,selected)
+            this.groupList.forEach((item) => {
+                this.cusHandleSingleSelect(item, selected)
             })
         }
     }
 }
 </script>
 
-<style>
-</style>
+<style></style>

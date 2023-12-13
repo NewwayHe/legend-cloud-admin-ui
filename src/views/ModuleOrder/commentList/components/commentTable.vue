@@ -35,9 +35,8 @@
     </div>
 </template>
 <script>
-
 export default {
-    components: { },
+    components: {},
     props: {
         tableList: {
             type: Array,

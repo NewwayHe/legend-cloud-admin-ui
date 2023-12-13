@@ -12,7 +12,7 @@
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column label="操作" align="center"  >
+            <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
                     <span class="table__action">
                         <el-link :underline="false" type="primary" @click="couponProductDel(scope.row)">删除</el-link>
@@ -26,7 +26,7 @@
 import { couponApi } from '@/api/ModuleMarketing'
 
 export default {
-    components: { },
+    components: {},
     props: {
         tableList: {
             type: [Array, Object],

@@ -95,10 +95,10 @@
                     </template>
                     <!-- 列表样式：复杂 -->
                     <template v-else>
-                        <div class="bg-white flex-col-start px-15 py-10 overflow-h line-h" style="min-width: 165px; height: 100px; ">
+                        <div class="bg-white flex-col-start px-15 py-10 overflow-h line-h" style="min-width: 165px; height: 100px">
                             <template v-if="!item.shopName">
                                 <div class="d-flex a-end">
-                                    <span class="font-14" style="padding-bottom: 2px;">￥</span>
+                                    <span class="font-14" style="padding-bottom: 2px">￥</span>
                                     <span class="font-22 font-weight">{{ item.amount }}</span>
                                     <span
                                         class="rounded-4 py-3 px-5 ml-5"
@@ -120,7 +120,7 @@
                                         : ''
                                 }}
                             </div>
-                            <div class="text-999 mt-5 font-10 bg-f5 rounded" style="padding: 4px;">拼团及特殊商品除外</div>
+                            <div class="text-999 mt-5 font-10 bg-f5 rounded" style="padding: 4px">拼团及特殊商品除外</div>
                             <div v-if="item.shopName" class="line-clamp1 mt-15 text-999 font-12">
                                 <span class="iconfont icon-dianpu mr-5"></span>
                                 {{ item.shopName }}

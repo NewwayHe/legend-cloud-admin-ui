@@ -42,14 +42,14 @@
                         <imgCenter
                             v-model="value.suspendBut.img"
                             class="pr-15"
-                            :uploadStyle="{ width: '35px', height: '35px' }"
-                            :isPreview="false"
+                            :upload-style="{ width: '35px', height: '35px' }"
+                            :is-preview="false"
                         ></imgCenter>
                         <el-tooltip effect="dark" content="必填，建议尺寸：40*40px" placement="top-start">
                             <i class="el-icon-question font-16 text-ccc main-hover v-bottom"></i>
                         </el-tooltip>
                         <span class="pl-15">链接：</span>
-						<dialogUrl v-model="value.suspendBut" :parmas="value" />
+                        <dialogUrl v-model="value.suspendBut" :parmas="value" />
                     </div>
                 </div>
             </div>

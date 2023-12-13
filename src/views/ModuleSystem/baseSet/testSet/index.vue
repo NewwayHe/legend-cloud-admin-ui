@@ -14,7 +14,7 @@
                             <span class="edit">状态字段</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="操作" align="center"  fixed="right" width="200px">
+                    <el-table-column label="操作" align="center" fixed="right" width="200px">
                         <template slot-scope="scope">
                             <span class="edit">
                                 <el-link type="primary">编辑为对接</el-link>
@@ -44,7 +44,7 @@ import cud from '@/mixins/pages/cud.js'
 
 export default {
     name: '',
-    components: { },
+    components: {},
     mixins: [cud, common],
     data() {
         return {

@@ -6,7 +6,7 @@
         <el-card>
             <!-- 查询 -->
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="帮助栏目">
                         <el-select v-model="searchFilters.newsCategoryId" clearable filterable placeholder="请选择">
                             <el-option v-for="item in newsCategoryList" :key="item.id" :label="item.newsCategoryName" :value="item.id" />
@@ -56,7 +56,7 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100 mb-20"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
                     <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="newsTitle" label="标题" />
@@ -86,11 +86,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
                 <el-alert type="warning" class="defalult mt-20" :closable="false">
                     <div style="line-height: 30px" class="text-999">
                         <p class="font-16 font-weight">说明</p>

@@ -1,17 +1,33 @@
 <template>
     <el-dialog title="会员角色" custom-class="dialog-form-small" :visible.sync="dialogVisible">
         <el-row>
-            <el-form :inline="true" :model="dialogSearchFilters" size="small" label-width="98px" class="font-0" @submit.native.prevent @keyup.enter.native="dialogSearch">
-                <el-form-item label="角色名称：" style="margin-bottom:0;">
+            <el-form
+                :inline="true"
+                :model="dialogSearchFilters"
+                size="small"
+                label-width="98px"
+                class="font-0"
+                @submit.native.prevent
+                @keyup.enter.native="dialogSearch"
+            >
+                <el-form-item label="角色名称：" style="margin-bottom: 0">
                     <el-input v-model="dialogSearchFilters.name" placeholder="角色名称" />
                 </el-form-item>
-                <el-form-item style="margin-right: 0;">
+                <el-form-item style="margin-right: 0">
                     <el-button size="small" type="primary" @click.stop="dialogSearch">搜索</el-button>
                 </el-form-item>
             </el-form>
         </el-row>
         <el-row class="mt-15">
-            <el-table ref="multipleTable" v-loading="tableListLoading" :data="templateList" tooltip-effect="dark" class="w-100 dialog-form-table" size='small' header-row-class-name="headerRow">
+            <el-table
+                ref="multipleTable"
+                v-loading="tableListLoading"
+                :data="templateList"
+                tooltip-effect="dark"
+                class="w-100 dialog-form-table"
+                size="small"
+                header-row-class-name="headerRow"
+            >
                 <el-table-column prop="roleName" label="角色名称" align="center" />
                 <el-table-column label="有效状态" align="center">
                     <template slot-scope="scope">
@@ -153,7 +169,8 @@ export default {
 <style lang="scss" scoped>
 .el-form {
     display: flex;
-    >.el-form-item:first-child {     //搜索框占满
+    > .el-form-item:first-child {
+        //搜索框占满
         flex: 1;
         display: flex;
         ::v-deep .el-form-item__content {

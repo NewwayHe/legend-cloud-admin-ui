@@ -4,7 +4,7 @@
 -->
 <template>
     <section>
-        <el-card :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 查询 -->
             <div class="search">
                 <el-form :inline="true" :model="searchFilters" size="small">
@@ -19,8 +19,8 @@
             </div>
             <div class="table">
                 <el-row class="mb-20">
-					<el-col><el-button type="primary" size="medium" @click="handleCreate({ delFlag: true })">新增</el-button></el-col>
-				</el-row>
+                    <el-col><el-button type="primary" size="medium" @click="handleCreate({ delFlag: true })">新增</el-button></el-col>
+                </el-row>
 
                 <!--列表-->
                 <el-table
@@ -29,7 +29,7 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
                     <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="roleName" label="角色名称" />
@@ -70,11 +70,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
             <!-- 新增-编辑 -->
             <el-dialog :title="dialogForm.title" custom-class="dialog-form-small" :visible.sync="dialogForm.isVisible">
@@ -118,7 +123,7 @@ import cud from '@/mixins/pages/cud.js'
 import { menuAuthManage } from '@/api/ModuleSystem'
 import dialogAddPre from './components/dialogAddPre'
 export default {
-	name:'userRole',
+    name: 'UserRole',
     components: {
         dialogAddPre
     },
@@ -174,7 +179,7 @@ export default {
                 delete: '/user/admin/ordinary/role',
                 create: '/user/admin/ordinary/role'
             },
-			isMounted:true,
+            isMounted: true
         }
     },
     created() {

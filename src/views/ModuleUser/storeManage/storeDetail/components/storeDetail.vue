@@ -7,7 +7,7 @@
             <!-- 顶部信息 -->
             <el-row type="flex" justify="space-between" align="bottom">
                 <el-row type="flex" align="middle">
-                    <ls-image :src="userInfo.shopAvatar" class="mr-20" :options="{ w: '100', h: '100', br:'50' }"/>
+                    <ls-image :src="userInfo.shopAvatar" class="mr-20" :options="{ w: '100', h: '100', br: '50' }" />
                     <div class="font-main">
                         <div class="mt-20">
                             <span>联系人姓名：</span>
@@ -48,11 +48,11 @@
                             <el-form-item label="店铺地址：">
                                 <p v-if="!isEdit">
                                     {{
-                                        (userInfo.province||'') +
+                                        (userInfo.province || '') +
                                         (userInfo.city === userInfo.province ? '' : userInfo.city) +
-                                        (userInfo.area||'') +
-                                        (userInfo.street||'') +
-                                        (userInfo.shopAddress||'')
+                                        (userInfo.area || '') +
+                                        (userInfo.street || '') +
+                                        (userInfo.shopAddress || '')
                                     }}
                                 </p>
                                 <InputCascader v-if="isEdit" v-model="userInfo.region" class="w-450p" />
@@ -71,17 +71,12 @@
                                 <p>{{ userInfo.createTime || '-' }}</p>
                             </el-form-item>
                             <el-form-item label="店铺图片：">
-                                <ls-image
-                                    v-show="!isEdit"
-                                    :src="userInfo.shopAvatar"
-                                    :options="{ w: '100', h: '100' }"
-                                    class="rounded-5"
-                                />
+                                <ls-image v-show="!isEdit" :src="userInfo.shopAvatar" :options="{ w: '100', h: '100' }" class="rounded-5" />
                                 <imgCenter
                                     v-show="isEdit"
                                     v-model="userInfo.shopAvatar"
-                                    :uploadStyle="{ width: '100px', height: '100px' }"
-                                    :isPreview="false"
+                                    :upload-style="{ width: '100px', height: '100px' }"
+                                    :is-preview="false"
                                 />
                                 <span v-show="isEdit" style="margin-left: 15px; color: rgb(153, 153, 153)">建议尺寸：100*100px</span>
                             </el-form-item>
@@ -89,8 +84,8 @@
                             <el-form-item>
                                 <el-button v-if="isEdit" @click="isEdit = false">取消</el-button>
                                 <el-button type="primary" @click="onSubmit('form')">
-									{{ isEdit ? '保存' : '编辑' }}
-								</el-button>
+                                    {{ isEdit ? '保存' : '编辑' }}
+                                </el-button>
                             </el-form-item>
                         </el-form>
                     </section>
@@ -113,7 +108,7 @@
                             <el-form-item v-if="userInfo.applyForType == 1" label="统一社会信用代码：">
                                 <p>{{ userInfo.unifiedSocialCreditCode || '-' }}</p>
                             </el-form-item>
-                            <el-form-item label="营业执照：" v-if="userInfo.applyForType == 1">
+                            <el-form-item v-if="userInfo.applyForType == 1" label="营业执照：">
                                 <ls-image :src="userInfo.businessLicense" :options="{ w: '100', h: '100' }" class="rounded-5" />
                             </el-form-item>
                             <el-form-item :label="userInfo.applyForType == 1 ? '法人身份证正面：' : '身份证正面：'">
@@ -132,7 +127,9 @@
                     <section class="formWarp">
                         <el-form ref="form" :model="userInfo" label-width="132px" size="small">
                             <el-form-item label="审核状态：">
-                                <p :class="userInfo.auditStatus == 0 ? 'status-wait' : userInfo.auditStatus == 1 ? 'status-pass' : 'status-veto'">{{ userInfo.auditStatus == 0 ? '待审核' : userInfo.auditStatus == 1 ? '通过 ' : '拒绝' }}</p>
+                                <p :class="userInfo.auditStatus == 0 ? 'status-wait' : userInfo.auditStatus == 1 ? 'status-pass' : 'status-veto'">
+                                    {{ userInfo.auditStatus == 0 ? '待审核' : userInfo.auditStatus == 1 ? '通过 ' : '拒绝' }}
+                                </p>
                             </el-form-item>
                             <el-form-item label="审核意见：">
                                 <p>{{ userInfo.auditOpinion || '-' }}</p>
@@ -162,8 +159,8 @@ export default {
                 region: []
             },
             activeName: 'second',
-            isEdit: false ,// 是否编辑
-			loading:false,
+            isEdit: false, // 是否编辑
+            loading: false
         }
     },
     created() {
@@ -175,20 +172,23 @@ export default {
             if (this.$route.query.id === undefined) {
                 this.$route.query.id = '1'
             }
-			this.loading = true
-            storeManage.storeDetail(this.$route.query.id).then((res) => {
-                if (res.code == 1) {
-                    this.userInfo = res.data
-                    this.$set(this.userInfo, 'region', [
-                        Number(res.data.provinceId),
-                        Number(res.data.cityId),
-                        Number(res.data.areaId),
-                        Number(res.data.streetId)
-                    ])
-                }
-            }).finally(()=>{
-				this.loading = false
-			})
+            this.loading = true
+            storeManage
+                .storeDetail(this.$route.query.id)
+                .then((res) => {
+                    if (res.code == 1) {
+                        this.userInfo = res.data
+                        this.$set(this.userInfo, 'region', [
+                            Number(res.data.provinceId),
+                            Number(res.data.cityId),
+                            Number(res.data.areaId),
+                            Number(res.data.streetId)
+                        ])
+                    }
+                })
+                .finally(() => {
+                    this.loading = false
+                })
         },
         // 跳转页面
         goPage(val, key, id) {

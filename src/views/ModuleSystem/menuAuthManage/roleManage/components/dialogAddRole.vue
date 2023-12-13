@@ -31,7 +31,7 @@
 </template>
 <script>
 export default {
-    components: { },
+    components: {},
     mixins: [],
     props: {},
     data() {

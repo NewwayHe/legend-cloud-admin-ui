@@ -1,6 +1,6 @@
 <template>
     <section class="">
-        <el-card shadow v-loading = "loading">
+        <el-card v-loading="loading" shadow>
             <div slot="header" class="clearfix">
                 <template v-if="!isEditName">
                     <el-button type="text" size="medium" class="text-666" icon="el-icon-upload" @click.stop="uploading">上传</el-button>
@@ -39,16 +39,13 @@
                     </el-button>
                     <el-tooltip class="item" placement="right">
                         <div slot="content">
-							<template v-if="!inDialog">
-								不能对商家根目录文件夹进行重命名、移动、删除操作
-								<br />
-								<br />
-								当选中的文件夹中含有商家根目录文件夹时进行重命名、移动、删除操作会自动取消商家根目录文件夹的选中状态
-							</template>
-							<template v-if="inDialog">
-								当【新增文件夹】后，如想要删除该文件夹，请到【系统设置】->【图片中心】里删除
-							</template>
-  
+                            <template v-if="!inDialog">
+                                不能对商家根目录文件夹进行重命名、移动、删除操作
+                                <br />
+                                <br />
+                                当选中的文件夹中含有商家根目录文件夹时进行重命名、移动、删除操作会自动取消商家根目录文件夹的选中状态
+                            </template>
+                            <template v-if="inDialog">当【新增文件夹】后，如想要删除该文件夹，请到【系统设置】->【图片中心】里删除</template>
                         </div>
                         <i class="el-icon-question text-666 font-16 ml-5"></i>
                     </el-tooltip>
@@ -100,35 +97,46 @@
                 </el-aside>
                 <el-container :style="{ height: inDialog ? '560px' : '730px' }">
                     <el-main class="d-flex flex-column j-sb" style="padding-top: 0">
-                        <el-row type="flex" justify="space-between" v-if="!isEditName" style="overflow: hidden;">
-                            <div style="flex-basis: 60%; overflow: hidden; margin-right: 10px;">
+                        <el-row v-if="!isEditName" type="flex" justify="space-between" style="overflow: hidden">
+                            <div style="flex-basis: 60%; overflow: hidden; margin-right: 10px">
                                 <el-breadcrumb separator-class="el-icon-arrow-right" class="viewList">
-                                    <el-breadcrumb-item v-for="item in rotateFolderList[0]" :key="item.id" class="flex-center" :style="{ 'flex-basis': inDialog ? '33.33%' : '20%',}">
-                                        <el-button
-                                            type="text"
-                                            :title="item.id != '-111' ? item.fileName : ''"
-                                            @click="handleFloderClick(item.id)"
-                                        >
-											<div class="line-clamp1 text-left">
-												<template v-if="item.id !== '-111'">{{ item.fileName }}</template>
-												<el-popover v-else placement="top" trigger="hover" width="200">
-													<div class="d-flex flex-column flex-wrap">
-														<el-button class="line-clamp1" style="margin-left: 0;" type="text" v-for="btn in rotateFolderList[1]" :key="btn.id" :title="btn.fileName" @click="handleFloderClick(btn.id)">{{ btn.fileName }}</el-button>
-													</div>
-													<span slot="reference">{{ item.fileName }}</span>
-												</el-popover>
-											</div>
+                                    <el-breadcrumb-item
+                                        v-for="item in rotateFolderList[0]"
+                                        :key="item.id"
+                                        class="flex-center"
+                                        :style="{ 'flex-basis': inDialog ? '33.33%' : '20%' }"
+                                    >
+                                        <el-button type="text" :title="item.id != '-111' ? item.fileName : ''" @click="handleFloderClick(item.id)">
+                                            <div class="line-clamp1 text-left">
+                                                <template v-if="item.id !== '-111'">{{ item.fileName }}</template>
+                                                <el-popover v-else placement="top" trigger="hover" width="200">
+                                                    <div class="d-flex flex-column flex-wrap">
+                                                        <el-button
+                                                            v-for="btn in rotateFolderList[1]"
+                                                            :key="btn.id"
+                                                            class="line-clamp1"
+                                                            style="margin-left: 0"
+                                                            type="text"
+                                                            :title="btn.fileName"
+                                                            @click="handleFloderClick(btn.id)"
+                                                        >
+                                                            {{ btn.fileName }}
+                                                        </el-button>
+                                                    </div>
+                                                    <span slot="reference">{{ item.fileName }}</span>
+                                                </el-popover>
+                                            </div>
                                         </el-button>
                                     </el-breadcrumb-item>
                                 </el-breadcrumb>
                             </div>
-                            <div class="d-flex a-center" style="flex-basis: 40%;">
+                            <div class="d-flex a-center" style="flex-basis: 40%">
                                 <el-input v-model="searchFilters.keyWord" class="mr-5" size="small" clearable placeholder="搜索图片名称" />
                                 <el-button size="small" @click.stop="dbnSearch">搜索</el-button>
                             </div>
                         </el-row>
 
-                        <el-row :id="'pictureBox-'+componentKey" class="my-20 flex-2 flex-wrap" :gutter="15" type="flex" justify="center">
+                        <el-row :id="'pictureBox-' + componentKey" class="my-20 flex-2 flex-wrap" :gutter="15" type="flex" justify="center">
                             <div v-if="tableList.length > 0" class="w-100 h-100">
                                 <div
                                     class="w-100 overflow-y d-flex flex-wrap j-sa"
@@ -146,7 +154,10 @@
                                                 class="d-flex flex-col-between px-10 pb-10 h-100"
                                                 :class="[
                                                     {
-														active: filterKeys.some((v) => {return item.key == v.key && !item.visibleEdit && !isEditName})||(typeof tempUrl == 'object' ? tempUrl.includes(item.url) : tempUrl==item.url),
+                                                        active:
+                                                            filterKeys.some((v) => {
+                                                                return item.key == v.key && !item.visibleEdit && !isEditName
+                                                            }) || (typeof tempUrl == 'object' ? tempUrl.includes(item.url) : tempUrl == item.url),
                                                         'pic-item': !isEditName
                                                     },
                                                     isEditName ? 'pt-10' : 'pt-20'
@@ -159,19 +170,26 @@
                                                     :class="item.type != 0 ? 'pic-img' : ''"
                                                     :style="{ fontSize: '100px', height: 'calc(100% - 29px)', width: '100%' }"
                                                 >
-													<!-- 下面这里加一个时间戳，是为了解决当上传两张名字一样的图片时，无论怎么也只显示第一张图片，不显示最后上传的图片的问题(实测用:key值不生效) -->
+                                                    <!-- 下面这里加一个时间戳，是为了解决当上传两张名字一样的图片时，无论怎么也只显示第一张图片，不显示最后上传的图片的问题(实测用:key值不生效) -->
                                                     <el-image
                                                         v-if="!diffPicOrVideo(item)"
                                                         :ref="'elImage' + item.key"
-                                                        :src="`${$photoServer+item.url}?${new Date().getTime()}`"
+                                                        :src="`${$photoServer + item.url}?${new Date().getTime()}`"
                                                         :style="{ width: '100%', height: '100%' }"
-                                                        :isPreview="false"
+                                                        :is-preview="false"
                                                         fit="contain"
                                                     ></el-image>
                                                     <div v-else class="position-relative w-100 h-100 d-flex">
-                                                        <video :src="$photoServer + item.videoUrl" :poster="item.url ? ($photoServer + item.url) : ''" class="w-100 h-100"></video>
-                                                        <div class="position-absolute left-0 top-0 right-0 bottom-0" style="background-color: rgba(0,0,0,.5)">
-                                                            <div class="iconfont icon-bofang center-xy" style="font-size: 24px; color: #fff;"></div>
+                                                        <video
+                                                            :src="$photoServer + item.videoUrl"
+                                                            :poster="item.url ? $photoServer + item.url : ''"
+                                                            class="w-100 h-100"
+                                                        ></video>
+                                                        <div
+                                                            class="position-absolute left-0 top-0 right-0 bottom-0"
+                                                            style="background-color: rgba(0, 0, 0, 0.5)"
+                                                        >
+                                                            <div class="iconfont icon-bofang center-xy" style="font-size: 24px; color: #fff"></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -186,7 +204,12 @@
                                                     <div v-if="!inDialog && item.visibleEdit" class="w-100 text-center font-12 flex-1">
                                                         <el-form :ref="item.key" :model="item" label-width="0px" :rules="formValidateRule">
                                                             <el-form-item prop="tempName" size="mini" :inline-message="false" :error="item.errMsg">
-                                                                <el-input v-model="item.tempName" placeholder="请输入内容" :title="item.tempName" maxlength="50">
+                                                                <el-input
+                                                                    v-model="item.tempName"
+                                                                    placeholder="请输入内容"
+                                                                    :title="item.tempName"
+                                                                    maxlength="50"
+                                                                >
                                                                     <el-button
                                                                         slot="append"
                                                                         style="padding: 7px"
@@ -205,7 +228,9 @@
                                                 class="d-flex flex-col-between px-10 py-10 h-100"
                                                 :class="[
                                                     {
-                                                        active: filterKeys.some((v) => { return item.key == v.key && !item.visibleEdit }),
+                                                        active: filterKeys.some((v) => {
+                                                            return item.key == v.key && !item.visibleEdit
+                                                        }),
                                                         'pic-item': !isEditName
                                                     },
                                                     isEditName ? 'pt-10' : 'pt-20'
@@ -235,7 +260,12 @@
                                                     >
                                                         <el-form :ref="item.key" :model="item" label-width="0px" :rules="formValidateRule">
                                                             <el-form-item prop="tempName" size="mini" :inline-message="false" :error="item.errMsg">
-                                                                <el-input v-model="item.tempName" placeholder="请输入内容" :title="item.tempName" maxlength="50">
+                                                                <el-input
+                                                                    v-model="item.tempName"
+                                                                    placeholder="请输入内容"
+                                                                    :title="item.tempName"
+                                                                    maxlength="50"
+                                                                >
                                                                     <el-button
                                                                         slot="append"
                                                                         style="padding: 7px"
@@ -260,10 +290,12 @@
                                     ></div>
                                 </div>
                             </div>
-                            <empty empty-type="pro" text="暂无素材信息" v-else-if="!loading"/>
+                            <empty v-else-if="!loading" empty-type="pro" text="暂无素材信息" />
                         </el-row>
                         <div class="d-flex j-sb a-center">
-                            <el-checkbox v-if="!isEditName && !inDialog" :indeterminate="custerCheck" v-model="isSelectAll" @change="switchSelectAll">全选</el-checkbox>
+                            <el-checkbox v-if="!isEditName && !inDialog" v-model="isSelectAll" :indeterminate="custerCheck" @change="switchSelectAll">
+                                全选
+                            </el-checkbox>
                             <i v-else />
                             <!-- 在dialog中占位保持页码靠右 -->
                             <el-pagination
@@ -283,17 +315,25 @@
             </el-container>
         </el-card>
         <!-- 上传图片 -->
-        <dialog-fodder ref="dialogFodder" :tree-value="searchFilters.treeId" :floder-id="searchFilters.id" :upload-tab="uploadTab" :limit="fodderLimit" :isEcho="isEcho" @upload-success="handleUpSuccess"/>
-		<!-- 图片预览 -->
-        <el-image-viewer v-if="showView" :on-close="closeViewer" :url-list="[imgUrl]" style="z-index: 3333;"/>
+        <dialog-fodder
+            ref="dialogFodder"
+            :tree-value="searchFilters.treeId"
+            :floder-id="searchFilters.id"
+            :upload-tab="uploadTab"
+            :limit="fodderLimit"
+            :is-echo="isEcho"
+            @upload-success="handleUpSuccess"
+        />
+        <!-- 图片预览 -->
+        <el-image-viewer v-if="showView" :on-close="closeViewer" :url-list="[imgUrl]" style="z-index: 3333" />
         <!-- 视频放大预览 -->
-        <div v-if="isPreviewVideo" class="el-image-viewer__wrapper" style="z-index: 3333;">
-            <div class="el-image-viewer__mask" style="opacity: .2;"></div>
+        <div v-if="isPreviewVideo" class="el-image-viewer__wrapper" style="z-index: 3333">
+            <div class="el-image-viewer__mask" style="opacity: 0.2"></div>
             <span class="el-image-viewer__btn el-image-viewer__close" @click.stop="isPreviewVideo = false">
                 <i class="el-icon-circle-close"></i>
             </span>
             <div class="el-image-viewer__canvas">
-                <video :src="imgUrl" :poster="videoPosterUrl" controls style="width: 80vw; height: 80vh;"></video>
+                <video :src="imgUrl" :poster="videoPosterUrl" controls style="width: 80vw; height: 80vh"></video>
             </div>
         </div>
         <!-- 新建文件夹 -->
@@ -306,7 +346,14 @@
         >
             <el-form ref="myForm" :model="newFolderData" label-width="95px" size="small" label-position="right">
                 <el-form-item label="文件夹名称：" prop="fileName" :rules="[{ required: true, message: '文件夹名不能为空', trigger: 'blur' }]">
-                    <el-input v-model="newFolderData.fileName" placeholder="文件夹名称" maxlength="50" show-word-limit onkeypress="if(event.keyCode == 13) return false;" @keyup.enter.native="submitHandle()"/>
+                    <el-input
+                        v-model="newFolderData.fileName"
+                        placeholder="文件夹名称"
+                        maxlength="50"
+                        show-word-limit
+                        onkeypress="if(event.keyCode == 13) return false;"
+                        @keyup.enter.native="submitHandle()"
+                    />
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -367,21 +414,21 @@ export default {
             type: Number,
             default: 5
         },
-		// 上传组件的 面板展示
-		uploadTab: {
-			type: String,
-			default: 'BOTH'
-		},
-		// 上传完后是否需要回显当次上传结果[例子：商品发布上传图片]
-		isEcho: {
-			type: Boolean,
-			default: false,
-		},
-		
-		// 已经选中的图片，用于回选
-		tempUrl: {
-		    type: [Array, String]
-		},
+        // 上传组件的 面板展示
+        uploadTab: {
+            type: String,
+            default: 'BOTH'
+        },
+        // 上传完后是否需要回显当次上传结果[例子：商品发布上传图片]
+        isEcho: {
+            type: Boolean,
+            default: false
+        },
+
+        // 已经选中的图片，用于回选
+        tempUrl: {
+            type: [Array, String]
+        }
     },
     data() {
         var validatePass = (rule, value, callback) => {
@@ -392,7 +439,7 @@ export default {
             }
         }
         return {
-			loading:false,
+            loading: false,
             formValidateRule: {
                 tempName: [{ validator: validatePass, trigger: 'blur' }]
             },
@@ -423,20 +470,20 @@ export default {
 
             visibleEdit: false, //改名popover
             treeId: 0,
-            openNode: [],   //这个用数组 方便增删
+            openNode: [], //这个用数组 方便增删
 
             filterKeys: [], //选中的资源。
-            showView: false,    //图片预览
+            showView: false, //图片预览
             isPreviewVideo: false, //视频预览
             videoPosterUrl: '', //视频预览封面图
             imgUrl: '',
             videoUrl: '',
             pageSize: null,
             isMounted: false,
-            componentKey:0,
-			custerCheck:false, //半选状态
-			
-			echoFiles: [],  //回显
+            componentKey: 0,
+            custerCheck: false, //半选状态
+
+            echoFiles: [] //回显
         }
     },
     computed: {
@@ -466,51 +513,57 @@ export default {
         },
         // 循环显示的历史记录
         rotateFolderList() {
-            let viewList = this.parentFloderList;
-            let len = viewList.length;
-            let surList = [];       //省略时的数组
-            if(this.inDialog && len > 3) {  //弹窗内显示三条
+            let viewList = this.parentFloderList
+            let len = viewList.length
+            let surList = [] //省略时的数组
+            if (this.inDialog && len > 3) {
+                //弹窗内显示三条
                 surList = viewList.slice(1, -1)
-                viewList = [viewList[0], { fileName: '...', id: '-111' },  viewList[len - 1]]
-            }else if(!this.inDialog && len > 5){ //弹窗外显示5条
+                viewList = [viewList[0], { fileName: '...', id: '-111' }, viewList[len - 1]]
+            } else if (!this.inDialog && len > 5) {
+                //弹窗外显示5条
                 surList = viewList.slice(3, -1)
-                viewList = [...viewList.slice(0, 3), { fileName: '...', id: '-111' },  viewList[len - 1]]
+                viewList = [...viewList.slice(0, 3), { fileName: '...', id: '-111' }, viewList[len - 1]]
             }
             // console.log('历史记录--',this.parentFloderList, [viewList, surList])
-            return [viewList, surList];
+            return [viewList, surList]
         },
-		// 回显时的上传数量
-		fodderLimit() {
-			// 如果上传完图片后马上关闭窗口并回选,并且是非多选(mult为false，即为单选)，则限制上传图片数为1.
-		    return (this.isEcho&&!this.mult)? 1 : ( (this.inDialog && this.isEcho) ? (this.limit - this.filterKeys.length) : this.limit)
-		}
+        // 回显时的上传数量
+        fodderLimit() {
+            // 如果上传完图片后马上关闭窗口并回选,并且是非多选(mult为false，即为单选)，则限制上传图片数为1.
+            return this.isEcho && !this.mult ? 1 : this.inDialog && this.isEcho ? this.limit - this.filterKeys.length : this.limit
+        }
     },
-	watch:{
-		filterKeys(newValue){
-			// console.log(11,newValue)
-		    this.custerCheck = newValue.length > 0 && newValue.length < this.tableList.length
-		},
-	    parentFloderList(newVal,oldVal){
-	        // 加上判断是防止页面加载调用接口，此监听为面包屑发生变化后提交路径记录
-	        if(oldVal.length != 0){
-	            this.getSaveHistory(newVal.map(item=>item.id))
-	        }
-	    }
-	},
+    watch: {
+        filterKeys(newValue) {
+            // console.log(11,newValue)
+            this.custerCheck = newValue.length > 0 && newValue.length < this.tableList.length
+        },
+        parentFloderList(newVal, oldVal) {
+            // 加上判断是防止页面加载调用接口，此监听为面包屑发生变化后提交路径记录
+            if (oldVal.length != 0) {
+                this.getSaveHistory(newVal.map((item) => item.id))
+            }
+        }
+    },
     created() {
         this.componentKey = this.$utils.createUUID()
     },
     mounted() {
-		this.loading = true;setTimeout(()=> {this.loading = false;}, 5000);//由于下面的getResourceList()方法是写在debounce里，所以要一开始设置loading为true
-		
+        this.loading = true
+        setTimeout(() => {
+            this.loading = false
+        }, 5000) //由于下面的getResourceList()方法是写在debounce里，所以要一开始设置loading为true
+
         //计算铺满容器所需的文件数量
         let itemWidth = this.inDialog ? 90 + 10 : 135 + 10
-        this.pageSize = Math.floor(document.getElementById('pictureBox-'+this.componentKey).clientWidth / itemWidth) * 4
-        if(this.pageSize==0){ //防止屏幕过小pageSize为0的情况
+        this.pageSize = Math.floor(document.getElementById('pictureBox-' + this.componentKey).clientWidth / itemWidth) * 4
+        if (this.pageSize == 0) {
+            //防止屏幕过小pageSize为0的情况
             this.pageSize = 8
         }
         this.searchFilters.pageSize = this.pageSize
-        !this.inDialog && this.getSaveHistory();        //非弹窗内 走mounted 弹窗走ref调用
+        !this.inDialog && this.getSaveHistory() //非弹窗内 走mounted 弹窗走ref调用
     },
     methods: {
         getResourceList() {
@@ -518,29 +571,32 @@ export default {
             if (this.searchFilters.curPage == 1) {
                 this.searchFilters.breakPageSize = this.searchFilters.pageSize
             }
-			this.loading = true;
-			this.filterKeys=[]
-			this.tableList=[]
+            this.loading = true
+            this.filterKeys = []
+            this.tableList = []
             this.searchFilters.userType = this.inDialog ? 0 : undefined
-            materialCenter.getResourceList(this.searchFilters).then((res) => {
-                this.isSelectAll = false
-                this.tableTotal = res?.data?.total || 0
-				if(res.data&&res.data.resultList){
-					res.data.resultList.map((v) => {
-					    //因文件夹和图片的id有可能相同所以给每条数据增加一个key属性
-					    v.key = v.id + '-' + v.type
-					    return v
-					})
-				}
-                this.searchFilters.breakPageSize = res?.data?.pageSize || ''
-                this.tableList = res?.data?.resultList || []
-            }).finally(() => {
-				this.loading = false;
-			});
+            materialCenter
+                .getResourceList(this.searchFilters)
+                .then((res) => {
+                    this.isSelectAll = false
+                    this.tableTotal = res?.data?.total || 0
+                    if (res.data && res.data.resultList) {
+                        res.data.resultList.map((v) => {
+                            //因文件夹和图片的id有可能相同所以给每条数据增加一个key属性
+                            v.key = v.id + '-' + v.type
+                            return v
+                        })
+                    }
+                    this.searchFilters.breakPageSize = res?.data?.pageSize || ''
+                    this.tableList = res?.data?.resultList || []
+                })
+                .finally(() => {
+                    this.loading = false
+                })
         },
         dbnSearch: debounce(function () {
             this.searchFilters.curPage = 1
-             this.getResourceList()
+            this.getResourceList()
         }),
         loadMore(curPage) {
             this.searchFilters.curPage = curPage
@@ -557,18 +613,18 @@ export default {
                 this.$message.warning('请取消或修改完文件名后才进入其他文件夹')
                 return
             }
-            if(FloderId == '-111') return;  // 处理...点击事件
+            if (FloderId == '-111') return // 处理...点击事件
             // 减少请求
-            if(FloderId === this.searchFilters.id && this.searchFilters.curPage === 1) return;
+            if (FloderId === this.searchFilters.id && this.searchFilters.curPage === 1) return
             await this.getParentFloderList(FloderId)
-            this.$nextTick(()=>{
-                if(!this.$refs.pathTree.getNode(FloderId).isLeaf){
-                    if(!this.openNode.includes(FloderId)) {
+            this.$nextTick(() => {
+                if (!this.$refs.pathTree.getNode(FloderId).isLeaf) {
+                    if (!this.openNode.includes(FloderId)) {
                         this.openNode.push(FloderId)
                     }
                 }
             })
-            
+
             this.searchFilters.id = FloderId
             this.searchFilters.curPage = 1
             this.grade = this.parentFloderList.length
@@ -593,16 +649,18 @@ export default {
                         if (res.code) {
                             this.$message.success('新增文件夹成功')
                             this.formDialogVisible = false
-                            if(!this.openNode.includes(this.newFolderData.parentId)) {  //通过openNode来自动更新左侧数据
+                            if (!this.openNode.includes(this.newFolderData.parentId)) {
+                                //通过openNode来自动更新左侧数据
                                 this.openNode.push(this.newFolderData.parentId)
-                            }else {
-                                materialCenter.getFloderTree({ id: this.newFolderData.parentId }).then((res) => { //更新左侧树型控件数据
+                            } else {
+                                materialCenter.getFloderTree({ id: this.newFolderData.parentId }).then((res) => {
+                                    //更新左侧树型控件数据
                                     if (res.code) {
                                         this.$refs.pathTree.updateKeyChildren(this.newFolderData.parentId, res.data)
                                     }
                                 })
                             }
-                            this.dbnSearch()//更新右侧数据
+                            this.dbnSearch() //更新右侧数据
                         } else {
                             return false
                         }
@@ -616,11 +674,13 @@ export default {
         imgView(item) {
             // console.log('双击预览--', item)
             if (item.type == 0) {
-                if(this.diffPicOrVideo(item)) {       //视频预览
+                if (this.diffPicOrVideo(item)) {
+                    //视频预览
                     this.imgUrl = this.$photoServer + item.videoUrl
-                    this.videoPosterUrl = item.url ? (this.$photoServer + item.url) : '';  //预览封面图
-                    this.isPreviewVideo = true;
-                }else {     //图片预览
+                    this.videoPosterUrl = item.url ? this.$photoServer + item.url : '' //预览封面图
+                    this.isPreviewVideo = true
+                } else {
+                    //图片预览
                     this.imgUrl = this.$photoServer + item.url //预览图片
                     this.handleImg()
                 }
@@ -638,22 +698,22 @@ export default {
             this.showView = false
         },
         uploading() {
-			// 将当前选中赋值给回显列表
-			if(this.inDialog && this.isEcho) {
-			    this.echoFiles = this.filterKeys.map((item) => {
-			        if(this.uploadTab == 'IMG') {
-			            return item.url
-			        }else if(this.uploadTab == 'VIDEO') {
-			            return item.videoUrl
-			        }else {
-			            if(this.diffPicOrVideo(v)) {
-			                return item.videoUrl
-			            }else {
-			                return item.url
-			            }
-			        }
-			    })
-			}
+            // 将当前选中赋值给回显列表
+            if (this.inDialog && this.isEcho) {
+                this.echoFiles = this.filterKeys.map((item) => {
+                    if (this.uploadTab == 'IMG') {
+                        return item.url
+                    } else if (this.uploadTab == 'VIDEO') {
+                        return item.videoUrl
+                    } else {
+                        if (this.diffPicOrVideo(v)) {
+                            return item.videoUrl
+                        } else {
+                            return item.url
+                        }
+                    }
+                })
+            }
             this.$refs.dialogFodder.showDialog()
         },
         getParentFloderList(id) {
@@ -664,29 +724,30 @@ export default {
                 }
             })
         },
-        getSaveHistory: debounce(function(arr = []){
-            let params = { }
-            if(!this.inDialog) { //如果不是在弹窗内 才需要加userType
+        getSaveHistory: debounce(function (arr = []) {
+            let params = {}
+            if (!this.inDialog) {
+                //如果不是在弹窗内 才需要加userType
                 params.userType = 'ADMIN_PIC'
             }
-            arr.length && (params.folderIdList = arr);
+            arr.length && (params.folderIdList = arr)
             // arr为空时是获取路径历史记录，不为空时提交路径记录，提交记录成功不需要有任何操作
-            materialCenter.getSaveHistory(params).then(res=>{
-                if(res.code && !arr.length){
-                    if(res.data && res.data.length > 0){
-                    //    console.log('res--', res.data)
-                       this.searchFilters.id = res.data[0][res.data[0].length-1].id;
-                       this.parentFloderList = res.data[0];
+            materialCenter.getSaveHistory(params).then((res) => {
+                if (res.code && !arr.length) {
+                    if (res.data && res.data.length > 0) {
+                        //    console.log('res--', res.data)
+                        this.searchFilters.id = res.data[0][res.data[0].length - 1].id
+                        this.parentFloderList = res.data[0]
                         //    这里要获取展开节点
-                       let firstView = res.data[0];
-                       let openNode = [];
-                       firstView.forEach(item => {
-                           item.isNext != false && openNode.push(item.id)
-                       })
-                       this.openNode = openNode
-                       console.log('openNode--', this.openNode)
-                       this.getResourceList()
-                    }else{
+                        let firstView = res.data[0]
+                        let openNode = []
+                        firstView.forEach((item) => {
+                            item.isNext != false && openNode.push(item.id)
+                        })
+                        this.openNode = openNode
+                        console.log('openNode--', this.openNode)
+                        this.getResourceList()
+                    } else {
                         this.getResourceList()
                         this.getParentFloderList()
                     }
@@ -719,14 +780,16 @@ export default {
                     if (res.code == 1) {
                         this.$message.success('文件移动成功')
                         let hasFolder = false
-                        movingList.forEach(v=>{ //左侧树型控件被移动文件夹的节点移动到目标文件夹
-                            if(v.type==1){
+                        movingList.forEach((v) => {
+                            //左侧树型控件被移动文件夹的节点移动到目标文件夹
+                            if (v.type == 1) {
                                 hasFolder = true
                                 this.$refs.pathTree.remove(this.$refs.pathTree.getNode(v.id))
                             }
                         })
-                        if(hasFolder) {
-                            materialCenter.getFloderTree({ id: targetFolderId }).then((res) => { //更新右侧树型控件数据
+                        if (hasFolder) {
+                            materialCenter.getFloderTree({ id: targetFolderId }).then((res) => {
+                                //更新右侧树型控件数据
                                 if (res.code) {
                                     this.$refs.pathTree.updateKeyChildren(targetFolderId, res.data)
                                 }
@@ -745,7 +808,7 @@ export default {
             //接口中请求参数userType是判断是否显示商家文件夹,在Dialog中隐藏所有商家文件夹防止用户选择使用商家的图片
             if (!this.floderTree.length && node.level === 0) {
                 let data
-                materialCenter.getFloderTree({userType:this.inDialog ? 0 : undefined}).then((res) => {
+                materialCenter.getFloderTree({ userType: this.inDialog ? 0 : undefined }).then((res) => {
                     if (res.code) {
                         data = res.data
                         resolve(data)
@@ -755,7 +818,7 @@ export default {
             }
             if (node.level >= 1) {
                 let data
-                materialCenter.getFloderTree({ id: node.data.id,userType:this.inDialog ? 0 : undefined }).then((res) => {
+                materialCenter.getFloderTree({ id: node.data.id, userType: this.inDialog ? 0 : undefined }).then((res) => {
                     if (res.code) {
                         data = res.data
                         resolve(data)
@@ -779,28 +842,31 @@ export default {
             document.body.style = ''
         },
         choose(item) {
-			// item.type == 0：图片，item.type == 1：文件夹
-			if(item.type == 0){
-				// 如果是多选
-				if(typeof this.tempUrl == 'object') {
-					// 如果选中已经选中的
-					if(this.tempUrl.includes(item.url)){
-						this.$emit('update:tempUrl',this.tempUrl.filter(v => v != item.url))
-						return
-					}
-				// 如果是单选
-				}else{
-					// 如果是单选，并且点击了回选的图片，则删掉选中的图片
-					if(this.tempUrl==item.url){
-						this.$emit('update:tempUrl','')
-						return
-					// 如果是单选，但点击了另一个图片(点击的并不是回选的图片，这时回选的图片就要清空，重新选择新选中的图片)
-					}else{
-						this.$emit('update:tempUrl','')
-					}
-				}
-			}
-			
+            // item.type == 0：图片，item.type == 1：文件夹
+            if (item.type == 0) {
+                // 如果是多选
+                if (typeof this.tempUrl == 'object') {
+                    // 如果选中已经选中的
+                    if (this.tempUrl.includes(item.url)) {
+                        this.$emit(
+                            'update:tempUrl',
+                            this.tempUrl.filter((v) => v != item.url)
+                        )
+                        return
+                    }
+                    // 如果是单选
+                } else {
+                    // 如果是单选，并且点击了回选的图片，则删掉选中的图片
+                    if (this.tempUrl == item.url) {
+                        this.$emit('update:tempUrl', '')
+                        return
+                        // 如果是单选，但点击了另一个图片(点击的并不是回选的图片，这时回选的图片就要清空，重新选择新选中的图片)
+                    } else {
+                        this.$emit('update:tempUrl', '')
+                    }
+                }
+            }
+
             if ((this.inDialog && item.type == 1) || this.isEditName) {
                 //在Dialog不能选择文件夹，修改名字时不能选择或取消选择
                 // this.$message.warning("不能选择文件夹上传")
@@ -881,13 +947,14 @@ export default {
                         deleteItem.push(index)
                     }
                     materialCenter.deleteResource(deleteItem).then((res) => {
-                        if (res.code==0) {
+                        if (res.code == 0) {
                             this.$message.error(res.message)
                             return
-                        }else{
+                        } else {
                             this.$message.success('删除成功')
-                            deleteItem.forEach(v=>{ //删除左侧树型控件节点
-                                if(v.type==1){
+                            deleteItem.forEach((v) => {
+                                //删除左侧树型控件节点
+                                if (v.type == 1) {
                                     this.$refs.pathTree.remove(this.$refs.pathTree.getNode(v.id))
                                 }
                             })
@@ -983,7 +1050,8 @@ export default {
                                 })
                             ].name = item.tempName //修改文件名字成功后本地修改文件名
                             this.$message.success('修改素材名称成功！')
-                            if(item.type == 1){ //如果修改名字的是文件夹则修改左侧树型控件中的文件夹名字
+                            if (item.type == 1) {
+                                //如果修改名字的是文件夹则修改左侧树型控件中的文件夹名字
                                 this.$set(this.$refs.pathTree.getNode(item.id).data, 'fileName', item.tempName)
                             }
                             item.visibleEdit = false
@@ -1029,7 +1097,8 @@ export default {
                                             return v.key == item.key
                                         })
                                     ].name = item.tempName //修改文件名字成功后本地修改文件名
-                                    if(item.type == 1){ //如果修改名字的是文件夹则修改左侧树型控件中的文件夹名字
+                                    if (item.type == 1) {
+                                        //如果修改名字的是文件夹则修改左侧树型控件中的文件夹名字
                                         this.$set(this.$refs.pathTree.getNode(item.id).data, 'fileName', item.tempName)
                                     }
                                     item.visibleEdit = false
@@ -1081,20 +1150,38 @@ export default {
 
         // 区分 视频Or图片 true为视频 false为图片
         diffPicOrVideo(item) {
-            const videoExt = ['.wmv', '.asf', '.asx', '.rm', '.rmvb', '.MPEG', '.mp4', '.3gp', '.mov', '.m4v', '.avi', '.dat', '.mkv', '.flv', '.vob', '.webm', '.ogg'];
+            const videoExt = [
+                '.wmv',
+                '.asf',
+                '.asx',
+                '.rm',
+                '.rmvb',
+                '.MPEG',
+                '.mp4',
+                '.3gp',
+                '.mov',
+                '.m4v',
+                '.avi',
+                '.dat',
+                '.mkv',
+                '.flv',
+                '.vob',
+                '.webm',
+                '.ogg'
+            ]
             return videoExt.includes(`.${item.ext}`.toLowerCase())
         },
-		
-		// 处理上传成功 用于回显选中
-		handleUpSuccess(files) {
-		    console.log('回显--', files)
-		    this.echoFiles = this.echoFiles.concat(files);
-		    if(this.inDialog && this.isEcho) {
-		        this.$nextTick(() => {
-		            this.$emit('echo-success', this.echoFiles)
-		        })
-		    }
-		}
+
+        // 处理上传成功 用于回显选中
+        handleUpSuccess(files) {
+            console.log('回显--', files)
+            this.echoFiles = this.echoFiles.concat(files)
+            if (this.inDialog && this.isEcho) {
+                this.$nextTick(() => {
+                    this.$emit('echo-success', this.echoFiles)
+                })
+            }
+        }
     }
 }
 </script>
@@ -1226,11 +1313,11 @@ $--color-primary: #007bff;
 /* 历史记录导航条 */
 ::v-deep .viewList {
     display: flex;
-    >.el-breadcrumb__item {
+    > .el-breadcrumb__item {
         // flex: 0 0 25%;
         flex: 0;
         overflow: hidden;
-        >.el-breadcrumb__inner {
+        > .el-breadcrumb__inner {
             display: inline-block;
             width: 100%;
             white-space: nowrap;

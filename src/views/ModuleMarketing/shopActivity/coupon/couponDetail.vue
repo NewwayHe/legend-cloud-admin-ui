@@ -7,7 +7,9 @@
             <el-form ref="form" :model="form" label-width="132px" size="small">
                 <div class="form-title">店铺信息</div>
                 <el-form-item label="店铺名称：">
-                    <el-link type="primary" :underline="false" :href="$shareRedirectUrl+'?detailsType=shop&shopId='+form.shopId" target='_blank'>{{ form.shopName }}</el-link>
+                    <el-link type="primary" :underline="false" :href="$shareRedirectUrl + '?detailsType=shop&shopId=' + form.shopId" target="_blank">
+                        {{ form.shopName }}
+                    </el-link>
                 </el-form-item>
                 <el-divider />
                 <!-- 这是分割线 -->
@@ -53,7 +55,7 @@
                         type="primary"
                         :href="$shareRedirectUrl + '?detailsType=coupon&id=' + form.id + '&type=center'"
                     >
-                        {{$shareRedirectUrl + '?detailsType=coupon&id=' + form.id + '&type=center'}}
+                        {{ $shareRedirectUrl + '?detailsType=coupon&id=' + form.id + '&type=center' }}
                     </el-link>
                     <el-button
                         type="primary"
@@ -68,17 +70,15 @@
                 <div class="form-title">活动信息</div>
                 <el-form-item label="活动商品：">
                     <!-- 商品列表组件 -->
-                    <table-goods
-                        v-if="form.useType != undefined && form.useType != null"
-                        :coupon-id="id"
-                        :use-type="form.useType"
-                    />
+                    <table-goods v-if="form.useType != undefined && form.useType != null" :coupon-id="id" :use-type="form.useType" />
                 </el-form-item>
                 <el-divider />
                 <!-- 这是分割线 -->
                 <div class="form-title">活动状态</div>
                 <el-form-item label="活动状态：">
-                    <p :class="form.status == -2 ? 'status-veto' : form.status == 1 ? 'status-wait' : 'status-done'">{{ form.status | getStatus() }}</p>
+                    <p :class="form.status == -2 ? 'status-veto' : form.status == 1 ? 'status-wait' : 'status-done'">
+                        {{ form.status | getStatus() }}
+                    </p>
                 </el-form-item>
                 <el-divider />
                 <!-- 这是分割线 -->
@@ -89,9 +89,9 @@
                 </el-form-item>
             </el-form>
         </el-card>
-		<submitBottom>
-			<el-button size="small" @click="goBack">返回</el-button>
-		</submitBottom>
+        <submitBottom>
+            <el-button size="small" @click="goBack">返回</el-button>
+        </submitBottom>
     </section>
 </template>
 <script>
@@ -114,7 +114,7 @@ export default {
         getReceiveType(type) {
             let receiveType = {
                 0: '免费领取',
-                1: '卡密领取',
+                1: '卡密领取'
             }
             return receiveType[type]
         },
@@ -143,7 +143,7 @@ export default {
                 desc: ''
             },
             imageUrl: '',
-            id: '',
+            id: ''
         }
     },
     created() {

@@ -18,14 +18,14 @@
                             align-center
                         >
                             <el-step :description="detailsInfo.createTime" title="商家申请" />
-                            <el-step v-if="detailsInfo.applyStatus=='-1'" :description="detailsInfo.sellerTime" title="商家撤回" status="error"/>
+                            <el-step v-if="detailsInfo.applyStatus == '-1'" :description="detailsInfo.sellerTime" title="商家撤回" status="error" />
                             <template v-else>
                                 <el-step
                                     :description="detailsInfo.adminTime"
                                     title="平台审核"
-                                    :status="detailsInfo.applyStatus=='-4' ?'error': undefined"
+                                    :status="detailsInfo.applyStatus == '-4' ? 'error' : undefined"
                                 />
-                                <el-step :description="detailsInfo.applyStatus=='-4'?'--':detailsInfo.adminTime" title="订单取消" />
+                                <el-step :description="detailsInfo.applyStatus == '-4' ? '--' : detailsInfo.adminTime" title="订单取消" />
                             </template>
                         </el-steps>
                     </div>
@@ -36,11 +36,11 @@
         <!-- 商品表格 -->
         <el-card shadow>
             <el-form label-width="90px" label-position="left" size="small" class="order-form mb-20">
-                <div class="d-flex p-20" style="background-color: #F5F7FA;">
+                <div class="d-flex p-20" style="background-color: #f5f7fa">
                     <div class="flex-1 ml-20">
                         <!-- 商家信息 -->
                         <div>
-                            <div class="font-14 font-weight-600" style="line-height:32px;">商家信息</div>
+                            <div class="font-14 font-weight-600" style="line-height: 32px">商家信息</div>
                             <el-form-item label="店铺ID：">{{ detailsInfo.shopId }}</el-form-item>
                             <el-form-item label="店铺名称：">{{ detailsInfo.shopName }}</el-form-item>
                         </div>
@@ -48,18 +48,18 @@
                     <div class="flex-1 ml-20">
                         <!-- 退款信息 -->
                         <div>
-                            <div class="font-14 font-weight-600" style="line-height:32px;">退款信息</div>
+                            <div class="font-14 font-weight-600" style="line-height: 32px">退款信息</div>
                             <el-form-item label="申请时间：">{{ detailsInfo.createTime }}</el-form-item>
                             <el-form-item label="订单编号：">{{ detailsInfo.orderNumber }}</el-form-item>
                             <el-form-item label="取消原因：">{{ detailsInfo.reason }}</el-form-item>
-                            <el-form-item label="备注说明：">{{ detailsInfo.sellerMessage||'-' }}</el-form-item>
+                            <el-form-item label="备注说明：">{{ detailsInfo.sellerMessage || '-' }}</el-form-item>
                         </div>
                     </div>
                     <div style="flex-basis: 25%" class="ml-20">
                         <div>
-                            <div class="font-14 font-weight-600" style="line-height:32px;">平台退款处理</div>
+                            <div class="font-14 font-weight-600" style="line-height: 32px">平台退款处理</div>
                             <el-form-item label="备注：">{{ detailsInfo.adminMessage || '-' }}</el-form-item>
-                            <el-form-item label="状态：">{{ refuseStatus(detailsInfo,true,false) }}</el-form-item>
+                            <el-form-item label="状态：">{{ refuseStatus(detailsInfo, true, false) }}</el-form-item>
                             <el-form-item label="处理时间：">{{ detailsInfo.adminTime || '-' }}</el-form-item>
                         </div>
                     </div>
@@ -69,13 +69,15 @@
             <order-table ref="table" :table-list="tableList" :refuse-info="detailsInfo" @operate="successOperate" />
             <el-row type="flex" justify="end" class="mt-30">
                 <el-button size="small" plain @click="back">返回</el-button>
-                <el-button v-if="detailsInfo.applyStatus == '2'" size="small" type="primary" @click="showDialog">
-                    审核
-                </el-button>
+                <el-button v-if="detailsInfo.applyStatus == '2'" size="small" type="primary" @click="showDialog">审核</el-button>
             </el-row>
             <!-- 确认表格 -->
         </el-card>
-        <auditOrderApplyCancelDialog ref="auditOrderApplyCancelDialog" :orderItemList="[detailsInfo]" @finish="getDetailsInfo" ></auditOrderApplyCancelDialog>
+        <auditOrderApplyCancelDialog
+            ref="auditOrderApplyCancelDialog"
+            :order-item-list="[detailsInfo]"
+            @finish="getDetailsInfo"
+        ></auditOrderApplyCancelDialog>
     </section>
 </template>
 <script>
@@ -114,7 +116,7 @@ export default {
                 if (data.applyStatus == 1 && data.sellerStatus == 0) {
                     return '待确认'
                 }
-                if (data.applyStatus == -3||data.sellerStatus == -1) {
+                if (data.applyStatus == -3 || data.sellerStatus == -1) {
                     return '已拒绝'
                 }
                 if (data.applyStatus == -1 || data.applyStatus == -2) {
@@ -144,7 +146,7 @@ export default {
                 if (data.applyStatus == -1 || data.applyStatus == -2) {
                     return istext ? (isPla ? '已撤回' : '-') : 5
                 }
-                if (data.applyStatus == -4||data.sellerStatus == -1) {
+                if (data.applyStatus == -4 || data.sellerStatus == -1) {
                     return istext ? '已拒绝' : 2
                 }
                 if (data.applyStatus == 3) {
@@ -157,12 +159,12 @@ export default {
             }
         }
     },
-    watch: {    
+    watch: {
         orderDialogVisible(newVal) {
             if (!newVal) {
                 this.$refs.form.resetFields()
             }
-        },
+        }
     },
     mounted() {
         this.orderNumber = this.$route.query.orderNumber || ''
@@ -197,7 +199,7 @@ export default {
                 })
             }
         },
-        showDialog(){
+        showDialog() {
             this.$refs.auditOrderApplyCancelDialog.showDialog()
         }
     }
@@ -337,7 +339,6 @@ export default {
         .el-timeline-item__tail {
             left: 2px;
         }
-        
     }
 }
 

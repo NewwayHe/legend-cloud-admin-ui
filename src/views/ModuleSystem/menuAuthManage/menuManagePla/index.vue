@@ -24,7 +24,7 @@
                             <svg-icon :icon-class="scope.row.icon" class="el-input__icon" />
                         </template>
                     </el-table-column>
-                    <el-table-column prop="path" label="链接地址" min-width="120"/>
+                    <el-table-column prop="path" label="链接地址" min-width="120" />
                     <el-table-column prop="component" label="组件地址" show-overflow-tooltip min-width="120">
                         <template slot-scope="scope">
                             <div class="line-clamp1">{{ scope.row.component }}</div>
@@ -39,11 +39,11 @@
                     </el-table-column>
                     <el-table-column prop="permission" label="权限标识" show-overflow-tooltip min-width="120">
                         <template slot-scope="scope">
-                            <div class="line-clamp1">{{ scope.row.permission || '-'}}</div>
+                            <div class="line-clamp1">{{ scope.row.permission || '-' }}</div>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="sort" label="顺序" width="100px"/>
-                    <el-table-column label="操作" fixed="right" width="300px" >
+                    <el-table-column prop="sort" label="顺序" width="100px" />
+                    <el-table-column label="操作" fixed="right" width="300px">
                         <template slot-scope="scope">
                             <span class="table__action flex-center">
                                 <el-link

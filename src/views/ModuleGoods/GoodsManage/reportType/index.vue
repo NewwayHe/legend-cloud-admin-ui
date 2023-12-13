@@ -3,7 +3,7 @@
 */ -->
 <template>
     <section class="">
-        <el-card :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 查询 -->
             <div class="search">
                 <el-form :inline="true" :model="searchFilters" size="small">
@@ -19,7 +19,7 @@
                     <el-form-item class="mb-20">
                         <el-button size="small" @click.stop="dbnSearch">搜索</el-button>
                         <el-button size="small" @click.stop="dbnResetSearch">重置</el-button>
-						<el-button size="small" type="primary" @click="handleCreate">新增</el-button>
+                        <el-button size="small" type="primary" @click="handleCreate">新增</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -32,15 +32,15 @@
                     tooltip-effect="dark"
                     class="w-100"
                     row-key="id"
+                    header-row-class-name="headerRow"
                     @selection-change="selectionChange"
-					header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
                     <el-table-column type="selection" reserve-selection width="42" />
-                    <el-table-column label="序号" type="index" width="48"/>
-                    <el-table-column prop="name" label="举报类型"/>
+                    <el-table-column label="序号" type="index" width="48" />
+                    <el-table-column prop="name" label="举报类型" />
                     <el-table-column prop="status" label="状态">
                         <template slot-scope="scope">
                             <span v-if="Number(scope.row.status)" class="status-pass">上线</span>
@@ -62,45 +62,51 @@
                     </el-table-column>
                 </el-table>
             </div>
-			<LsSticky :data="tableList">
-				<el-row type="flex" justify="space-between" class="w-100 overflow-h py-10 mt-10 bg-white">
-					<el-col class="text-nowrap flex-start">
-						<el-button size="mini" class="allCheck">
-							<el-checkbox v-model="checkAll" label="全选" size="small" @change="selAll" :indeterminate="checkHalf" :disabled='!selectableList.length'/>
-						</el-button>
-						<el-button size="small" @click="batchUpdateState(1)">批量上线</el-button>
-						<el-button size="small" @click="batchUpdateState(0)">批量下线</el-button>
-					</el-col>
-					<pagination :current-page="page.curPage" :page-size="page.pageSize"  :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-				</el-row>
-			</LsSticky>
+            <LsSticky :data="tableList">
+                <el-row type="flex" justify="space-between" class="w-100 overflow-h py-10 mt-10 bg-white">
+                    <el-col class="text-nowrap flex-start">
+                        <el-button size="mini" class="allCheck">
+                            <el-checkbox
+                                v-model="checkAll"
+                                label="全选"
+                                size="small"
+                                :indeterminate="checkHalf"
+                                :disabled="!selectableList.length"
+                                @change="selAll"
+                            />
+                        </el-button>
+                        <el-button size="small" @click="batchUpdateState(1)">批量上线</el-button>
+                        <el-button size="small" @click="batchUpdateState(0)">批量下线</el-button>
+                    </el-col>
+                    <pagination
+                        :current-page="page.curPage"
+                        :page-size="page.pageSize"
+                        :total="tableTotal"
+                        @size-change="pageSizeChange"
+                        @current-change="currentPageChange"
+                    />
+                </el-row>
+            </LsSticky>
         </el-card>
-		
-		<!-- 新增-编辑 -->
-		<el-dialog :title="dialogForm.title" custom-class="dialog-form-small" :visible.sync="dialogForm.isVisible">
-		    <el-form
-		        ref="myForm"
-		        :model="dialogForm.formData"
-		        :rules="dialogForm.formRule"
-		        label-width="98px"
-		        label-position="right"
-		        size="small"
-		    >
-		        <el-form-item label="举报类型：" prop="name">
-		            <el-input v-model="dialogForm.formData.name" maxlength="20" show-word-limit placeholder="举报类型" />
-		        </el-form-item>
-		        <el-form-item label="状态：" prop="status">
-		            <el-radio-group v-model="dialogForm.formData.status">
-		                <el-radio :label="1">上线</el-radio>
-		                <el-radio :label="0">下线</el-radio>
-		            </el-radio-group>
-		        </el-form-item>
-		    </el-form>
-		    <div slot="footer" class="dialog-footer">
-		        <el-button size="small" @click.stop="dialogForm.isVisible = false">取 消</el-button>
-		        <el-button size="small" type="primary" @click.stop="debounceSubmit('myForm')">确 定</el-button>
-		    </div>
-		</el-dialog>
+
+        <!-- 新增-编辑 -->
+        <el-dialog :title="dialogForm.title" custom-class="dialog-form-small" :visible.sync="dialogForm.isVisible">
+            <el-form ref="myForm" :model="dialogForm.formData" :rules="dialogForm.formRule" label-width="98px" label-position="right" size="small">
+                <el-form-item label="举报类型：" prop="name">
+                    <el-input v-model="dialogForm.formData.name" maxlength="20" show-word-limit placeholder="举报类型" />
+                </el-form-item>
+                <el-form-item label="状态：" prop="status">
+                    <el-radio-group v-model="dialogForm.formData.status">
+                        <el-radio :label="1">上线</el-radio>
+                        <el-radio :label="0">下线</el-radio>
+                    </el-radio-group>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button size="small" @click.stop="dialogForm.isVisible = false">取 消</el-button>
+                <el-button size="small" type="primary" @click.stop="debounceSubmit('myForm')">确 定</el-button>
+            </div>
+        </el-dialog>
     </section>
 </template>
 <script>
@@ -142,10 +148,10 @@ export default {
                     status: 1
                 }
             },
-			page: {
-			    // 表格页码
-			    pageSize: 20,
-			}
+            page: {
+                // 表格页码
+                pageSize: 20
+            }
         }
     },
     mounted() {},

@@ -24,7 +24,7 @@
                             :key="pic"
                             :src="pic"
                             :options="{ w: '100', h: '100', br: '6' }"
-                            className="mr-5 mb-5"
+                            class-name="mr-5 mb-5"
                             style="vertical-align: middle"
                         />
                     </div>
@@ -62,7 +62,7 @@
 import { request } from '@/utils/request'
 
 export default {
-    components: { },
+    components: {},
     props: {
         itemId: {
             type: [String, Number],

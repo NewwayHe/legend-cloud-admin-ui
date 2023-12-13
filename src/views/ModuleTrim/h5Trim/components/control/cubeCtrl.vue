@@ -28,11 +28,7 @@
                 </div>
                 <div class="flex-1 flex-start">
                     <span class="pr-15">背景图片：</span>
-                    <imgCenter
-                        v-model="value.backgroundImg"
-                        class="pr-15"
-                        :uploadStyle="{ width: '40px', height: '40px' }"
-                    ></imgCenter>
+                    <imgCenter v-model="value.backgroundImg" class="pr-15" :upload-style="{ width: '40px', height: '40px' }"></imgCenter>
                     <el-tooltip
                         effect="dark"
                         content="建议尺寸：宽750px，默认置顶显示。tips：广告图可以上传半透明度的图片,就能让背景图显示出来"
@@ -72,9 +68,9 @@
                                     <imgCenter
                                         v-model="item.img"
                                         class="pr-15"
-                                        :uploadStyle="{ width: '80px', height: '80px' }"
-										:isPreview="false"
-										@input="checkForm"
+                                        :upload-style="{ width: '80px', height: '80px' }"
+                                        :is-preview="false"
+                                        @input="checkForm"
                                     ></imgCenter>
                                 </el-form-item>
                                 <el-tooltip
@@ -202,7 +198,7 @@ export default {
                     }
                     if (num < 0) {
                         for (var i = 0; i < -num; i++) {
-							let addData = { img: '', url: '' }
+                            let addData = { img: '', url: '' }
                             this.value.data.imgList.push(addData)
                         }
                     }
@@ -211,32 +207,32 @@ export default {
             },
             deep: true
             // immediate: true//这个不能开，如果开了，点击魔方编辑时，会就将魔方的高度还原回cubeTypeHeight里的默认值
-        },
+        }
     },
     mounted() {},
     destroyed() {},
     methods: {
-		checkForm() {
-		    let result = []
-			if (this.$refs.ruleForm) {
-				this.$refs.ruleForm.validate((valid, valobj) => {
-				    for (var key in valobj) {
-						let mes = valobj[key][0]//{field: "advertImg.0.img",message: "图片不能为空"}
-						if (mes.field.indexOf('imgList')!=-1) {
-							mes['fieldName'] = '广告图'
-						}
-						result.push(mes)//将错误信息输出到一个数组里,如果数组有length就是校验不通过，如果result的length为0则校验通过
-				    }
-				})
-			}
-		    return result
-		},
+        checkForm() {
+            let result = []
+            if (this.$refs.ruleForm) {
+                this.$refs.ruleForm.validate((valid, valobj) => {
+                    for (var key in valobj) {
+                        let mes = valobj[key][0] //{field: "advertImg.0.img",message: "图片不能为空"}
+                        if (mes.field.indexOf('imgList') != -1) {
+                            mes['fieldName'] = '广告图'
+                        }
+                        result.push(mes) //将错误信息输出到一个数组里,如果数组有length就是校验不通过，如果result的length为0则校验通过
+                    }
+                })
+            }
+            return result
+        },
         del(index, flag) {
             this.value.data[flag].splice(index, 1)
         },
         add(flag) {
             let addData = this.$utils.object.deepClone(defFloorVal.cube.data[flag][0])
-			if (!this.value.data[flag]) this.$set(this.value.data, flag, []);//兼容旧数据专用，如果是旧数据里的data里没有该flag数组，下面的push会报错，所以在这里强行添加一个
+            if (!this.value.data[flag]) this.$set(this.value.data, flag, []) //兼容旧数据专用，如果是旧数据里的data里没有该flag数组，下面的push会报错，所以在这里强行添加一个
             this.value.data[flag].push(addData)
             this.$emit('add', flag)
         }

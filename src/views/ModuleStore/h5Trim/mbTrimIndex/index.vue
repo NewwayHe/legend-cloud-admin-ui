@@ -2,17 +2,17 @@
  * @Descripttion:首页装修
 */ -->
 <template>
-    <section class="" v-loading>
-        <el-card :body-style="{padding:`20px 20px 10px 20px`}">
+    <section v-loading class="">
+        <el-card :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 海报页面 -->
             <div class="table">
                 <el-row type="flex">
                     <el-col>
                         <el-radio-group v-model="searchFilters.category" size="large" class="mb-20" @change="changeStatus">
                             <el-radio-button label="INDEX">首页装修</el-radio-button>
-							<el-radio-button label="INDEX-T">页面模板</el-radio-button>
+                            <el-radio-button label="INDEX-T">页面模板</el-radio-button>
                             <el-radio-button label="POSTER">海报页</el-radio-button>
-							<el-radio-button label="POSTER-T">海报模板</el-radio-button>
+                            <el-radio-button label="POSTER-T">海报模板</el-radio-button>
                             <el-radio-button label="CATEGORY">分类展示</el-radio-button>
                             <el-radio-button label="CATEGORY_ADVERT">分类广告</el-radio-button>
                             <el-radio-button label="APP_ADVERT">APP启动广告</el-radio-button>
@@ -21,26 +21,33 @@
                 </el-row>
 
                 <template
-                    v-if="searchFilters.category == 'INDEX' || searchFilters.category == 'INDEX-T' || searchFilters.category == 'POSTER' || searchFilters.category == 'POSTER-T'"
+                    v-if="
+                        searchFilters.category == 'INDEX' ||
+                        searchFilters.category == 'INDEX-T' ||
+                        searchFilters.category == 'POSTER' ||
+                        searchFilters.category == 'POSTER-T'
+                    "
                 >
                     <!-- 查询 -->
                     <div class="search">
                         <el-form :inline="true" :model="searchFilters" size="small" @submit.native.prevent>
-                            <el-form-item label="页面名称"><el-input v-model="searchFilters.name" placeholder="请输入" @keyup.enter.native="dbnSearch"/></el-form-item>
-                            <el-form-item label="状态" v-if="searchFilters.category == 'INDEX' || searchFilters.category == 'POSTER'">
+                            <el-form-item label="页面名称">
+                                <el-input v-model="searchFilters.name" placeholder="请输入" @keyup.enter.native="dbnSearch" />
+                            </el-form-item>
+                            <el-form-item v-if="searchFilters.category == 'INDEX' || searchFilters.category == 'POSTER'" label="状态">
                                 <el-select v-model="searchFilters.status" clearable placeholder="全部状态" size="small">
                                     <el-option label="未发布" :value="-1" />
                                     <el-option label="已发布" :value="1" />
                                     <el-option label="已更新未发布" :value="0" />
                                 </el-select>
                             </el-form-item>
-							<el-form-item label="类型" v-if="searchFilters.category=='INDEX-T'||searchFilters.category=='POSTER-T'">
-							    <el-select v-model="searchFilters.type" clearable placeholder="全部" size="small">
-							        <el-option label="全部" :value="null" />
-							        <el-option label="官方" :value="1" />
-							        <el-option label="原创" :value="2" />
-							    </el-select>
-							</el-form-item>
+                            <el-form-item v-if="searchFilters.category == 'INDEX-T' || searchFilters.category == 'POSTER-T'" label="类型">
+                                <el-select v-model="searchFilters.type" clearable placeholder="全部" size="small">
+                                    <el-option label="全部" :value="null" />
+                                    <el-option label="官方" :value="1" />
+                                    <el-option label="原创" :value="2" />
+                                </el-select>
+                            </el-form-item>
                             <el-form-item class="mb-20">
                                 <el-button size="small" @click.stop="dbnSearch">搜索</el-button>
                                 <el-button size="small" type="primary" @click.stop="editInfo('')">新增</el-button>
@@ -72,10 +79,21 @@
                                     <div v-show="isMask && item.id == current" class="mask">
                                         <div class="mackBox" />
                                         <div class="editAndModify">
-											<el-button type="primary" size="small" @click="editInfo(item.id,'putToUse')" v-if="searchFilters.category == 'INDEX-T'||searchFilters.category == 'POSTER-T'">应&emsp;用</el-button>
-											<el-button type="primary" size="small" @click="editInfo(item.id)" v-if="item.type!=1">编&emsp;辑</el-button>
-											<el-button type="primary" size="small" @click="modifyCover(item.id)" v-if="item.type!=1">修改封面图</el-button>
-											<el-button type="primary" size="small" @click="previewTemplate(item.id)">预&emsp;览</el-button>
+                                            <el-button
+                                                v-if="searchFilters.category == 'INDEX-T' || searchFilters.category == 'POSTER-T'"
+                                                type="primary"
+                                                size="small"
+                                                @click="editInfo(item.id, 'putToUse')"
+                                            >
+                                                应&emsp;用
+                                            </el-button>
+                                            <el-button v-if="item.type != 1" type="primary" size="small" @click="editInfo(item.id)">
+                                                编&emsp;辑
+                                            </el-button>
+                                            <el-button v-if="item.type != 1" type="primary" size="small" @click="modifyCover(item.id)">
+                                                修改封面图
+                                            </el-button>
+                                            <el-button type="primary" size="small" @click="previewTemplate(item.id)">预&emsp;览</el-button>
                                         </div>
                                     </div>
                                 </div>
@@ -89,46 +107,70 @@
                                                 <el-dropdown trigger="click" placement="top">
                                                     <span class="icon iconfont icon-more" />
                                                     <el-dropdown-menu slot="dropdown">
-														<el-dropdown-item @click.native="edit(item.id, item.name, 'updateName')">
-															编辑名称
-														</el-dropdown-item>
-														<el-dropdown-item v-if="searchFilters.category == 'INDEX'&&!item.useFlag" @click.native="useIndexInfo(item.id, item)">
-															设为首页
-														</el-dropdown-item>
-														<el-dropdown-item @click.native="edit(item.id, item.name, 'clone')">
-															复制{{ categoryName }}
-														</el-dropdown-item>
-														<el-dropdown-item v-if="item.status != 1&&(searchFilters.category == 'INDEX'||searchFilters.category == 'POSTER')" @click.native="releaseIndexInfo(item.id)">
-															发布{{ categoryName }}
-														</el-dropdown-item>
-														<el-dropdown-item v-if="!item.useFlag" @click.native="deleteIndexInfo(item.id)">
-															删除{{ categoryName }}
-														</el-dropdown-item>
+                                                        <el-dropdown-item @click.native="edit(item.id, item.name, 'updateName')">
+                                                            编辑名称
+                                                        </el-dropdown-item>
+                                                        <el-dropdown-item
+                                                            v-if="searchFilters.category == 'INDEX' && !item.useFlag"
+                                                            @click.native="useIndexInfo(item.id, item)"
+                                                        >
+                                                            设为首页
+                                                        </el-dropdown-item>
+                                                        <el-dropdown-item @click.native="edit(item.id, item.name, 'clone')">
+                                                            复制{{ categoryName }}
+                                                        </el-dropdown-item>
+                                                        <el-dropdown-item
+                                                            v-if="
+                                                                item.status != 1 &&
+                                                                (searchFilters.category == 'INDEX' || searchFilters.category == 'POSTER')
+                                                            "
+                                                            @click.native="releaseIndexInfo(item.id)"
+                                                        >
+                                                            发布{{ categoryName }}
+                                                        </el-dropdown-item>
+                                                        <el-dropdown-item v-if="!item.useFlag" @click.native="deleteIndexInfo(item.id)">
+                                                            删除{{ categoryName }}
+                                                        </el-dropdown-item>
                                                     </el-dropdown-menu>
                                                 </el-dropdown>
                                             </el-col>
                                         </div>
                                     </div>
-									<!-- 未发布noRelease 已经更新未发布updateAndnoRelease   已经发布Release-->
-									<div class="releaseState" :class="{ noRelease: item.status == '-1' || '0', Release: item.status == '1' }" v-if="searchFilters.category == 'INDEX'||searchFilters.category == 'POSTER'">
-										<span>{{ releaseStatus(item.status) }}</span>
-									</div>
-									<div class="mt-10 d-inline-block text-white p-5 font-12 rounded-3" :style="{background:item.type==1?'#45be89':'#ff9b00'}" v-else>
-										<span>{{item.type==1?'官方':'原创'}}</span>
-									</div>
+                                    <!-- 未发布noRelease 已经更新未发布updateAndnoRelease   已经发布Release-->
+                                    <div
+                                        v-if="searchFilters.category == 'INDEX' || searchFilters.category == 'POSTER'"
+                                        class="releaseState"
+                                        :class="{ noRelease: item.status == '-1' || '0', Release: item.status == '1' }"
+                                    >
+                                        <span>{{ releaseStatus(item.status) }}</span>
+                                    </div>
+                                    <div
+                                        v-else
+                                        class="mt-10 d-inline-block text-white p-5 font-12 rounded-3"
+                                        :style="{ background: item.type == 1 ? '#45be89' : '#ff9b00' }"
+                                    >
+                                        <span>{{ item.type == 1 ? '官方' : '原创' }}</span>
+                                    </div>
                                 </div>
-								<div class="flag" v-if="item.useFlag"><span>使用中</span></div>
+                                <div v-if="item.useFlag" class="flag"><span>使用中</span></div>
                             </div>
                         </el-col>
                     </el-row>
 
                     <!--没有内容时显示的页面-->
-                    <Empty v-else :text="`暂无${categoryName}内容`" :loading="tableListLoading"/>
-					<LsSticky :data="tableList">
-						<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-							<pagination :current-page="page.curPage" :total="tableTotal" :page-sizes="[12, 30, 50, 100, 500, 1000]" :page-size="page.pageSize" @size-change="pageSizeChange" @current-change="currentPageChange" />
-						</el-row>
-					</LsSticky>
+                    <Empty v-else :text="`暂无${categoryName}内容`" :loading="tableListLoading" />
+                    <LsSticky :data="tableList">
+                        <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                            <pagination
+                                :current-page="page.curPage"
+                                :total="tableTotal"
+                                :page-sizes="[12, 30, 50, 100, 500, 1000]"
+                                :page-size="page.pageSize"
+                                @size-change="pageSizeChange"
+                                @current-change="currentPageChange"
+                            />
+                        </el-row>
+                    </LsSticky>
                 </template>
                 <!-- 分类展示 -->
                 <template v-if="searchFilters.category == 'CATEGORY'">
@@ -147,10 +189,16 @@
             <!-- 修改封面图片 -->
             <cover-modify ref="modifyDialog" :choose-item="chooseItem" @modifyImg="modifySubmit" />
             <!-- 链接弹框组件 -->
-            <dialogName ref="dialogName" v-model="newName" field="页面名称" :title="api == 'updateName' ? '编辑' : '复制'" @validatePassed="validatePassed"/>
+            <dialogName
+                ref="dialogName"
+                v-model="newName"
+                field="页面名称"
+                :title="api == 'updateName' ? '编辑' : '复制'"
+                @validatePassed="validatePassed"
+            />
         </el-card>
-		<dialogPreview ref="dialogPreview"/>
-		<dialogCategory ref="dialogCategory"/>
+        <dialogPreview ref="dialogPreview" />
+        <dialogCategory ref="dialogCategory" />
     </section>
 </template>
 <script>
@@ -172,10 +220,10 @@ export default {
         appAdvert,
         catAdvert,
         coverModify,
-		dialogCategory,
+        dialogCategory,
         trimCategory,
         dialogName,
-		dialogPreview
+        dialogPreview
     },
     mixins: [common],
     data() {
@@ -215,19 +263,19 @@ export default {
                 return stateText[state]
             }
         },
-		categoryName(){
-			let name = ''
-			if (this.searchFilters.category == 'INDEX-T') {
-				name = '页面模板'
-			}else if(this.searchFilters.category == 'POSTER-T'){
-				name = '海报模板'
-			}else if(this.searchFilters.category == 'POSTER'){
-				name = '海报'
-			}else{
-				name = '页面'
-			}
-			return name
-		},
+        categoryName() {
+            let name = ''
+            if (this.searchFilters.category == 'INDEX-T') {
+                name = '页面模板'
+            } else if (this.searchFilters.category == 'POSTER-T') {
+                name = '海报模板'
+            } else if (this.searchFilters.category == 'POSTER') {
+                name = '海报'
+            } else {
+                name = '页面'
+            }
+            return name
+        }
     },
     watch: {},
 
@@ -240,8 +288,8 @@ export default {
         // 首页装修/海报页面切换状态
         changeStatus(type) {
             this.page.curPage = 1
-			this.tableList=[]
-            if (type == 'INDEX'||type == 'INDEX-T'||type == 'POSTER'||type == 'POSTER-T') {
+            this.tableList = []
+            if (type == 'INDEX' || type == 'INDEX-T' || type == 'POSTER' || type == 'POSTER-T') {
                 this.getData()
             }
         },
@@ -264,19 +312,19 @@ export default {
         },
 
         // 编辑装修
-        editInfo(id,type) {
-			if ((this.searchFilters.category == 'INDEX'||this.searchFilters.category == 'POSTER')&&!id) {
-				this.$refs.dialogCategory.change(this.searchFilters.category)
-			}else{
-				this.$router.push({
-					path: '/h5Trim',
-					query: {
-						id: id || '',
-						category: this.searchFilters.category || '',
-						isUser:type=='putToUse'?true:''
-					}
-				})
-			}
+        editInfo(id, type) {
+            if ((this.searchFilters.category == 'INDEX' || this.searchFilters.category == 'POSTER') && !id) {
+                this.$refs.dialogCategory.change(this.searchFilters.category)
+            } else {
+                this.$router.push({
+                    path: '/h5Trim',
+                    query: {
+                        id: id || '',
+                        category: this.searchFilters.category || '',
+                        isUser: type == 'putToUse' ? true : ''
+                    }
+                })
+            }
         },
 
         // 遮罩显示
@@ -380,16 +428,16 @@ export default {
         changeCategory(type) {
             this.searchFilters.category = type
         },
-		// 预览
-		previewTemplate(id){
-			let url = ''
-			if (this.searchFilters.category == 'POSTER' || this.searchFilters.category == 'POSTER-T') {
-				url = `${this.$config.shareUrl}/ModuleCommon/poster/poster?templateId=${id}&device=mobile`
-			}else{
-				url = `${this.$config.shareUrl}/pages/index/index?templateId=${id}&device=mobile`
-			}
-			this.$refs.dialogPreview.showDialog({url:url});
-		}
+        // 预览
+        previewTemplate(id) {
+            let url = ''
+            if (this.searchFilters.category == 'POSTER' || this.searchFilters.category == 'POSTER-T') {
+                url = `${this.$config.shareUrl}/ModuleCommon/poster/poster?templateId=${id}&device=mobile`
+            } else {
+                url = `${this.$config.shareUrl}/pages/index/index?templateId=${id}&device=mobile`
+            }
+            this.$refs.dialogPreview.showDialog({ url: url })
+        }
     }
 }
 </script>
@@ -551,8 +599,8 @@ export default {
             color: rgb(51, 51, 51) !important;
         }
     }
-	::v-deep .popper__arrow::after{
-		border-top-color: rgb(51, 51, 51) !important;
-	}
+    ::v-deep .popper__arrow::after {
+        border-top-color: rgb(51, 51, 51) !important;
+    }
 }
 </style>

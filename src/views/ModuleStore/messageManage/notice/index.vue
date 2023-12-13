@@ -3,7 +3,7 @@
 -->
 <template>
     <section>
-        <el-card :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 查询 -->
             <div class="search">
                 <el-form :inline="true" :model="searchFilters" size="small">
@@ -31,7 +31,7 @@
                             <el-radio-button :label="0">买家公告</el-radio-button>
                             <el-radio-button :label="1">卖家公告</el-radio-button>
                         </el-radio-group>
-						<el-button class="ml-15" type="primary" size="medium" @click="toAdd">新增</el-button>
+                        <el-button class="ml-15" type="primary" size="medium" @click="toAdd">新增</el-button>
                     </el-col>
                 </el-row>
                 <el-table
@@ -40,7 +40,7 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
                     <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="type" label="公告类型">
@@ -56,7 +56,7 @@
                     </el-table-column>
                     <el-table-column label="失效时间" width="140">
                         <template slot-scope="scope">
-                            {{ scope.row.endTime || '-'}}
+                            {{ scope.row.endTime || '-' }}
                         </template>
                     </el-table-column>
                     <el-table-column prop="status" label="状态">
@@ -79,11 +79,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
             <!-- 新增-编辑 -->
             <el-dialog :title="dialogForm.title" custom-class="dialog-form" width="850px" :visible.sync="dialogForm.isVisible">
@@ -177,7 +182,7 @@ export default {
                 getData: '/shop/admin/pub/page',
                 update: '/shop/admin/pub',
                 delete: '/shop/admin/pub',
-                create: '/shop/admin/pub',
+                create: '/shop/admin/pub'
             }
         }
     },

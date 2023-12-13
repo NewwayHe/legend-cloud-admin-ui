@@ -16,21 +16,21 @@
                     class="w-100"
                     row-key="id"
                     :tree-props="{ children: 'children', hasChildren: '' }"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
-                    <el-table-column  prop="name" label="菜单名称" align="left" width="300">
-						<template slot-scope="scope">
-							<span class="line-clamp1">{{scope.row.name}}</span>
-						</template>
-					</el-table-column>
+                    <el-table-column prop="name" label="菜单名称" align="left" width="300">
+                        <template slot-scope="scope">
+                            <span class="line-clamp1">{{ scope.row.name }}</span>
+                        </template>
+                    </el-table-column>
                     <el-table-column prop="icon" width="120" label="图标">
                         <template slot-scope="scope">
-                            <svg-icon :icon-class="scope.row.icon" class="el-input__icon" v-if="scope.row.icon"/>
+                            <svg-icon v-if="scope.row.icon" :icon-class="scope.row.icon" class="el-input__icon" />
                             <span v-else>-</span>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="path" label="链接地址" min-width="150"/>
-                    <el-table-column prop="component" label="组件地址" min-width="250"/>
+                    <el-table-column prop="path" label="链接地址" min-width="150" />
+                    <el-table-column prop="component" label="组件地址" min-width="250" />
                     <el-table-column prop="icon" label="菜单类型">
                         <template slot-scope="scope">
                             <el-tag v-if="scope.row.type == 0 && scope.row.hiddenFlag" type="success">左侧菜单</el-tag>
@@ -41,12 +41,12 @@
                     <el-table-column prop="permission" label="权限标识" show-overflow-tooltip min-width="120">
                         <template slot-scope="scope">
                             <span class="line-clamp1 w-100">
-                                {{ scope.row.permission || "-" }}
+                                {{ scope.row.permission || '-' }}
                             </span>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="sort" label="顺序" width="100"/>
-                    <el-table-column label="操作" fixed="right" width="200" >
+                    <el-table-column prop="sort" label="顺序" width="100" />
+                    <el-table-column label="操作" fixed="right" width="200">
                         <template slot-scope="scope">
                             <span class="table__action flex-center">
                                 <el-link
@@ -75,12 +75,7 @@
             </div>
         </el-card>
         <!-- 新增-编辑 -->
-        <el-dialog
-            :title="dialogForm.title"
-            custom-class="dialog-form-small"
-            :visible.sync="dialogForm.isVisible"
-            :close-on-click-modal="false"
-        >
+        <el-dialog :title="dialogForm.title" custom-class="dialog-form-small" :visible.sync="dialogForm.isVisible" :close-on-click-modal="false">
             <el-form ref="myForm" :model="dialogForm.formData" :rules="dialogForm.formRule" label-width="98px" label-position="right" size="small">
                 <el-form-item label="类型：" prop="type">
                     <el-radio-group v-model="dialogForm.formData.type" size="mini">
@@ -227,7 +222,7 @@ export default {
             this.dialogForm.isVisible = true
             this.dialogForm.isHasTop = isHasTop
             this.dialogForm.formData.hiddenFlag = true
-            this.dialogForm.formData.id = ""     //清除[编辑]连带的数据影响
+            this.dialogForm.formData.id = '' //清除[编辑]连带的数据影响
             this.dialogForm.formData.type = '0'
             if (row) {
                 this.parentName = row.name
@@ -292,7 +287,7 @@ export default {
         filterNode(value, data) {
             if (!value) return true
             return data.label.indexOf(value) !== -1
-        },
+        }
     }
 }
 </script>

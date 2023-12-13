@@ -9,11 +9,11 @@
                     <p>每个协议都可配置一个链接，用户可查看配置的链接内容</p>
                 </el-alert>
                 <el-table ref="multipleTable" :data="tableList" tooltip-effect="dark" class="w-100" header-row-class-name="headerRow">
-                    <el-table-column label="序号" type="index" width="48"/>
+                    <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="name" label="协议" align="center" />
                     <el-table-column label="连接" align="center">
                         <template slot-scope="scope">
-                            <span v-if="scope.row.code == 'USER_REGISTER' || scope.row.code=='PRIVACY_POLICY'">
+                            <span v-if="scope.row.code == 'USER_REGISTER' || scope.row.code == 'PRIVACY_POLICY'">
                                 {{ $config.shareUrl }}/ModulesUser/register/agreement?code={{ scope.row.code }}
                             </span>
                             <span v-else>{{ $config.shareUrl }}/agreeMent?code={{ scope.row.code }}</span>
@@ -59,7 +59,7 @@ export default {
         return {
             url: {
                 getData: '/basic/admin/protocol/query',
-                update: '/basic/admin/protocol/update/url',
+                update: '/basic/admin/protocol/update/url'
             },
             dialogForm: {
                 formRule: {
@@ -84,7 +84,7 @@ export default {
     watch: {},
     created() {},
     destroyed() {},
-    mounted() { },
+    mounted() {},
     methods: {
         edit(data) {
             console.log(data)

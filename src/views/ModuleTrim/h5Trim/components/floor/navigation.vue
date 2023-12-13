@@ -8,7 +8,7 @@
             backgroundColor: floors.themeColor ? parmas.themeColor : floors.backgroundColor,
             color: floors.fontThemeColor ? parmas.themeColor : floors.color
         }"
-		:class="[floors.cardType?'m-10 rounded-10':'']"
+        :class="[floors.cardType ? 'm-10 rounded-10' : '']"
     >
         <template v-if="floors.row === 1 || floors.row === 2">
             <el-carousel
@@ -26,7 +26,7 @@
                 :direction="floors.vertical ? 'vertical' : 'horizontal'"
                 :indicator-position="floors.indicatorDots == 'none' ? 'none' : 'outside'"
             >
-				<!-- :type="floors.cardType ? 'card' : ''" -->
+                <!-- :type="floors.cardType ? 'card' : ''" -->
                 <el-carousel-item v-for="(itemTwo, indexTwo) in imgTwoDimList" :key="indexTwo">
                     <el-row type="flex" style="flex-wrap: wrap">
                         <el-col

@@ -11,7 +11,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer font-0">
                 <el-button size="small" @click.stop="isVisible = false">取 消</el-button>
-                <ls-button type="primary" size="small" :asyncFunction="() => debounceSubmit('myForm')">确 定</ls-button>
+                <ls-button type="primary" size="small" :async-function="() => debounceSubmit('myForm')">确 定</ls-button>
             </div>
         </el-dialog>
     </div>
@@ -71,26 +71,32 @@ export default {
                     if (valid) {
                         // 回复初评
                         if (this.commentType == 1) {
-                            commentList.postComment({ id: this.commentId, status: Number(this.formData.status) }).then((res) => {
-                                if (res.code == 1) {
-                                    this.$message.success('操作成功')
-                                    this.isVisible = false
-                                    this.$emit('getData')
-                                }
-                            }).finally(()=>{
-                                return resolve()
-                            })
+                            commentList
+                                .postComment({ id: this.commentId, status: Number(this.formData.status) })
+                                .then((res) => {
+                                    if (res.code == 1) {
+                                        this.$message.success('操作成功')
+                                        this.isVisible = false
+                                        this.$emit('getData')
+                                    }
+                                })
+                                .finally(() => {
+                                    return resolve()
+                                })
                         } else if (this.commentType == 2) {
                             // 回复追评
-                            commentList.postReplyComment({ addId: this.commentAddId, status: Number(this.formData.status) }).then((res) => {
-                                if (res.code == 1) {
-                                    this.$message.success('操作成功')
-                                    this.isVisible = false
-                                    this.$emit('getData')
-                                }
-                            }).finally(()=>{
-                                return resolve()
-                            })
+                            commentList
+                                .postReplyComment({ addId: this.commentAddId, status: Number(this.formData.status) })
+                                .then((res) => {
+                                    if (res.code == 1) {
+                                        this.$message.success('操作成功')
+                                        this.isVisible = false
+                                        this.$emit('getData')
+                                    }
+                                })
+                                .finally(() => {
+                                    return resolve()
+                                })
                         }
                     } else {
                         return resolve()

@@ -42,7 +42,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	::v-deep img{       //这里video加不上属性。。。
-		max-width: 100%;
-	}
+::v-deep img {
+    //这里video加不上属性。。。
+    max-width: 100%;
+}
 </style>

@@ -62,20 +62,20 @@
                         <el-color-picker v-model="value.indicatorColor" class="v-middle"></el-color-picker>
                     </el-radio>
                 </div>
-				<div
-				  v-if="value.row != 'none'"
-				  class="flex-start text-nowrap overflow-h transition-all05"
-				  :style="{ height: value.indicatorDots == 'none' ? '0px' : '40px' }"
-				>
-				  <span class="pr-15">是否自动播放：</span>
-				  <el-radio v-model="value.autoplay" :label="true">是</el-radio>
-				  <el-radio v-model="value.autoplay" :label="false">否</el-radio>
-				</div>
-				
-				<div class="flex-start mb-15">
-				    <span class="pr-15">卡片样式：</span>
-				    <el-switch v-model="value.cardType"></el-switch>
-				</div>
+                <div
+                    v-if="value.row != 'none'"
+                    class="flex-start text-nowrap overflow-h transition-all05"
+                    :style="{ height: value.indicatorDots == 'none' ? '0px' : '40px' }"
+                >
+                    <span class="pr-15">是否自动播放：</span>
+                    <el-radio v-model="value.autoplay" :label="true">是</el-radio>
+                    <el-radio v-model="value.autoplay" :label="false">否</el-radio>
+                </div>
+
+                <div class="flex-start mb-15">
+                    <span class="pr-15">卡片样式：</span>
+                    <el-switch v-model="value.cardType"></el-switch>
+                </div>
             </div>
         </div>
 
@@ -130,9 +130,9 @@
                                     <imgCenter
                                         v-model="item.img"
                                         class="pr-15"
-                                        :uploadStyle="{ width: '50px', height: '50px' }"
-										:isPreview="false"
-										@input="checkForm"
+                                        :upload-style="{ width: '50px', height: '50px' }"
+                                        :is-preview="false"
+                                        @input="checkForm"
                                     ></imgCenter>
                                 </el-form-item>
                                 <el-tooltip effect="dark" content="建议尺寸:90*90px" placement="top-start">
@@ -187,23 +187,23 @@ export default {
     mounted() {},
     destroyed() {},
     methods: {
-		checkForm() {
-		    let result = []
-			if (this.$refs.ruleForm) {
-				this.$refs.ruleForm.validate((valid, valobj) => {
-				    for (var key in valobj) {
-				        result.push(valobj[key][0]) //将错误信息输出到一个数组里,如果数组有length就是校验不通过，如果result的length为0则校验通过
-				    }
-				})
-			}
-		    return result
-		},
+        checkForm() {
+            let result = []
+            if (this.$refs.ruleForm) {
+                this.$refs.ruleForm.validate((valid, valobj) => {
+                    for (var key in valobj) {
+                        result.push(valobj[key][0]) //将错误信息输出到一个数组里,如果数组有length就是校验不通过，如果result的length为0则校验通过
+                    }
+                })
+            }
+            return result
+        },
         del(index, flag) {
             this.value.data[flag].splice(index, 1)
         },
         add(flag) {
             let addData = this.$utils.object.deepClone(defFloorVal.navigation.data[flag][0])
-			if (!this.value.data[flag]) this.$set(this.value.data, flag, []);//兼容旧数据专用，如果是旧数据里的data里没有该flag数组，下面的push会报错，所以在这里强行添加一个
+            if (!this.value.data[flag]) this.$set(this.value.data, flag, []) //兼容旧数据专用，如果是旧数据里的data里没有该flag数组，下面的push会报错，所以在这里强行添加一个
             this.value.data[flag].push(addData)
             this.$emit('add', flag)
         }

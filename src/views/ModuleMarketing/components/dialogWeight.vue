@@ -1,18 +1,12 @@
 <template>
-    <el-dialog
-        title="设置权重"
-        custom-class="dialog-form-small"
-        :visible.sync="dialogVisible"
-        :close-on-click-modal="false"
-        @close="handleClose"
-    >
+    <el-dialog title="设置权重" custom-class="dialog-form-small" :visible.sync="dialogVisible" :close-on-click-modal="false" @close="handleClose">
         <div class="text-main font-12">
             <p class="line-h-lg">权重越小越靠前显示，权重区间 [1 , 100000]；</p>
             <p class="line-h-lg">若设置的权重相同，则按照活动的发布时间由近至远显示；</p>
         </div>
         <el-form ref="myForm" class="mt-30" :model="formData" :rules="formRule" label-width="98px" size="small">
             <el-form-item label="权重：" prop="seq">
-				<lsInput class="w-200p" v-model="formData.seq" :precision="0" :min="1" :max="100000"/>
+                <lsInput v-model="formData.seq" class="w-200p" :precision="0" :min="1" :max="100000" />
             </el-form-item>
         </el-form>
         <div slot="footer" class="font-0">

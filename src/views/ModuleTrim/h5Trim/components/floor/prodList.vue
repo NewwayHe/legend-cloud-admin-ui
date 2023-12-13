@@ -90,7 +90,7 @@
                                 <span :class="[floors.listType == 4 ? 'font-12' : 'font-16']">{{ price(item.price)[0] }}</span>
                                 <span v-if="price(item.price)[1]">.{{ price(item.price)[1] }}</span>
                             </div>
-							<!-- (由于点击是不会进入购物车的，应客户要求屏蔽掉) -->
+                            <!-- (由于点击是不会进入购物车的，应客户要求屏蔽掉) -->
                             <!-- <i v-if="floors.showShopCart" class="iconfont icon-gouwuche bg-white font-20" :style="{ color: parmas.themeColor }" /> -->
                         </div>
                     </div>

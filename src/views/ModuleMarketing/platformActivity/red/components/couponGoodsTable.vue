@@ -26,7 +26,7 @@
 import { couponApi } from '@/api/ModuleMarketing'
 
 export default {
-    components: { },
+    components: {},
     props: {
         tableList: {
             type: [Array, Object],

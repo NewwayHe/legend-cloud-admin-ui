@@ -69,12 +69,12 @@ export const defFloorVal = {
                     title: '标题',
                     themeColor: false,
                     color: '', //字体颜色
-                    url: {}, //把对应的type的选中的元素对象赋值到该对象中
+                    url: {} //把对应的type的选中的元素对象赋值到该对象中
                 }
-             ]
+            ]
         }
     },
-	
+
     cube: {
         uuid: createUUID(),
         type: 'cube',
@@ -253,10 +253,10 @@ export const defFloorVal = {
         titleColor: '', //标题字体颜色
         titleThemeColor: true, //标题字体是否应用主题颜色(此时color将会失效)
         contentColor: '#666666', //内容字体颜色
-		// 以下为新增
-		paddingY:10,//上下边距，单位：px
-		paddingX:10,//左右边距，单位：px
-		borderRadius: true, //是否加圆角
+        // 以下为新增
+        paddingY: 10, //上下边距，单位：px
+        paddingX: 10, //左右边距，单位：px
+        borderRadius: true, //是否加圆角
         data: {
             contentList: [
                 //菜单
@@ -307,7 +307,7 @@ export const defFloorVal = {
         iconImg: '', //当showIcon:'diy'时就用该值
         titleType: 1, //列表样式，1：靠左且有副标题和查看更多，2：居中，3：居中且有分隔线
         radius: 'none', //top 上圆角、bottom 下圆角、 topAndBottom 上下圆角
-		borderRadius:10,
+        borderRadius: 10,
         paddingX: 0,
         data: {
             title: {
@@ -382,5 +382,5 @@ export const defFloorVal = {
                 }
             }
         }
-    },
+    }
 }

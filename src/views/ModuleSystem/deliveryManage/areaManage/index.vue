@@ -3,10 +3,10 @@
 -->
 <template>
     <section>
-        <el-card :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 查询 -->
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="省">
                         <el-select v-model="provinceInfo" value-key="id" placeholder="请选择" @change="getDataHandle">
                             <el-option v-for="item in provinceList" :key="item.id" :label="item.name" :value="item"></el-option>
@@ -39,12 +39,12 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
-                    <el-table-column label="序号" type="index" width="48"/>
+                    <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="name" :label="getDataGrade.label"></el-table-column>
                     <el-table-column label="操作" fixed="right" width="200">
                         <template slot-scope="scope">
@@ -59,11 +59,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
 
             <!-- 新增-编辑 -->
@@ -88,7 +93,7 @@
                 </el-form>
                 <div slot="footer" class="dialog-footer">
                     <el-button size="small" @click.stop="dialogForm.isVisible = false">取 消</el-button>
-                    <ls-button type="primary" size="small" :asyncFunction="submitHandle">确 定</ls-button>
+                    <ls-button type="primary" size="small" :async-function="submitHandle">确 定</ls-button>
                 </div>
             </el-dialog>
         </el-card>
@@ -101,7 +106,7 @@ import { areaManage } from '@/api/ModuleSystem.js'
 
 export default {
     name: 'DeliveryMethod',
-    components: { },
+    components: {},
     mixins: [common, cud],
     data() {
         return {
@@ -131,7 +136,7 @@ export default {
                 getData: `/basic/admin/location/loadPage`,
                 update: '/basic/admin/location/updateLocation',
                 delete: '/basic/admin/location/deleteLocation',
-                create: '/basic/admin/location/insertLocation',
+                create: '/basic/admin/location/insertLocation'
             },
             provinceList: [], //省级下拉框选项
             cityList: [], //市级下拉框选项
@@ -143,7 +148,7 @@ export default {
 
             parentId: 0,
             isSubmiting: false,
-            isMounted:true
+            isMounted: true
         }
     },
     computed: {
@@ -255,7 +260,7 @@ export default {
         },
 
         submitHandle() {
-            return new Promise(async resolve=>{
+            return new Promise(async (resolve) => {
                 this.isSubmiting = true
                 if (!this.dialogForm.isEdit) {
                     //新增的话需要parentId
@@ -267,7 +272,6 @@ export default {
                 }
                 resolve()
             })
-            
         }
     }
 }

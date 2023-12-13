@@ -30,9 +30,9 @@
                 <el-cascader
                     v-model="ruleForm.deptId"
                     :options="options"
-                    :props="{ expandTrigger: 'hover', value: 'id', label: 'name', checkStrictly: true,emitPath: false }"
+                    :props="{ expandTrigger: 'hover', value: 'id', label: 'name', checkStrictly: true, emitPath: false }"
+                    style="width: 100%"
                     @change="handleChange"
-                    style="width:100%;"
                 />
             </el-form-item>
             <el-form-item label="角色：" prop="roleIdList">
@@ -49,7 +49,7 @@
         </el-form>
         <span slot="footer" class="dialog-footer">
             <el-button size="small" @click="isVisible = false">取 消</el-button>
-            <ls-button size="small" type="primary" :asyncFunction="submitForm" :time="0">确 定</ls-button>
+            <ls-button size="small" type="primary" :async-function="submitForm" :time="0">确 定</ls-button>
         </span>
     </el-dialog>
 </template>
@@ -61,12 +61,12 @@ export default {
     props: {},
     data() {
         const validatePassword = (rule, value, callback) => {
-			if(value && this.$checkInfo([{ type: 'loginPassword', value: value }]) ) {
-				callback();
-			}else {
-				callback(new Error('请输入由数字、字母不含特殊字符组成5-16长度的密码'))
-			}
-		};
+            if (value && this.$checkInfo([{ type: 'loginPassword', value: value }])) {
+                callback()
+            } else {
+                callback(new Error('请输入由数字、字母不含特殊字符组成5-16长度的密码'))
+            }
+        }
         return {
             roleList: [],
             isVisible: false,
@@ -84,12 +84,8 @@ export default {
                 roleIdList: [{ required: true, message: '请选择用户角色', trigger: 'blur' }],
                 lockFlag: [{ required: true, message: '请选择状态', trigger: 'blur' }],
                 deptId: [{ required: true, message: '请选择部门角色', trigger: 'blur' }],
-                newPassword: [
-                    { required: true, trigger: 'blur', validator: validatePassword }
-                ],
-                password: [
-                    { required: true, trigger: 'blur', validator: validatePassword }
-                ]
+                newPassword: [{ required: true, trigger: 'blur', validator: validatePassword }],
+                password: [{ required: true, trigger: 'blur', validator: validatePassword }]
             },
             // 部门数据
             options: []
@@ -109,26 +105,28 @@ export default {
             })
         },
         submitForm(formName) {
-            return new Promise(resolve=>{
+            return new Promise((resolve) => {
                 this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
-                        const params = JSON.parse(JSON.stringify(this.ruleForm));   //深拷贝
+                        const params = JSON.parse(JSON.stringify(this.ruleForm)) //深拷贝
                         console.log(this.ruleForm, 'shuju')
-                        userManage[!this.ruleForm.id ? 'addAdmin' : 'editAdmin'](params).then((res) => {
-                            if (res.code === 1) {
-                                this.isVisible = false
-                                this.$message.success((this.ruleForm.id ? '修改' : '添加') + '成功')
-                                this.$emit('finish')
-                            }
-                        }).finally(_=>{
-                            console.log('4444444444444')
-                            resolve()
-                        })
-                    }else{
+                        userManage[!this.ruleForm.id ? 'addAdmin' : 'editAdmin'](params)
+                            .then((res) => {
+                                if (res.code === 1) {
+                                    this.isVisible = false
+                                    this.$message.success((this.ruleForm.id ? '修改' : '添加') + '成功')
+                                    this.$emit('finish')
+                                }
+                            })
+                            .finally((_) => {
+                                console.log('4444444444444')
+                                resolve()
+                            })
+                    } else {
                         resolve()
                     }
                 })
-            })  
+            })
         },
         resetForm(formName) {
             this.$refs[formName].resetFields()

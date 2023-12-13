@@ -7,7 +7,7 @@
         <div class="table">
             <el-card class="mb-15">
                 <el-row class="mb-20">
-                   <el-col><el-button type="primary" size="medium" @click="handleCreate">新增</el-button></el-col>
+                    <el-col><el-button type="primary" size="medium" @click="handleCreate">新增</el-button></el-col>
                 </el-row>
                 <!--列表-->
                 <el-table
@@ -21,7 +21,7 @@
                     :indent="20"
                     :load="load"
                     :tree-props="{ hasChildren: 'hasChildren' }"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
@@ -29,7 +29,7 @@
                     <el-table-column prop="name" label="部门名称" />
                     <el-table-column prop="contact" label="部门联系人" />
                     <el-table-column prop="mobile" label="联系电话" />
-                    <el-table-column prop="createTime" label="创建日期" width="140"/>
+                    <el-table-column prop="createTime" label="创建日期" width="140" />
                     <el-table-column label="操作" fixed="right" width="200">
                         <template slot-scope="scope">
                             <span class="table__action">
@@ -65,7 +65,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button size="small" @click.stop="dialogForm.isVisible = false">取 消</el-button>
-                <ls-button type="primary" size="small" :asyncFunction="saveSubmit">确 定</ls-button>
+                <ls-button type="primary" size="small" :async-function="saveSubmit">确 定</ls-button>
             </div>
         </el-dialog>
     </section>
@@ -185,7 +185,7 @@ export default {
             }
         },
         saveSubmit() {
-            return new Promise(resolve=>{
+            return new Promise((resolve) => {
                 this.sumbitLoading = true
                 this.$refs.myForm.validate((valid) => {
                     if (valid) {
@@ -207,7 +207,8 @@ export default {
                             .catch((err) => {
                                 console.log(err)
                                 this.sumbitLoading = false
-                            }).finally(_=>{
+                            })
+                            .finally((_) => {
                                 resolve()
                             })
                     } else {

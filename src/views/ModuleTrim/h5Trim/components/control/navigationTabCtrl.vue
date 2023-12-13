@@ -70,12 +70,12 @@
                         </el-radio>
                         <el-radio v-model="value.tabBgThemeColor" :label="true">主题色</el-radio>
                     </div>
-					<div class="flex-start text-nowrap mb-15">
-					    <span class="pr-15">&emsp;&emsp;下标模式：</span>
-					    <el-radio v-model="value.tabsType" :label="'pills'">胶囊模式</el-radio>
-					    <el-radio v-model="value.tabsType" :label="'line'">下划线模式</el-radio>
-					    <el-radio v-model="value.tabsType" :label="'none'">无</el-radio>
-					</div>
+                    <div class="flex-start text-nowrap mb-15">
+                        <span class="pr-15">&emsp;&emsp;下标模式：</span>
+                        <el-radio v-model="value.tabsType" :label="'pills'">胶囊模式</el-radio>
+                        <el-radio v-model="value.tabsType" :label="'line'">下划线模式</el-radio>
+                        <el-radio v-model="value.tabsType" :label="'none'">无</el-radio>
+                    </div>
                     <div class="flex-start text-nowrap mb-15">
                         <span class="pr-15">&emsp;&emsp;选中颜色：</span>
                         <el-radio v-model="value.tabCurThemeColor" :label="false">
@@ -88,7 +88,7 @@
                         <span class="pr-15">&emsp;未选中颜色：</span>
                         <el-color-picker v-model="value.tabNoCurColor" class="v-middle"></el-color-picker>
                     </div>
-					<!-- 手机端的分割线没有写出来 -->
+                    <!-- 手机端的分割线没有写出来 -->
                     <!-- <div class="flex-start text-nowrap">
                         <span class="pr-15">&emsp;&emsp;&emsp;分割线：</span>
                         <el-switch v-model="value.assistLine" class="pr-10"></el-switch>
@@ -149,7 +149,12 @@
                                 </div>
                                 <div class="flex-start text-nowrap mb-15">
                                     <span class="pr-15">&emsp;&emsp;图片：</span>
-                                    <imgCenter v-model="item.img" class="pr-15" :uploadStyle="{ width: '50px', height: '50px' }" :isPreview="false" />
+                                    <imgCenter
+                                        v-model="item.img"
+                                        class="pr-15"
+                                        :upload-style="{ width: '50px', height: '50px' }"
+                                        :is-preview="false"
+                                    />
                                     <el-tooltip effect="dark" content="建议尺寸:90*90px" placement="top-start">
                                         <i class="el-icon-question font-16 text-ccc main-hover v-middle"></i>
                                     </el-tooltip>

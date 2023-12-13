@@ -8,7 +8,7 @@
                 <div class="form-title">编辑</div>
                 <el-form-item label="管理员账号：">
                     <el-input v-show="isEdit" v-model="form.name" class="w-450p" />
-                    <p v-show="!isEdit">{{form.name}}</p>
+                    <p v-show="!isEdit">{{ form.name }}</p>
                 </el-form-item>
                 <el-form-item label="登录密码：">
                     <el-input v-show="isEdit" v-model="form.name" class="w-450p" />

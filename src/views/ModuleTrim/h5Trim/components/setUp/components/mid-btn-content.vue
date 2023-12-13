@@ -1,12 +1,12 @@
 <template>
-    <div class="flex-center p-5" v-if="list && list.length">
+    <div v-if="list && list.length" class="flex-center p-5">
         <div
+            v-for="(item, index) in list"
+            :key="index"
             class="flex-center shadow overflow-h"
             :class="Number(type) == 1 ? 'w-40p h-40p rounded-circle' : 'rounded-5 m-5 w-35p h-35p'"
             :style="[itemStyle(index)]"
-            v-for="(item, index) in list"
             :prodSource="item.prodSource"
-            :key="index"
         >
             <ls-image :src="item.img" :options="{ w: Number(type) == 1 ? 40 : 35, h: Number(type) == 1 ? 40 : 35, br: 5 }"></ls-image>
         </div>
@@ -16,11 +16,6 @@
 <script>
 export default {
     components: {},
-    data() {
-        return {
-            pic: ''
-        }
-    },
     mixins: [],
     props: {
         list: {
@@ -40,6 +35,11 @@ export default {
         type: {
             type: [String, Number],
             default: ''
+        }
+    },
+    data() {
+        return {
+            pic: ''
         }
     },
     computed: {},

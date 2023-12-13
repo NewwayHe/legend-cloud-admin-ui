@@ -31,9 +31,9 @@
                     </el-form-item>
                 </div>
                 <div class="w-100 flex-center mt-30">
-                    <el-form-item style="margin-bottom: 0;">
-                        <el-button @click="onCancel" size="small">返回</el-button>
-                        <el-button type="primary" @click="onSave" size="small">保存</el-button>
+                    <el-form-item style="margin-bottom: 0">
+                        <el-button size="small" @click="onCancel">返回</el-button>
+                        <el-button type="primary" size="small" @click="onSave">保存</el-button>
                     </el-form-item>
                 </div>
             </el-form>

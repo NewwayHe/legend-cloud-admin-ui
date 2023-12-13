@@ -3,16 +3,16 @@
 -->
 <template>
     <section class="h-100">
-        <el-card shadow :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card shadow :body-style="{ padding: `20px 20px 10px 20px` }">
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="退款列表" name="refundOrderList" lazy>
-                    <refundOrderList/>
+                    <refundOrderList />
                 </el-tab-pane>
                 <el-tab-pane label="退货列表" name="returnOrderList" lazy>
-                    <returnOrderList/>
+                    <returnOrderList />
                 </el-tab-pane>
                 <el-tab-pane label="商家申请列表" name="shopApplication" lazy>
-                    <shopApplication/>
+                    <shopApplication />
                 </el-tab-pane>
             </el-tabs>
         </el-card>
@@ -26,28 +26,28 @@ import shopApplication from './tabsPage/shopApplication'
 
 export default {
     name: 'ServiceOrderList',
-    components:{
+    components: {
         returnOrderList,
         refundOrderList,
         cancelOrderList,
         shopApplication
     },
-    data(){
+    data() {
         return {
-           activeName: 'refundOrderList'
+            activeName: 'refundOrderList'
         }
     },
     methods: {
-        handleClick(){
-            // TODO 
-            // 
+        handleClick() {
+            // TODO
+            //
         }
     }
 }
 </script>
 <style lang="scss" scoped>
 ::v-deep .el-tabs {
-    .el-tabs__header.is-top{
+    .el-tabs__header.is-top {
         margin-bottom: 20px;
     }
 }

@@ -67,7 +67,16 @@
                         <el-button type="primary" size="small" @click="addCoupon">新增</el-button>
                     </el-row>
                     <!--列表-->
-					<el-table ref="multipleTable" v-loading="tableListLoading" :data="tableList" tooltip-effect="dark" class="w-100" header-row-class-name="headerRow" row-key="id" @selection-change="selectionChange">
+                    <el-table
+                        ref="multipleTable"
+                        v-loading="tableListLoading"
+                        :data="tableList"
+                        tooltip-effect="dark"
+                        class="w-100"
+                        header-row-class-name="headerRow"
+                        row-key="id"
+                        @selection-change="selectionChange"
+                    >
                         <template slot="empty"><empty empty-type="pro" text="暂无活动信息" /></template>
                         <el-table-column type="selection" width="55" reserve-selection />
                         <el-table-column label="序号" type="index" width="55" />
@@ -77,9 +86,7 @@
                         <el-table-column prop="rule" label="规则" align="left" />
                         <el-table-column prop="receiveLimit" label="限领" align="left" />
                         <el-table-column prop="receiveType" label="领取方式">
-                            <template slot-scope="scope">
-                                免费领取
-                            </template>
+                            <template slot-scope="scope">免费领取</template>
                         </el-table-column>
                         <el-table-column prop="useType" label="适用店铺类型">
                             <template slot-scope="scope">
@@ -94,7 +101,7 @@
                         </el-table-column>
                         <el-table-column prop="countCn" label=" 已用 | 已领 | 发放数量" align="center" />
 
-                        <el-table-column label="操作" align="center"  fixed="right" >
+                        <el-table-column label="操作" align="center" fixed="right">
                             <template slot-scope="scope">
                                 <span class="table__action flex-center">
                                     <el-link :underline="false" type="primary" @click.stop="goDetail(scope.row, 'lookInfo')">查看</el-link>
@@ -139,7 +146,14 @@
                     <el-row type="flex" justify="space-between" class="mt-20 mb-20">
                         <el-col>
                             <el-button size="mini" class="allCheck">
-								<el-checkbox v-model="checkAll" label="全选" size="small" @change="selAll" :indeterminate="checkHalf" :disabled='!selectableList.length'/>
+                                <el-checkbox
+                                    v-model="checkAll"
+                                    label="全选"
+                                    size="small"
+                                    :indeterminate="checkHalf"
+                                    :disabled="!selectableList.length"
+                                    @change="selAll"
+                                />
                             </el-button>
                             <el-button size="small" @click="mulDel">批量删除</el-button>
                         </el-col>
@@ -202,7 +216,7 @@ export default {
             url: {
                 getData: '/activity/admin/coupon/page'
             },
-            paramsList: [], // 配置项数组
+            paramsList: [] // 配置项数组
         }
     },
     mounted() {},

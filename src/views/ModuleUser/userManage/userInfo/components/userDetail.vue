@@ -38,24 +38,21 @@
         <el-row :gutter="15" class="mt-15">
             <el-container>
                 <el-main class="pl-0">
-                    <el-card class="h-100" :body-style="{height:'100%'}">
+                    <el-card class="h-100" :body-style="{ height: '100%' }">
                         <div class="h-50">
-                            <el-row class="py-10 font-14" type="flex" justify="space-between" align="middle" >
+                            <el-row class="py-10 font-14" type="flex" justify="space-between" align="middle">
                                 <span>会员角色</span>
                                 <el-button type="primary" size="small" @click="$refs.dialogAddRole.showDialog()">新增</el-button>
                             </el-row>
                             <el-table :data="listinfo" size="mini" max-height="240" border>
-                                <el-table-column label="名称" prop="roleName">
-                                </el-table-column>
-                                <el-table-column label="角色名称" prop="roleCode">
-                                </el-table-column>
+                                <el-table-column label="名称" prop="roleName"></el-table-column>
+                                <el-table-column label="角色名称" prop="roleCode"></el-table-column>
                                 <el-table-column label="状态" prop="delFlag" min-width="60px">
                                     <template slot-scope="scope">
-                                        {{scope.row.delFlag?'有效':'失效'}}
+                                        {{ scope.row.delFlag ? '有效' : '失效' }}
                                     </template>
                                 </el-table-column>
-                                <el-table-column label="备注" prop="roleDesc">
-                                </el-table-column>
+                                <el-table-column label="备注" prop="roleDesc"></el-table-column>
                                 <el-table-column label="操作" align="center" min-width="60px">
                                     <template slot-scope="scope">
                                         <el-link :underline="false" type="primary" @click="delUser(scope.row.id)">删除</el-link>
@@ -66,17 +63,14 @@
                         <div class="h-50">
                             <el-row class="py-10 font-14">会员权限</el-row>
                             <el-table :data="userInfo.menuList" size="mini" max-height="240" border>
-                                <el-table-column label="名称" prop="name">
-                                </el-table-column>
-                                <el-table-column label="权限名称" prop="permission">
-                                </el-table-column>
-                                <el-table-column label="备注" prop="menuDesc">
-                                </el-table-column>
+                                <el-table-column label="名称" prop="name"></el-table-column>
+                                <el-table-column label="权限名称" prop="permission"></el-table-column>
+                                <el-table-column label="备注" prop="menuDesc"></el-table-column>
                             </el-table>
-                        </div>                        
+                        </div>
                     </el-card>
                 </el-main>
-                <el-main class="pr-0" style="width:50%;">
+                <el-main class="pr-0" style="width: 50%">
                     <el-card>
                         <el-row slot="header" type="flex" justify="space-between" class="font-14">
                             <span>消费信息</span>
@@ -117,7 +111,7 @@
                             </el-row>
                         </div>
                     </el-card>
-            </el-main>
+                </el-main>
             </el-container>
             <!-- 右侧信息 -->
         </el-row>
@@ -193,7 +187,6 @@ export default {
         addRole() {
             this.$refs.dialogAddRole.showDialog()
         }
-        
     }
 }
 </script>
@@ -203,10 +196,9 @@ export default {
         color: #000;
     }
 }
-::v-deep 
-.el-divider{
+::v-deep .el-divider {
     height: 100%;
-    .el-divider--vertical{
+    .el-divider--vertical {
         height: 100%;
     }
 }

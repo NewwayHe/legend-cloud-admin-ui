@@ -3,10 +3,10 @@
 */ -->
 <template>
     <section>
-        <el-card :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 查询 -->
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="商品名称">
                         <el-input v-model="searchFilters.productName" placeholder="商品名称" />
                     </el-form-item>
@@ -52,11 +52,29 @@
             </div>
             <div class="table">
                 <!--列表-->
-				<el-table ref="multipleTable" v-loading="tableListLoading" :data="tableList" tooltip-effect="dark" class="w-100" header-row-class-name="headerRow" row-key="id" @selection-change="selectionChange">
+                <el-table
+                    ref="multipleTable"
+                    v-loading="tableListLoading"
+                    :data="tableList"
+                    tooltip-effect="dark"
+                    class="w-100"
+                    header-row-class-name="headerRow"
+                    row-key="id"
+                    @selection-change="selectionChange"
+                >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
-					<el-table-column type="selection" reserve-selection width="42" :selectable="(row)=>{return row.status!=1}"/>
+                    <el-table-column
+                        type="selection"
+                        reserve-selection
+                        width="42"
+                        :selectable="
+                            (row) => {
+                                return row.status != 1
+                            }
+                        "
+                    />
                     <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="pic" label="商品信息" width="280">
                         <template slot-scope="scope">
@@ -78,7 +96,7 @@
                         </template>
                     </el-table-column>
 
-                    <el-table-column prop="nickName" label="用户名" width="120"/>
+                    <el-table-column prop="nickName" label="用户名" width="120" />
 
                     <el-table-column prop="content" label="举报内容" width="120">
                         <template slot-scope="scope">
@@ -86,12 +104,12 @@
                         </template>
                     </el-table-column>
                     <el-table-column prop="typeName" label="举报类型" />
-                    <el-table-column prop="createTime" label="举报时间" width="140"/>
+                    <el-table-column prop="createTime" label="举报时间" width="140" />
                     <el-table-column prop="shopName" label="店铺名称" width="140" />
                     <el-table-column prop="status" label="状态">
                         <template slot-scope="scope">
-                            <span class="status-pass" v-if="Number(scope.row.status)">已处理</span>
-                            <span class="status-done" v-else>未处理</span>
+                            <span v-if="Number(scope.row.status)" class="status-pass">已处理</span>
+                            <span v-else class="status-done">未处理</span>
                         </template>
                     </el-table-column>
                     <el-table-column prop="result" label="处理结果">
@@ -119,55 +137,61 @@
                     </el-table-column>
                 </el-table>
             </div>
-			<LsSticky :data="tableList">
-				<el-row type="flex" justify="space-between" class="w-100 overflow-h py-10 mt-10 bg-white">
-					<el-col class="text-nowrap flex-start">
-						<el-button size="mini" class="allCheck">
-							<el-checkbox v-model="checkAll" label="全选" size="small" @change="selAll" :indeterminate="checkHalf" :disabled='!selectableList.length'/>
-						</el-button>
-						<el-button size="small" @click="toBatchEdit">批量处理</el-button>
-					</el-col>
-					<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-				</el-row>
-			</LsSticky>
+            <LsSticky :data="tableList">
+                <el-row type="flex" justify="space-between" class="w-100 overflow-h py-10 mt-10 bg-white">
+                    <el-col class="text-nowrap flex-start">
+                        <el-button size="mini" class="allCheck">
+                            <el-checkbox
+                                v-model="checkAll"
+                                label="全选"
+                                size="small"
+                                :indeterminate="checkHalf"
+                                :disabled="!selectableList.length"
+                                @change="selAll"
+                            />
+                        </el-button>
+                        <el-button size="small" @click="toBatchEdit">批量处理</el-button>
+                    </el-col>
+                    <pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
+                </el-row>
+            </LsSticky>
         </el-card>
-		
-		<!-- 新增-编辑 -->
-		<el-dialog :title="dialogForm.title" custom-class="dialog-form-small" :visible.sync="dialogForm.isVisible">
-		    <el-form
-		        ref="myForm"
-		        :model="dialogForm.formData"
-		        :rules="dialogForm.formRule"
-		        label-width="98px"
-		        label-position="right"
-		        size="small"
-		    >
-		        <el-form-item label="处理结果：" prop="result1">
-		            <el-radio-group v-model="dialogForm.formData.result1">
-		                <el-radio :label="1">有效举报</el-radio>
-		                <el-radio :label="-1">无效举报</el-radio>
-		                <el-radio :label="-2">恶意举报</el-radio>
-		            </el-radio-group>
-		        </el-form-item>
-		        <el-form-item label="处理操作：" prop="illegalOff" v-show="dialogForm.formData.result1 == 1">
-		            <el-radio-group v-model="dialogForm.formData.illegalOff">
-		                <el-radio :label="0">不处理</el-radio>
-		                <el-radio :label="1">商品下架</el-radio>
-		                <el-radio :label="2">违规锁定</el-radio>
-		            </el-radio-group>
-		        </el-form-item>
-		        <el-form-item label="备注：" prop="handleInfo">
-		            <el-input v-model="dialogForm.formData.handleInfo" type="textarea" placeholder="备注" :autosize="{ minRows: 3, maxRows: 4 }" :maxlength="50"/>
-		        </el-form-item>
-		    </el-form>
-		    <div slot="footer" class="dialog-footer">
-		        <el-button size="small" @click.stop="dialogForm.isVisible = false">取 消</el-button>
-		        <ls-button type="primary" size="small" :asyncFunction="batchEdit">确 定</ls-button>
-		    </div>
-		</el-dialog>
-		
-		<dialog-check ref="detailDialog" :item-id="detailId" />
-		<dialogPreview ref="dialogPreview"/>
+
+        <!-- 新增-编辑 -->
+        <el-dialog :title="dialogForm.title" custom-class="dialog-form-small" :visible.sync="dialogForm.isVisible">
+            <el-form ref="myForm" :model="dialogForm.formData" :rules="dialogForm.formRule" label-width="98px" label-position="right" size="small">
+                <el-form-item label="处理结果：" prop="result1">
+                    <el-radio-group v-model="dialogForm.formData.result1">
+                        <el-radio :label="1">有效举报</el-radio>
+                        <el-radio :label="-1">无效举报</el-radio>
+                        <el-radio :label="-2">恶意举报</el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item v-show="dialogForm.formData.result1 == 1" label="处理操作：" prop="illegalOff">
+                    <el-radio-group v-model="dialogForm.formData.illegalOff">
+                        <el-radio :label="0">不处理</el-radio>
+                        <el-radio :label="1">商品下架</el-radio>
+                        <el-radio :label="2">违规锁定</el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item label="备注：" prop="handleInfo">
+                    <el-input
+                        v-model="dialogForm.formData.handleInfo"
+                        type="textarea"
+                        placeholder="备注"
+                        :autosize="{ minRows: 3, maxRows: 4 }"
+                        :maxlength="50"
+                    />
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button size="small" @click.stop="dialogForm.isVisible = false">取 消</el-button>
+                <ls-button type="primary" size="small" :async-function="batchEdit">确 定</ls-button>
+            </div>
+        </el-dialog>
+
+        <dialog-check ref="detailDialog" :item-id="detailId" />
+        <dialogPreview ref="dialogPreview" />
     </section>
 </template>
 <script>
@@ -214,7 +238,7 @@ export default {
                             message: '请选择处理操作',
                             trigger: 'blur'
                         }
-                    ],
+                    ]
                 }
             },
             url: {
@@ -224,17 +248,17 @@ export default {
             shopList: [], // 所有店铺
             batchList: [], // 批量审核id数组
             isBatch: false, //是否是批量审核
-            detailId: '', // 查看详情的id
+            detailId: '' // 查看详情的id
         }
     },
     mounted() {
         this.getTypeAll()
         this.getShop()
-        console.log('ref--',this.$refs.multipleTable)
+        console.log('ref--', this.$refs.multipleTable)
     },
     methods: {
         proPreview(id) {
-            this.$refs.dialogPreview.showDialog({id:id})
+            this.$refs.dialogPreview.showDialog({ id: id })
         },
 
         // 查看详情
@@ -251,7 +275,7 @@ export default {
                 illegalOff: 0,
                 handleInfo: ''
             }
-            this.isBatch = false;
+            this.isBatch = false
             this.batchList = [row.id]
         },
 
@@ -267,41 +291,44 @@ export default {
                 illegalOff: 0,
                 handleInfo: ''
             }
-            this.isBatch = true;
+            this.isBatch = true
             this.batchList = this.mulSels
         },
 
         // 批量处理
         batchEdit() {
-            return new Promise((resolve,reject)=>{
+            return new Promise((resolve, reject) => {
                 this.$refs.myForm.validate((valid) => {
                     if (valid) {
-                        report.batchUpdateStatus({
-                            result: this.dialogForm.formData.result1,
-                            illegalOff: this.dialogForm.formData.result1 == 1 ? this.dialogForm.formData.illegalOff : 0,
-                            handleInfo: this.dialogForm.formData.handleInfo,
-                            accusationIds: this.batchList
-                        }).then((res) => {
-                            this.$message.success('操作成功')
-                            this.$refs.myForm.resetFields()
-                            if(this.isBatch) {
-                                this.mulSels = []
-                            }else {
-                                let index = this.mulSels.indexOf(this.batchList[0]);
-                                if(index > -1) {
-                                    this.mulSels.splice(index,1)
+                        report
+                            .batchUpdateStatus({
+                                result: this.dialogForm.formData.result1,
+                                illegalOff: this.dialogForm.formData.result1 == 1 ? this.dialogForm.formData.illegalOff : 0,
+                                handleInfo: this.dialogForm.formData.handleInfo,
+                                accusationIds: this.batchList
+                            })
+                            .then((res) => {
+                                this.$message.success('操作成功')
+                                this.$refs.myForm.resetFields()
+                                if (this.isBatch) {
+                                    this.mulSels = []
+                                } else {
+                                    let index = this.mulSels.indexOf(this.batchList[0])
+                                    if (index > -1) {
+                                        this.mulSels.splice(index, 1)
+                                    }
                                 }
-                            }
-                            this.batchList = []
-                            this.dialogForm.isVisible = false
-                            this.getData()
-                        }).finally(()=>{
-                            return resolve()
-                        })
-                    }else{
-                         return resolve()
+                                this.batchList = []
+                                this.dialogForm.isVisible = false
+                                this.getData()
+                            })
+                            .finally(() => {
+                                return resolve()
+                            })
+                    } else {
+                        return resolve()
                     }
-            })
+                })
             })
         },
 

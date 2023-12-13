@@ -8,7 +8,10 @@
         <el-divider></el-divider>
         <div class="w-100 text-right cursor-pointer" :style="{ color: value.themeColor }" @click="cleanlAll">清空所有</div>
         <div class="mt-10">
-            <div v-if="value.head.type != 'none'&&value.category != 'POSTER'&&value.category != 'POSTER-T'" class="border rounded-2 p-10 mb-10 flex-start cursor-not-allowed">
+            <div
+                v-if="value.head.type != 'none' && value.category != 'POSTER' && value.category != 'POSTER-T'"
+                class="border rounded-2 p-10 mb-10 flex-start cursor-not-allowed"
+            >
                 <i class="el-icon-s-unfold font-16 pr-10 v-bottom"></i>
                 <span class="flex-1">
                     {{
@@ -128,7 +131,7 @@ export default {
         },
         changeFloors(uuid) {
             this.$emit('update:uuid', uuid)
-			this.$emit('clickFloor', uuid)//用来解决点了同一个index(这时uuid没变化)，这时watch监听uuid数值没变而不触发从而导致方法不执行
+            this.$emit('clickFloor', uuid) //用来解决点了同一个index(这时uuid没变化)，这时watch监听uuid数值没变而不触发从而导致方法不执行
         }
     }
 }

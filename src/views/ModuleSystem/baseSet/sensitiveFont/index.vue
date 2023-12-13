@@ -26,15 +26,15 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
+                    header-row-class-name="headerRow"
                     @selection-change="selectionChange"
-					header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
                     <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="words" label="敏感字" />
-                    <el-table-column label="操作" align="center"  fixed="right" width="200">
+                    <el-table-column label="操作" align="center" fixed="right" width="200">
                         <template slot-scope="scope">
                             <span class="table__action">
                                 <el-link :underline="false" type="primary" @click.stop="handleDel(scope.row, scope.column, scope.$index)">
@@ -78,7 +78,7 @@ import common from '@/mixins/pages/commom'
 import cud from '@/mixins/pages/cud.js'
 
 export default {
-    components: { },
+    components: {},
     mixins: [common, cud],
     data() {
         return {

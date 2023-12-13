@@ -1,9 +1,17 @@
 <template>
     <el-dialog title="会员角色" custom-class="dialog-form-large" :visible.sync="dialogVisible">
         <el-row>
-            <el-form :inline="true" :model="dialogSearchFilters" size="small" label-width="98px" class="font-0" @submit.native.prevent @keyup.enter.native="dialogSearch">
+            <el-form
+                :inline="true"
+                :model="dialogSearchFilters"
+                size="small"
+                label-width="98px"
+                class="font-0"
+                @submit.native.prevent
+                @keyup.enter.native="dialogSearch"
+            >
                 <el-form-item label="角色名称：">
-                    <el-input v-model="dialogSearchFilters.name" placeholder="角色名称" class="w-450p"/>
+                    <el-input v-model="dialogSearchFilters.name" placeholder="角色名称" class="w-450p" />
                 </el-form-item>
                 <el-form-item>
                     <el-button size="small" type="primary" @click.stop="dialogSearch">搜索</el-button>
@@ -11,9 +19,16 @@
             </el-form>
         </el-row>
         <el-row class="mb-10">
-            <el-table ref="multipleTable" v-loading="tableListLoading" :data="templateList" tooltip-effect="dark" class="w-100 dialog-form-table mt-15" header-row-class-name="headerRow">
-                <el-table-column prop="roleName" label="名称"/>
-                <el-table-column prop="roleName" label="角色名称"/>
+            <el-table
+                ref="multipleTable"
+                v-loading="tableListLoading"
+                :data="templateList"
+                tooltip-effect="dark"
+                class="w-100 dialog-form-table mt-15"
+                header-row-class-name="headerRow"
+            >
+                <el-table-column prop="roleName" label="名称" />
+                <el-table-column prop="roleName" label="角色名称" />
                 <el-table-column label="有效状态">
                     <template slot-scope="scope">
                         {{ scope.row.delFlag ? '有效' : '无效' }}

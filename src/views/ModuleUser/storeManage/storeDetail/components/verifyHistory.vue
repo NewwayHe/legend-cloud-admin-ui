@@ -22,7 +22,9 @@
                         <el-table-column prop="auditTime" label="审核日期" align="center" />
                         <el-table-column label="审核结果" align="center">
                             <template slot-scope="scope">
-                               <span :class="scope.row.opStatus == 1 ? 'status-pass' : 'status-veto'"> {{ scope.row.opStatus == 1 ? '已通过' : '不通过' }} </span>
+                                <span :class="scope.row.opStatus == 1 ? 'status-pass' : 'status-veto'">
+                                    {{ scope.row.opStatus == 1 ? '已通过' : '不通过' }}
+                                </span>
                             </template>
                         </el-table-column>
                         <el-table-column prop="auditOpinion" label="审核意见" align="center" />
@@ -38,7 +40,7 @@ import cud from '@/mixins/pages/cud.js'
 
 export default {
     name: 'VipOrder',
-    components: { },
+    components: {},
     mixins: [common, cud],
     data() {
         return {
@@ -49,8 +51,7 @@ export default {
             isMounted: true
         }
     },
-    methods: {
-    }
+    methods: {}
 }
 </script>
 <style lang="scss" scoped>

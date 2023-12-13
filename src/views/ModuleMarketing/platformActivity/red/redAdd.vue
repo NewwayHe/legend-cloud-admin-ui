@@ -8,7 +8,14 @@
             <el-form ref="form" :model="couponForm" :rules="rules" label-width="132px" size="small">
                 <div class="form-title">基本信息</div>
                 <el-form-item label="优惠券名称：" prop="title">
-                    <el-input v-model="couponForm.title" :disabled="pageType == 'lookInfo'" maxlength="25" style="width: 450px" show-word-limit placeholder="请输入"/>
+                    <el-input
+                        v-model="couponForm.title"
+                        :disabled="pageType == 'lookInfo'"
+                        maxlength="25"
+                        style="width: 450px"
+                        show-word-limit
+                        placeholder="请输入"
+                    />
                 </el-form-item>
                 <el-form-item key="count" label="发放数量：" prop="count">
                     <el-input
@@ -25,8 +32,8 @@
                 </el-form-item>
                 <el-form-item label="领取时间：" prop="receiveStartTime">
                     <el-date-picker
-                        style="width: 450px"
                         v-model="tempForm.receiveTime"
+                        style="width: 450px"
                         :picker-options="pickerOptions"
                         :disabled="pageType == 'lookInfo'"
                         type="datetimerange"
@@ -62,9 +69,23 @@
                         <div class="mt-10 d-flex a-center font-12">
                             <el-radio :label="1" class="mr-0">{{ '' }}</el-radio>
                             <div>按照领取</div>
-							<lsInput class="mx-10 w-150p" v-model="couponForm.useDayLater" :disabled="pageType == 'lookInfo'" :precision="0" :min="0"  :max="999"/>
+                            <lsInput
+                                v-model="couponForm.useDayLater"
+                                class="mx-10 w-150p"
+                                :disabled="pageType == 'lookInfo'"
+                                :precision="0"
+                                :min="0"
+                                :max="999"
+                            />
                             天后
-							<lsInput class="mx-10 w-150p" v-model="couponForm.withinDay" :disabled="pageType == 'lookInfo'" :precision="0" :min="0"  :max="999"/>
+                            <lsInput
+                                v-model="couponForm.withinDay"
+                                class="mx-10 w-150p"
+                                :disabled="pageType == 'lookInfo'"
+                                :precision="0"
+                                :min="0"
+                                :max="999"
+                            />
                             天内可用
                         </div>
                     </el-radio-group>
@@ -80,7 +101,7 @@
                                 <div>满</div>
                                 <lsInput
                                     v-model="couponForm.minPoint"
-									:min="0"
+                                    :min="0"
                                     :max="999999"
                                     :precision="2"
                                     placeholder="请输入金额"
@@ -103,7 +124,7 @@
                         <div>减</div>
                         <lsInput
                             v-model="couponForm.amount"
-							:min="0"
+                            :min="0"
                             :max="999999"
                             :precision="2"
                             placeholder="请输入优惠金额"
@@ -115,9 +136,9 @@
                         </lsInput>
                     </div>
                 </el-form-item>
-                <el-form-item label="优惠券链接 ：" v-if="pageType == 'lookInfo'">
-                    <el-link type="primary" :underline="false">{{couponUrl}}</el-link>
-                    <el-button type="primary" @click="handleCopy(couponUrl,$event)">复制链接</el-button>
+                <el-form-item v-if="pageType == 'lookInfo'" label="优惠券链接 ：">
+                    <el-link type="primary" :underline="false">{{ couponUrl }}</el-link>
+                    <el-button type="primary" @click="handleCopy(couponUrl, $event)">复制链接</el-button>
                 </el-form-item>
                 <el-divider />
                 <!-- 这是分割线 -->
@@ -132,32 +153,32 @@
                             <div class="d-flex a-center font-12">
                                 <el-radio :label="1" class="mr-0">{{ '' }}</el-radio>
                                 <div>限制每天每人领取</div>
-								<lsInput
-								    v-model="couponForm.perDayLimit"
-									:min="1"
-								    :max="999"
-									:precision="0"
-								    :disabled="pageType == 'lookInfo'"
-								    class="mx-10 w-200p"
-								>
-								    <template slot="append">张</template>
-								</lsInput>
+                                <lsInput
+                                    v-model="couponForm.perDayLimit"
+                                    :min="1"
+                                    :max="999"
+                                    :precision="0"
+                                    :disabled="pageType == 'lookInfo'"
+                                    class="mx-10 w-200p"
+                                >
+                                    <template slot="append">张</template>
+                                </lsInput>
                             </div>
                         </el-form-item>
                         <el-form-item label-width="0" prop="perTotalLimit">
                             <div class="d-flex a-center font-12">
                                 <el-radio class="mr-0" :label="2">{{ '' }}</el-radio>
                                 <div>限制活动期间每人领取</div>
-								<lsInput
-								    v-model="couponForm.perTotalLimit"
-									:min="1"
-								    :max="999"
-									:precision="0"
-								    :disabled="pageType == 'lookInfo'"
-								    class="mx-10 w-200p"
-								>
-								    <template slot="append">张</template>
-								</lsInput>
+                                <lsInput
+                                    v-model="couponForm.perTotalLimit"
+                                    :min="1"
+                                    :max="999"
+                                    :precision="0"
+                                    :disabled="pageType == 'lookInfo'"
+                                    class="mx-10 w-200p"
+                                >
+                                    <template slot="append">张</template>
+                                </lsInput>
                             </div>
                         </el-form-item>
                     </el-radio-group>
@@ -244,7 +265,9 @@
                     <!-- 这是分割线 -->
                     <div class="form-title">活动状态</div>
                     <el-form-item label="状态：">
-                        <span :class="couponForm.status == -2 ? 'status-veto': couponForm.status == 1 ? 'status-wait' : 'status-done'">{{ couponForm.status | getLabelText(couponStatus) }}</span>
+                        <span :class="couponForm.status == -2 ? 'status-veto' : couponForm.status == 1 ? 'status-wait' : 'status-done'">
+                            {{ couponForm.status | getLabelText(couponStatus) }}
+                        </span>
                     </el-form-item>
 
                     <el-divider />
@@ -256,7 +279,7 @@
                 <Sticky>
                     <div class="font-0">
                         <el-button size="small" @click="back">取消</el-button>
-                        <ls-button v-if="pageType != 'lookInfo'" type="primary" size="small" :asyncFunction="onSubmit">新增</ls-button>
+                        <ls-button v-if="pageType != 'lookInfo'" type="primary" size="small" :async-function="onSubmit">新增</ls-button>
                     </div>
                 </Sticky>
             </el-form>
@@ -318,9 +341,9 @@ export default {
 
         // 每人每天领张数 校验
         var amountValidate = (rule, value, callback) => {
-			if (!this.couponForm.amount) {
-				callback(new Error('优惠金额不能为0'))
-			}
+            if (!this.couponForm.amount) {
+                callback(new Error('优惠金额不能为0'))
+            }
             if (this.tempForm.pointType == 0 && Number(this.couponForm.amount) > Number(this.couponForm.minPoint)) {
                 callback(new Error('优惠金额不能大于门槛金额'))
             }
@@ -431,26 +454,16 @@ export default {
                     { required: true, message: '发送数量不能为空', trigger: 'blur' }
                     // {validator:validatePayPct, trigger: 'blur'}
                 ],
-                pic: [
-                    { required: true, message: '优惠券封面图不能为空', trigger: 'blur' }
-                ],
+                pic: [{ required: true, message: '优惠券封面图不能为空', trigger: 'blur' }],
                 receiveStartTime: [{ required: true, message: '领取时间不能为空', trigger: 'blur' }],
-                useStartTime: [
-                    { validator: useTimeValidate, trigger: 'blur' }
-                ],
-                minPoint: [
-                    { validator: minPointValidate, trigger: 'blur' }
-                ],
-                perTotalLimit: [
-                    { validator: perTotalLimitValidate, trigger: 'blur' }
-                ],
-                perDayLimit: [
-                    { validator: perDayLimitValidate, trigger: 'blur' }
-                ],
+                useStartTime: [{ validator: useTimeValidate, trigger: 'blur' }],
+                minPoint: [{ validator: minPointValidate, trigger: 'blur' }],
+                perTotalLimit: [{ validator: perTotalLimitValidate, trigger: 'blur' }],
+                perDayLimit: [{ validator: perDayLimitValidate, trigger: 'blur' }],
                 amount: [
                     { required: true, message: '优惠金额不能为空', trigger: 'blur' },
                     { validator: amountValidate, trigger: 'blur' }
-                ],
+                ]
             },
             couponPage: {
                 curPage: 1,
@@ -458,7 +471,7 @@ export default {
                 total: 0
             },
             imageUrl: '',
-            couponUrl:''
+            couponUrl: ''
         }
     },
     watch: {
@@ -470,7 +483,7 @@ export default {
                     this.$refs.form.clearValidate('minPoint') //切换优惠券门槛时清空门槛金额输入框的必填验证错误提示
                     this.$forceUpdate()
                 }
-                this.$refs.form.validateField('amount')     //校验优惠金额
+                this.$refs.form.validateField('amount') //校验优惠金额
             }
         },
         'tempForm.LimitType': {
@@ -487,7 +500,7 @@ export default {
                 }
             }
         },
-        "couponForm.pic"(newVal) {
+        'couponForm.pic'(newVal) {
             if (newVal) {
                 this.$nextTick(() => {
                     this.$refs.form.validateField('pic')
@@ -495,33 +508,33 @@ export default {
             }
         },
         // 监听设置优惠门槛
-        "couponForm.minPoint"(nP) {
-            if(this.tempForm.pointType == 0) {
-                this.$nextTick(()=>{    //校验设置优惠金额
+        'couponForm.minPoint'(nP) {
+            if (this.tempForm.pointType == 0) {
+                this.$nextTick(() => {
+                    //校验设置优惠金额
                     this.$refs.form.validateField('amount')
                 })
             }
         }
     },
-    beforeRouteEnter(to,from,next) {
-        if(to.query.couponType == 'lookInfo') {
-            to.meta.title = '查看平台优惠券'     //更改tab页同步标题
-        }else {
-            to.meta.title = '新增平台优惠券'     //更改tab页同步标题
+    beforeRouteEnter(to, from, next) {
+        if (to.query.couponType == 'lookInfo') {
+            to.meta.title = '查看平台优惠券' //更改tab页同步标题
+        } else {
+            to.meta.title = '新增平台优惠券' //更改tab页同步标题
         }
         next()
     },
     created() {
-        console.log(this.$route,'router');
+        console.log(this.$route, 'router')
         if (this.$route.query.couponType) {
             this.pageType = this.$route.query.couponType
-
         }
         if (this.$route.query.couponId) {
             this.couponId = this.$route.query.couponId
             this.getCouponDetail(this.couponId)
         }
-        if(this.pageType==='lookInfo'){
+        if (this.pageType === 'lookInfo') {
             this.couponUrl = `${this.$config.shareUrl}/pages/webview/shareUrlRedirect?detailsType=coupon&id=${this.couponId}`
         }
     },
@@ -530,13 +543,12 @@ export default {
             clipboard(text, event)
         },
         // 领取方式改变
-        changeRadio(e) {
-        },
+        changeRadio(e) {},
         resetInput(e) {
-            if(e==1){
-                this.tempForm.useTime=''
+            if (e == 1) {
+                this.tempForm.useTime = ''
                 this.$refs.form.validateField('useStartTime')
-            }else{
+            } else {
                 this.couponForm.withinDay = 0
                 this.couponForm.useDayLater = 0
             }
@@ -651,7 +663,7 @@ export default {
         },
 
         onSubmit() {
-            return new Promise(resolve=>{
+            return new Promise((resolve) => {
                 this.$refs['form'].validate((val, imgList) => {
                     if (val) {
                         const formParam = Object.assign({}, this.couponForm)
@@ -683,14 +695,17 @@ export default {
                             formParam.perDayLimit = 0
                         }
 
-                        couponApi.saveCoupon(formParam).then((res) => {
-                            if (res.code == 1) {
-                                this.$router.back()
-                            }
-                        }).finally(_=>{
-                            resolve()
-                        })
-                    }else{
+                        couponApi
+                            .saveCoupon(formParam)
+                            .then((res) => {
+                                if (res.code == 1) {
+                                    this.$router.back()
+                                }
+                            })
+                            .finally((_) => {
+                                resolve()
+                            })
+                    } else {
                         resolve()
                     }
                 })

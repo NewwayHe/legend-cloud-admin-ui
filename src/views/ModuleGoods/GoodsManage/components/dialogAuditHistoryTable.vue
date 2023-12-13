@@ -9,18 +9,18 @@
             :data="dialogTable"
             header-row-class-name="headerRow"
         >
-            <el-table-column prop="auditUsername" label="审核人"/>
+            <el-table-column prop="auditUsername" label="审核人" />
             <el-table-column prop="opStatus" label="审核状态">
                 <template slot-scope="scope">
-                    <span class="status-veto" v-if="scope.row.opStatus == -1">审核不通过</span>
-                    <span class="status-wait" v-if="scope.row.opStatus == 0">待审核</span>
-                    <span class="status-pass" v-if="scope.row.opStatus == 1">通过审核</span>
+                    <span v-if="scope.row.opStatus == -1" class="status-veto">审核不通过</span>
+                    <span v-if="scope.row.opStatus == 0" class="status-wait">待审核</span>
+                    <span v-if="scope.row.opStatus == 1" class="status-pass">通过审核</span>
                 </template>
             </el-table-column>
-            <el-table-column prop="auditTime" label="审核时间" width="140"/>
+            <el-table-column prop="auditTime" label="审核时间" width="140" />
             <el-table-column prop="auditOpinion" label="备注">
                 <template slot-scope="scope">
-                    {{ scope.row.auditOpinion || '-'}}
+                    {{ scope.row.auditOpinion || '-' }}
                 </template>
             </el-table-column>
         </el-table>

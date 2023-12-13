@@ -17,7 +17,7 @@
             </div>
             <div class="table">
                 <el-row class="mb-20">
-                   <el-col><el-button type="primary" size="medium" @click="handleCreate">新增</el-button></el-col>
+                    <el-col><el-button type="primary" size="medium" @click="handleCreate">新增</el-button></el-col>
                 </el-row>
                 <!--列表-->
                 <el-table
@@ -26,8 +26,8 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
+                    header-row-class-name="headerRow"
                     @selection-change="selectionChange"
-					header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" text="暂无行业" />
@@ -67,7 +67,7 @@
                         <el-input v-model="dialogForm.formData.name" placeholder="行业" maxlength="20" show-word-limit />
                     </el-form-item>
                     <el-form-item label="排序" prop="seq">
-						<lsInput v-model="dialogForm.formData.seq" :precision="0" :min="1" :max="9999999"/>
+                        <lsInput v-model="dialogForm.formData.seq" :precision="0" :min="1" :max="9999999" />
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
@@ -83,7 +83,7 @@ import common from '@/mixins/pages/commom'
 import cud from '@/mixins/pages/cud.js'
 export default {
     name: 'Industry',
-    components: { },
+    components: {},
     mixins: [common, cud],
     data() {
         return {

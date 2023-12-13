@@ -102,8 +102,8 @@ export default {
         getData() {
             this.loading = true
             this.noMsg = false
-			let api = (this.$route.name=='pcTrim'||this.$route.name=='PcTrim')?'pcPosterPage':'mbPosterPage'//如果是PC端装修，则加载PC海报，否则就是手机端海报
-			decorate[api](this.apiParmas)
+            let api = this.$route.name == 'pcTrim' || this.$route.name == 'PcTrim' ? 'pcPosterPage' : 'mbPosterPage' //如果是PC端装修，则加载PC海报，否则就是手机端海报
+            decorate[api](this.apiParmas)
                 .then((res) => {
                     if (res.code) {
                         this.data = res.data
@@ -125,12 +125,12 @@ export default {
             this.getData()
         },
         choice(e) {
-			let item = {
-				type: '海报页',
-			    name: e.name,
-			    id: e.id,
-			}
-			this.$set(this.value, this.field, this.$utils.object.deepClone(item))
+            let item = {
+                type: '海报页',
+                name: e.name,
+                id: e.id
+            }
+            this.$set(this.value, this.field, this.$utils.object.deepClone(item))
         }
     }
 }

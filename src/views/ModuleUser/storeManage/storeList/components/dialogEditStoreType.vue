@@ -12,7 +12,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button size="small" @click="isVisible = false">取 消</el-button>
-                <ls-button type="primary" size="small" :asyncFunction="submitForm">确 定</ls-button>
+                <ls-button type="primary" size="small" :async-function="submitForm">确 定</ls-button>
             </div>
         </el-dialog>
     </div>
@@ -59,7 +59,7 @@ export default {
         },
         // 提交
         submitForm() {
-            return new Promise(resolve=>{
+            return new Promise((resolve) => {
                 this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
                         this.ruleForm.id = this.id
@@ -75,7 +75,8 @@ export default {
                             .catch((err) => {
                                 console.log(err)
                                 this.$message.error(err.msg)
-                            }).finally(_=>{
+                            })
+                            .finally((_) => {
                                 resolve()
                             })
                     } else {
@@ -85,7 +86,6 @@ export default {
                     }
                 })
             })
-            
         }
     }
 }

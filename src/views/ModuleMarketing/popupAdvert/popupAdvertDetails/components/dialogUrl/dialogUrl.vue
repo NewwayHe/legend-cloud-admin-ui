@@ -20,11 +20,11 @@
                 <span v-if="value[field].name" class="line-clamp1 ml-5">{{ value[field].name.toString() }}</span>
             </div>
         </div>
-		<div class="flex-start ml-5 text-999" v-else>
-		    <span>{{placeholder}}</span>
-		</div>
+        <div v-else class="flex-start ml-5 text-999">
+            <span>{{ placeholder }}</span>
+        </div>
         <!-- 链接弹框组件 -->
-        <dialog-url ref="dialog" v-model="valueTemp" :parmas="parmas" :tab="tab" :field="field" @input="input"/>
+        <dialog-url ref="dialog" v-model="valueTemp" :parmas="parmas" :tab="tab" :field="field" @input="input" />
     </div>
 </template>
 <script>
@@ -65,22 +65,21 @@ export default {
     },
     data() {
         return {
-			valueTemp:{}
-		}
+            valueTemp: {}
+        }
     },
     computed: {},
     watch: {},
-    created() {
-	},
+    created() {},
     methods: {
         showDialog() {
-			this.valueTemp = this.value
+            this.valueTemp = this.value
             this.$refs.dialog.showDialog()
         },
-		input(val){
+        input(val) {
             console.log(val)
-			this.$emit('input',val)
-		}
+            this.$emit('input', val)
+        }
     }
 }
 </script>

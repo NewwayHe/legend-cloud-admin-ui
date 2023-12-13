@@ -16,9 +16,9 @@
                 size="small"
                 :row-key="getRowKey"
                 :data="groupList"
+                header-row-class-name="headerRow"
                 @select-all="selectAll"
                 @select="selectRow"
-                header-row-class-name="headerRow"
             >
                 <el-table-column type="selection" width="42" reserve-selection />
                 <el-table-column prop="prodName" label="分组名称" show-overflow-tooltip>
@@ -29,7 +29,9 @@
             </el-table>
         </div>
         <el-row type="flex" justify="space-between" align="middle" class="dialog-paging mt-10">
-            <el-checkbox v-model="group.checked" @change="checkedAll" class="pl-10" :indeterminate="group.halfChecked" :disabled='!groupList.length'>全选</el-checkbox>
+            <el-checkbox v-model="group.checked" class="pl-10" :indeterminate="group.halfChecked" :disabled="!groupList.length" @change="checkedAll">
+                全选
+            </el-checkbox>
             <el-pagination
                 small
                 layout="prev, pager, next"
@@ -63,19 +65,6 @@ export default {
             }
         }
     },
-    watch: {
-        'group.selectedRow.length'(nL) {
-            if(nL) {
-                if(!this.group.checked) {
-                    this.group.halfChecked = true;
-                }else {
-                    this.group.halfChecked = false;
-                }
-            }else {
-                this.group.halfChecked = false;
-            }
-        }
-    },
     data() {
         return {
             group: {
@@ -83,7 +72,7 @@ export default {
                 pageNo: 1,
                 pageSize: 5,
                 total: 5,
-                checked: false,     //全选
+                checked: false, //全选
                 halfChecked: false, //半选
                 selectedRow: [] // 选中的行
             },
@@ -93,6 +82,19 @@ export default {
             },
             groupList: [], // 表格数据
             tableListLoading: false
+        }
+    },
+    watch: {
+        'group.selectedRow.length'(nL) {
+            if (nL) {
+                if (!this.group.checked) {
+                    this.group.halfChecked = true
+                } else {
+                    this.group.halfChecked = false
+                }
+            } else {
+                this.group.halfChecked = false
+            }
         }
     },
     methods: {
@@ -149,7 +151,7 @@ export default {
             this.group.selectedRow = selection
             if (selection.length === this.groupList.length) {
                 this.group.checked = true
-            }else {
+            } else {
                 this.group.checked = false
             }
         },

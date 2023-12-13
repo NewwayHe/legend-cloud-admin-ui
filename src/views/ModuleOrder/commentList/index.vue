@@ -33,9 +33,9 @@
             </el-col>
         </el-row>
         <el-row>
-            <el-card shadow :body-style="{padding:`20px 20px 10px 20px`}">
+            <el-card shadow :body-style="{ padding: `20px 20px 10px 20px` }">
                 <div class="search">
-                    <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                    <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                         <el-form-item label="商品名称">
                             <el-input v-model="searchFilters.productName" placeholder="请输入" />
                         </el-form-item>
@@ -105,10 +105,21 @@
                         <!-- 自定义选择列 -->
                         <el-table-column width="42" align="center">
                             <template slot="header" slot-scope="scope">
-                                <el-checkbox v-model="checkAllNumber" :disabled="disCheckAll" size="small" @change="handleAllSelect" :indeterminate="checkHalf"></el-checkbox>
+                                <el-checkbox
+                                    v-model="checkAllNumber"
+                                    :disabled="disCheckAll"
+                                    size="small"
+                                    :indeterminate="checkHalf"
+                                    @change="handleAllSelect"
+                                ></el-checkbox>
                             </template>
                             <template slot-scope="scope">
-                                <el-checkbox v-model="scope.row.customChecked" :disabled="!checkboxSelect(scope.row)" size="small" @change="(selected)=>handleSingleSelect(scope.row,selected)"></el-checkbox>
+                                <el-checkbox
+                                    v-model="scope.row.customChecked"
+                                    :disabled="!checkboxSelect(scope.row)"
+                                    size="small"
+                                    @change="(selected) => handleSingleSelect(scope.row, selected)"
+                                ></el-checkbox>
                             </template>
                         </el-table-column>
 
@@ -117,17 +128,32 @@
                         <el-table-column label="商品" width="280">
                             <template slot-scope="scope">
                                 <div class="d-flex a-center line-h-md">
-                                    <ls-image style="flex: 0 0 60px" :src="scope.row.prodPic" :options="{ w: '60', h: '60', br: '4' }"/>
+                                    <ls-image style="flex: 0 0 60px" :src="scope.row.prodPic" :options="{ w: '60', h: '60', br: '4' }" />
                                     <div class="ml-10">
                                         <el-popover placement="top-start" width="500" trigger="hover" :title="scope.row.productName">
-                                            <el-link :underline="false" type="primary" target="_blank" :href="$shareRedirectUrl+'?detailsType=good&id='+scope.row.productId">{{ $shareRedirectUrl+'?detailsType=good&id='+scope.row.productId }}</el-link>                                                      
-                                            <el-link slot="reference" :underline="false" type="primary" target="_blank" :href="$shareRedirectUrl+'?detailsType=good&id='+scope.row.productId">{{ scope.row.productName }}</el-link>                                                        
+                                            <el-link
+                                                :underline="false"
+                                                type="primary"
+                                                target="_blank"
+                                                :href="$shareRedirectUrl + '?detailsType=good&id=' + scope.row.productId"
+                                            >
+                                                {{ $shareRedirectUrl + '?detailsType=good&id=' + scope.row.productId }}
+                                            </el-link>
+                                            <el-link
+                                                slot="reference"
+                                                :underline="false"
+                                                type="primary"
+                                                target="_blank"
+                                                :href="$shareRedirectUrl + '?detailsType=good&id=' + scope.row.productId"
+                                            >
+                                                {{ scope.row.productName }}
+                                            </el-link>
                                         </el-popover>
                                     </div>
                                 </div>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="shopName" label="店铺" show-overflow-tooltip width="140"/>
+                        <el-table-column prop="shopName" label="店铺" show-overflow-tooltip width="140" />
                         <el-table-column label="订单编号" min-width="180">
                             <template slot-scope="scope">
                                 <el-link :underline="false" type="primary">{{ scope.row.orderNumber }}</el-link>
@@ -214,19 +240,31 @@
                         </el-table-column>
                     </el-table>
                 </div>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="space-between" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<el-col class="text-nowrap flex-start">
-							<el-button size="mini" class="allCheck">
-							    <el-checkbox v-model="checkAllNumber" :disabled="disCheckAll" label="全选" size="small" @change="handleAllSelect" :indeterminate="checkHalf"/>
-							</el-button>
-							<el-button v-if="searchFilters.status == 0 || searchFilters.status == null" size="small" @click="batchExamine">
-							    批量审核
-							</el-button>
-						</el-col>
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="space-between" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <el-col class="text-nowrap flex-start">
+                            <el-button size="mini" class="allCheck">
+                                <el-checkbox
+                                    v-model="checkAllNumber"
+                                    :disabled="disCheckAll"
+                                    label="全选"
+                                    size="small"
+                                    :indeterminate="checkHalf"
+                                    @change="handleAllSelect"
+                                />
+                            </el-button>
+                            <el-button v-if="searchFilters.status == 0 || searchFilters.status == null" size="small" @click="batchExamine">
+                                批量审核
+                            </el-button>
+                        </el-col>
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </el-card>
         </el-row>
 
@@ -289,10 +327,10 @@ export default {
                 medium: 0, // 中评数
                 poor: 0 // 差评数
             },
-            customSelection: true,  //自定义表格选择列
-            idsListSet: new Set(),  //选中的ID数组
-            addIdsListSet: new Set(),   //选中的ID数组
-            selectedList: [],       //已选中的行
+            customSelection: true, //自定义表格选择列
+            idsListSet: new Set(), //选中的ID数组
+            addIdsListSet: new Set(), //选中的ID数组
+            selectedList: [], //已选中的行
             commentFormData: {
                 status: 1
             },
@@ -305,63 +343,40 @@ export default {
                         trigger: 'change'
                     }
                 ]
-            },
-        }
-    },
-    watch: {
-        tableList: {
-            handler(nList) {
-                console.log('nList--',nList)
-                let idsList = this.idsListSet, addIds = this.addIdsListSet;
-                nList.forEach(li => {
-                    // 保证切页的选中状态能够保持
-                    if (li.status == 0) {
-                        if(idsList.has(li.id)) {
-                            li.customChecked = true
-                        }else {
-                            li.customChecked = false
-                        }
-                    } else if (li.status == 1 && li.addStatus == 0) {
-                        if(addIds.has(li.addId)) {
-                            li.customChecked = true
-                        }else {
-                            li.customChecked = false
-                        }
-                    }else {
-                        li.customChecked = false
-                    }
-                })
-            },
-            // deep: true,
+            }
         }
     },
     computed: {
         // 可选中的行
         selectableList() {
-            return (this.tableList.filter((item)=>{
-                return (!(item.status == -1 || (item.status == 1 && item.addStatus != 0)))
-            }).map(each => {
-                if (each.status == 0) {
-                    return each.id
-                } else if (each.status == 1 && each.addStatus == 0) {
-                    return each.addId
-                }
-            })) || []
+            return (
+                this.tableList
+                    .filter((item) => {
+                        return !(item.status == -1 || (item.status == 1 && item.addStatus != 0))
+                    })
+                    .map((each) => {
+                        if (each.status == 0) {
+                            return each.id
+                        } else if (each.status == 1 && each.addStatus == 0) {
+                            return each.addId
+                        }
+                    }) || []
+            )
         },
         // 半选按钮
         checkHalf() {
-            if(this.checkAllNumber) {
-                return false;
-            }else if(this.selectableList.length && this.selectedList.length) {
-                return true;
-            }else {
-                return false;
+            if (this.checkAllNumber) {
+                return false
+            } else if (this.selectableList.length && this.selectedList.length) {
+                return true
+            } else {
+                return false
             }
         },
         // 全选按钮
         checkAllNumber: {
             get() {
-                return this.selectableList.length && this.selectableList.every(item => this.selectedList.includes(item))
+                return this.selectableList.length && this.selectableList.every((item) => this.selectedList.includes(item))
             },
             set(val) {
                 return val
@@ -370,6 +385,34 @@ export default {
         // 全选禁用
         disCheckAll() {
             return this.tableList.every((item) => item.status != 0 || (item.status == 1 && item.addStatus != 0))
+        }
+    },
+    watch: {
+        tableList: {
+            handler(nList) {
+                console.log('nList--', nList)
+                let idsList = this.idsListSet,
+                    addIds = this.addIdsListSet
+                nList.forEach((li) => {
+                    // 保证切页的选中状态能够保持
+                    if (li.status == 0) {
+                        if (idsList.has(li.id)) {
+                            li.customChecked = true
+                        } else {
+                            li.customChecked = false
+                        }
+                    } else if (li.status == 1 && li.addStatus == 0) {
+                        if (addIds.has(li.addId)) {
+                            li.customChecked = true
+                        } else {
+                            li.customChecked = false
+                        }
+                    } else {
+                        li.customChecked = false
+                    }
+                })
+            }
+            // deep: true,
         }
     },
     created() {
@@ -394,11 +437,11 @@ export default {
             this.$refs.dialogComment.showDialog()
         },
         // 单行选择
-        handleSingleSelect(row,selected) {
+        handleSingleSelect(row, selected) {
             // 这条语句必须要写 因为下面全选的本质也是调用每一行的单选
-            row.customChecked = selected;
+            row.customChecked = selected
             // console.log('single--',row,selected)
-            let id,attr; //找出添加/删除的ID 操作的数组
+            let id, attr //找出添加/删除的ID 操作的数组
             if (row.status == 0) {
                 id = row.id
                 attr = 'idsListSet'
@@ -406,29 +449,29 @@ export default {
                 id = row.addId
                 attr = 'addIdsListSet'
             }
-            if(selected) {
+            if (selected) {
                 this[attr].add(id)
-            }else {
-                if(this[attr].has(id)) {
+            } else {
+                if (this[attr].has(id)) {
                     this[attr].delete(id)
                 }
             }
             // 已选中的行(不能用computed 因为Vue监听不了Set数据类型)
-            this.selectedList = [ ...this.idsListSet, ...this.addIdsListSet]
-            console.log('可选中的行--',this.selectableList, this.selectedList)
+            this.selectedList = [...this.idsListSet, ...this.addIdsListSet]
+            console.log('可选中的行--', this.selectableList, this.selectedList)
         },
         // 全选按钮事件
         handleAllSelect(selected) {
-            this.tableList.forEach((item)=> {
+            this.tableList.forEach((item) => {
                 if (item.status == 0) {
-                    if(this.selectableList.includes(item.id)){
+                    if (this.selectableList.includes(item.id)) {
                         //更新选中状态
-                        this.handleSingleSelect(item,selected)
+                        this.handleSingleSelect(item, selected)
                     }
                 } else if (item.status == 1 && item.addStatus == 0) {
-                    if(this.selectableList.includes(item.addId)) {
+                    if (this.selectableList.includes(item.addId)) {
                         //更新选中状态
-                        this.handleSingleSelect(item,selected)
+                        this.handleSingleSelect(item, selected)
                     }
                 }
             })
@@ -453,7 +496,7 @@ export default {
         batchSubmit(form) {
             this.$refs[form].validate((valid) => {
                 if (valid) {
-                    console.log('set--',[...this.idsListSet],[...this.addIdsListSet])
+                    console.log('set--', [...this.idsListSet], [...this.addIdsListSet])
                     let ids = [...this.idsListSet]
                     let addIds = [...this.addIdsListSet]
                     commentList

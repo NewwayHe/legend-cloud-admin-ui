@@ -3,10 +3,10 @@
 */ -->
 <template>
     <section>
-        <el-card shadow :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card shadow :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 查询 -->
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="商品名称">
                         <el-input v-model="searchFilters.name" placeholder="商品名称" />
                     </el-form-item>
@@ -44,15 +44,15 @@
                     tooltip-effect="dark"
                     class="w-100"
                     row-key="id"
+                    header-row-class-name="headerRow"
                     @sort-change="changeSort"
                     @selection-change="selectionChange"
-					header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
-                    <el-table-column type="selection" width="42" reserve-selection v-if="searchFilters.opStatus != 4"/>
-                    <el-table-column label="序号" type="index" width="48" fixed="left"/>
+                    <el-table-column v-if="searchFilters.opStatus != 4" type="selection" width="42" reserve-selection />
+                    <el-table-column label="序号" type="index" width="48" fixed="left" />
                     <el-table-column prop="pic" label="商品信息" min-width="280" fixed="left">
                         <template slot-scope="scope">
                             <div class="d-flex a-center line-h-md font-0">
@@ -70,14 +70,12 @@
                     <el-table-column prop="brandName" label="品牌">
                         <template slot-scope="scope">{{ scope.row.brandName || '-' }}</template>
                     </el-table-column>
-                    <el-table-column prop="skuCount" label="SKU数量"/>
+                    <el-table-column prop="skuCount" label="SKU数量" />
                     <el-table-column prop="min_price" label="销售价" sortable="custom" width="120">
-                        <template slot-scope="scope">
-                            ￥{{ scope.row.price }}
-                        </template>
+                        <template slot-scope="scope">￥{{ scope.row.price }}</template>
                     </el-table-column>
                     <el-table-column prop="buys" label="销量" sortable="custom" />
-                    <el-table-column prop="siteName" label="店铺名称" width="140"/>
+                    <el-table-column prop="siteName" label="店铺名称" width="140" />
                     <el-table-column prop="status" label="状态">
                         <template slot-scope="scope">
                             <span v-if="scope.row.opStatus == 2" class="status-veto">违规商品</span>
@@ -89,7 +87,7 @@
                     </el-table-column>
                     <el-table-column prop="updateTime" width="140" label="更新时间">
                         <template slot-scope="scope">
-                            {{ scope.row.updateTime | formatDateTimeByDash}}
+                            {{ scope.row.updateTime | formatDateTimeByDash }}
                         </template>
                     </el-table-column>
                     <el-table-column label="操作" fixed="right" width="180">
@@ -105,43 +103,50 @@
                     </el-table-column>
                 </el-table>
             </div>
-			<LsSticky :data="tableList">
-				<el-row type="flex" justify="space-between" class="w-100 overflow-h py-10 mt-10 bg-white">
-					<el-col class="text-nowrap flex-start">
-						<el-button size="mini" class="allCheck" v-if="searchFilters.opStatus != 4">
-							<el-checkbox v-model="checkAll" label="全选" size="small" @change="selAll" :indeterminate="checkHalf" :disabled='!selectableList.length'/>
-						</el-button>
-						<el-button v-if="searchFilters.opStatus == 2" size="small" @click="toBatchUnder(2)">批量锁定</el-button>
-						<el-button v-if="searchFilters.opStatus == 3" size="small" @click="toBatchUnder(3)">批量下架</el-button>
-					</el-col>
-					<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-				</el-row>
-			</LsSticky>
+            <LsSticky :data="tableList">
+                <el-row type="flex" justify="space-between" class="w-100 overflow-h py-10 mt-10 bg-white">
+                    <el-col class="text-nowrap flex-start">
+                        <el-button v-if="searchFilters.opStatus != 4" size="mini" class="allCheck">
+                            <el-checkbox
+                                v-model="checkAll"
+                                label="全选"
+                                size="small"
+                                :indeterminate="checkHalf"
+                                :disabled="!selectableList.length"
+                                @change="selAll"
+                            />
+                        </el-button>
+                        <el-button v-if="searchFilters.opStatus == 2" size="small" @click="toBatchUnder(2)">批量锁定</el-button>
+                        <el-button v-if="searchFilters.opStatus == 3" size="small" @click="toBatchUnder(3)">批量下架</el-button>
+                    </el-col>
+                    <pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
+                </el-row>
+            </LsSticky>
         </el-card>
 
-		<el-dialog :title="dialogForm.title" custom-class="dialog-form-small" :visible.sync="dialogForm.isVisible">
-		    <el-form ref="myForm" :model="dialogForm.formData" label-width="98px" label-position="right" size="small">
-		        <el-form-item label="操作：" >
-		            <el-radio v-model="type" :label="2">违规锁定</el-radio>
-		            <el-radio v-model="type" :label="3">违规下架</el-radio>
-					<div class="el-form-item__error">{{ type === 3 ? '违规下架：商家可以编辑商品' : '违规锁定：商家不可以编辑商品'}}</div>
-		        </el-form-item>
-		        <el-form-item label="下架类型：" prop="typeId" :rules="{ required: true, message: '请选择下架类型', trigger: 'change' }">
-		            <el-select v-model="dialogForm.formData.typeId" clearable placeholder="请选择">
-		                <el-option v-for="item of allType" :key="item.id" :label="item.name" :value="item.id" />
-		            </el-select>
-		        </el-form-item>
-		        <el-form-item label="处理意见：" prop="handleInfo" :rules="{ required: true, message: '请填写处理意见', trigger: 'blur' }">
-		            <el-input v-model="dialogForm.formData.handleInfo" type="textarea" placeholder="处理意见" />
-		        </el-form-item>
-		    </el-form>
-		    <div slot="footer" class="dialog-footer">
-		        <el-button size="small" @click.stop="dialogForm.isVisible = false">取 消</el-button>
-		        <ls-button size="small" type="primary" :asyncFunction="underGoods">确 定</ls-button>
-		    </div>
-		</el-dialog>
-		<dialogAuditHistoryTable ref="auditHistoryDialog" :product-id="currentProdId" />
-		<dialogPreview ref="dialogPreview" />
+        <el-dialog :title="dialogForm.title" custom-class="dialog-form-small" :visible.sync="dialogForm.isVisible">
+            <el-form ref="myForm" :model="dialogForm.formData" label-width="98px" label-position="right" size="small">
+                <el-form-item label="操作：">
+                    <el-radio v-model="type" :label="2">违规锁定</el-radio>
+                    <el-radio v-model="type" :label="3">违规下架</el-radio>
+                    <div class="el-form-item__error">{{ type === 3 ? '违规下架：商家可以编辑商品' : '违规锁定：商家不可以编辑商品' }}</div>
+                </el-form-item>
+                <el-form-item label="下架类型：" prop="typeId" :rules="{ required: true, message: '请选择下架类型', trigger: 'change' }">
+                    <el-select v-model="dialogForm.formData.typeId" clearable placeholder="请选择">
+                        <el-option v-for="item of allType" :key="item.id" :label="item.name" :value="item.id" />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="处理意见：" prop="handleInfo" :rules="{ required: true, message: '请填写处理意见', trigger: 'blur' }">
+                    <el-input v-model="dialogForm.formData.handleInfo" type="textarea" placeholder="处理意见" />
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button size="small" @click.stop="dialogForm.isVisible = false">取 消</el-button>
+                <ls-button size="small" type="primary" :async-function="underGoods">确 定</ls-button>
+            </div>
+        </el-dialog>
+        <dialogAuditHistoryTable ref="auditHistoryDialog" :product-id="currentProdId" />
+        <dialogPreview ref="dialogPreview" />
     </section>
 </template>
 <script>
@@ -213,7 +218,7 @@ export default {
                 .catch(() => {})
         },
         proPreview(id) {
-            this.$refs.dialogPreview.showDialog({id:id})
+            this.$refs.dialogPreview.showDialog({ id: id })
         },
         auditHistory(row) {
             this.currentProdId = row.id
@@ -254,7 +259,7 @@ export default {
         },
         // 商品下架
         underGoods() {
-            return new Promise((resolve)=>{
+            return new Promise((resolve) => {
                 this.$refs['myForm'].validate((valid) => {
                     if (valid) {
                         // 违规下架
@@ -265,13 +270,16 @@ export default {
                             handleInfo: this.dialogForm.formData.handleInfo,
                             content: this.dialogForm.formData.handleInfo
                         }
-                        report.batchAccusation(params).then((res) => {
-                            if (res.code) {
-                                this.$message.success(this.type == 2 ? '下架成功' : '锁定成功')
-                                this.getData()
-                                this.dialogForm.isVisible = false
-                            }
-                        }).finally(()=>{
+                        report
+                            .batchAccusation(params)
+                            .then((res) => {
+                                if (res.code) {
+                                    this.$message.success(this.type == 2 ? '下架成功' : '锁定成功')
+                                    this.getData()
+                                    this.dialogForm.isVisible = false
+                                }
+                            })
+                            .finally(() => {
                                 return resolve()
                             })
                     } else {
@@ -316,14 +324,14 @@ export default {
                 status: this.searchFilters.status,
                 brandId: this.searchFilters.brandId,
                 opStatus: this.searchFilters.opStatus,
-                productIdList: this.mulSels.join(),
+                productIdList: this.mulSels.join()
             })
         },
 
         // 切换状态
         changeStatus() {
             this.page.curPage = 1
-            this.$refs.multipleTable.clearSelection()       //清除表格选择勾选行
+            this.$refs.multipleTable.clearSelection() //清除表格选择勾选行
             this.getData()
         }
     }

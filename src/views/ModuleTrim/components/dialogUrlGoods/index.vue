@@ -3,22 +3,27 @@
  * @Descripttion:选择链接弹框组件
 */ -->
     <!-- 选择链接 -->
-    <el-dialog :custom-class="'dialog-form dialog-trim-url ' + (isCompatible ? 'compatibleWidth' : '')" append-to-body :visible.sync="dialogTableVisible" :close-on-click-modal="false">
-        <el-tabs v-model="temp.type" style="height: 630px; overflow-y: hidden;" @tab-click="handleClick">
+    <el-dialog
+        :custom-class="'dialog-form dialog-trim-url ' + (isCompatible ? 'compatibleWidth' : '')"
+        append-to-body
+        :visible.sync="dialogTableVisible"
+        :close-on-click-modal="false"
+    >
+        <el-tabs v-model="temp.type" style="height: 630px; overflow-y: hidden" @tab-click="handleClick">
             <Empty v-if="!temp.type" text="暂无内容" />
 
             <el-tab-pane v-for="(item, index) in tabList" :key="index" :label="item.name" :name="item.name" lazy>
-				<keep-alive>
-					<component
-						:is="item.type"
-						v-if="temp.type == item.name"
-						:ref="'class' + item.name"
-						v-model="value"
-						:field="field"
-						:parmas="parmas"
-						@getTempList="getTempList"
-					/>
-				</keep-alive>
+                <keep-alive>
+                    <component
+                        :is="item.type"
+                        v-if="temp.type == item.name"
+                        :ref="'class' + item.name"
+                        v-model="value"
+                        :field="field"
+                        :parmas="parmas"
+                        @getTempList="getTempList"
+                    />
+                </keep-alive>
             </el-tab-pane>
         </el-tabs>
         <div slot="footer">
@@ -67,7 +72,7 @@ export default {
                 // 缓存文件
                 type: '商品分组'
             },
-            isCompatible: false,    //是否兼容1366px
+            isCompatible: false //是否兼容1366px
         }
     },
     computed: {
@@ -150,30 +155,30 @@ export default {
         },
         // 重置
         resetForm() {
-			this.$refs['class' + this.temp.type][0].tempList = []
-			if (this.$refs['class' + this.temp.type][0]) {
-				if (this.temp.type == '商品分类') {
-					this.$refs['class' + this.temp.type][0].cascaderValue = []
-				}else if(this.temp.type == '商品分组'){
-					this.$refs['class' + this.temp.type][0].$refs.refTable.clearSelection()
-				}
-			}
+            this.$refs['class' + this.temp.type][0].tempList = []
+            if (this.$refs['class' + this.temp.type][0]) {
+                if (this.temp.type == '商品分类') {
+                    this.$refs['class' + this.temp.type][0].cascaderValue = []
+                } else if (this.temp.type == '商品分组') {
+                    this.$refs['class' + this.temp.type][0].$refs.refTable.clearSelection()
+                }
+            }
         },
         // 确定
         confirm() {
-			if (this.$refs['class' + this.temp.type][0]) {
-				this.$refs['class' + this.temp.type][0].confirm()
-				this.$nextTick(()=>{
-					this.dialogTableVisible = false
-					if (this.field) {
-					    this.value[this.field] = this.$utils.object.deepClone({ ...this.value[this.field], ...this.temp })
-					} else {
-					    let value = this.$utils.object.deepClone({ ...this.value, ...this.temp })
-					    this.$emit('input', value)
-					}
-					this.$emit('confirm', this.value)
-				})
-			}
+            if (this.$refs['class' + this.temp.type][0]) {
+                this.$refs['class' + this.temp.type][0].confirm()
+                this.$nextTick(() => {
+                    this.dialogTableVisible = false
+                    if (this.field) {
+                        this.value[this.field] = this.$utils.object.deepClone({ ...this.value[this.field], ...this.temp })
+                    } else {
+                        let value = this.$utils.object.deepClone({ ...this.value, ...this.temp })
+                        this.$emit('input', value)
+                    }
+                    this.$emit('confirm', this.value)
+                })
+            }
         },
         handleClick(tab, event) {
             this.temp.type = event.target.innerText
@@ -183,10 +188,10 @@ export default {
         },
         // 兼容1366px
         compatibleChange() {
-            if(window.innerWidth <= 1366) {
-                this.isCompatible = true;
-            }else {
-                this.isCompatible = false;
+            if (window.innerWidth <= 1366) {
+                this.isCompatible = true
+            } else {
+                this.isCompatible = false
             }
         }
     }
@@ -220,7 +225,8 @@ export default {
 <style lang="scss">
 .dialog-form.dialog-trim-url {
     max-height: 80vh;
-    &.compatibleWidth {   //兼容1366px下的弹窗最小宽度
+    &.compatibleWidth {
+        //兼容1366px下的弹窗最小宽度
         min-width: 60vw;
     }
 }

@@ -59,9 +59,23 @@
                         <div class="mt-10 d-flex a-center font-14">
                             <el-radio :label="1" class="mr-0">{{ '' }}</el-radio>
                             <div>按照领取</div>
-							<lsInput class="mx-10 w-150p" v-model="couponForm.useDayLater" :disabled="pageType == 'lookInfo'" :precision="0" :min="0"  :max="999"/>
-                             天后
-							 <lsInput class="mx-10 w-150p" v-model="couponForm.withinDay" :disabled="pageType == 'lookInfo'" :precision="0" :min="0"  :max="30"/>
+                            <lsInput
+                                v-model="couponForm.useDayLater"
+                                class="mx-10 w-150p"
+                                :disabled="pageType == 'lookInfo'"
+                                :precision="0"
+                                :min="0"
+                                :max="999"
+                            />
+                            天后
+                            <lsInput
+                                v-model="couponForm.withinDay"
+                                class="mx-10 w-150p"
+                                :disabled="pageType == 'lookInfo'"
+                                :precision="0"
+                                :min="0"
+                                :max="30"
+                            />
                             内可用
                         </div>
                     </el-radio-group>
@@ -121,32 +135,32 @@
                             <div class="d-flex a-center font-14">
                                 <el-radio :label="1" class="mr-0">{{ '' }}</el-radio>
                                 <div>限制每天每人领取</div>
-								<lsInput
-								    v-model="couponForm.perDayLimit"
-									:min="1"
-								    :max="1000000"
-									:precision="0"
-								    :disabled="pageType == 'lookInfo'"
-								    class="mx-10 w-200p"
-								>
-								    <template slot="append">张</template>
-								</lsInput>
+                                <lsInput
+                                    v-model="couponForm.perDayLimit"
+                                    :min="1"
+                                    :max="1000000"
+                                    :precision="0"
+                                    :disabled="pageType == 'lookInfo'"
+                                    class="mx-10 w-200p"
+                                >
+                                    <template slot="append">张</template>
+                                </lsInput>
                             </div>
                         </el-form-item>
                         <el-form-item label-width="0" prop="perTotalLimit">
                             <div class="d-flex a-center font-14">
                                 <el-radio class="mr-0" :label="2">{{ '' }}</el-radio>
                                 <div>限制活动期间每人领取</div>
-								<lsInput
-								    v-model="couponForm.perTotalLimit"
-									:min="1"
-								    :max="1000000"
-									:precision="0"
-								    :disabled="pageType == 'lookInfo'"
-								    class="mx-10 w-200p"
-								>
-								    <template slot="append">张</template>
-								</lsInput>
+                                <lsInput
+                                    v-model="couponForm.perTotalLimit"
+                                    :min="1"
+                                    :max="1000000"
+                                    :precision="0"
+                                    :disabled="pageType == 'lookInfo'"
+                                    class="mx-10 w-200p"
+                                >
+                                    <template slot="append">张</template>
+                                </lsInput>
                             </div>
                         </el-form-item>
                     </el-radio-group>
@@ -176,7 +190,7 @@
                 </el-form-item>
                 <el-form-item label="优惠券封面图：" prop="pic">
                     <imgCenter v-model="couponForm.pic" :disabled="pageType == 'lookInfo'"></imgCenter>
-					<span class="pl-20 v-top">建议尺寸：200*200px</span>
+                    <span class="pl-20 v-top">建议尺寸：200*200px</span>
                 </el-form-item>
                 <el-divider />
                 <!-- 这是分割线 -->
@@ -222,15 +236,15 @@
                 </template>
             </el-form>
         </el-card>
-		<submitBottom>
-			<template v-if="pageType != 'lookInfo'">
-			    <el-button size="small" class="ml-50" @click="back">取消</el-button>
-			    <el-button type="primary" size="small" @click="onSubmit">新增</el-button>
-			</template>
-			<template v-else>
-			    <el-button size="small" class="ml-50" @click="back">返回</el-button>
-			</template>
-		</submitBottom>
+        <submitBottom>
+            <template v-if="pageType != 'lookInfo'">
+                <el-button size="small" class="ml-50" @click="back">取消</el-button>
+                <el-button type="primary" size="small" @click="onSubmit">新增</el-button>
+            </template>
+            <template v-else>
+                <el-button size="small" class="ml-50" @click="back">返回</el-button>
+            </template>
+        </submitBottom>
         <dialogSpuGoods ref="dialogSpuGoods" :shop-list-ids="couponForm.selectShopId" :coupon-id.sync="couponForm.id" @sumbitTable="storeSumbit" />
     </section>
 </template>
@@ -385,22 +399,12 @@ export default {
             value: '',
             rules: {
                 title: { required: true, message: '优惠券不能为空', trigger: 'blur' },
-                count: [
-                    { required: true, message: '发送数量不能为空', trigger: 'blur' }
-                ],
+                count: [{ required: true, message: '发送数量不能为空', trigger: 'blur' }],
                 receiveStartTime: [{ required: true, message: '领取时间不能为空', trigger: 'blur' }],
-                useStartTime: [
-                    { validator: useTimeValidate, trigger: 'blur' }
-                ],
-                minPoint: [
-                    { validator: minPointValidate, trigger: 'blur' }
-                ],
-                perTotalLimit: [
-                    { validator: perTotalLimitValidate, trigger: 'blur' }
-                ],
-                perDayLimit: [
-                    { validator: perDayLimitValidate, trigger: 'blur' }
-                ],
+                useStartTime: [{ validator: useTimeValidate, trigger: 'blur' }],
+                minPoint: [{ validator: minPointValidate, trigger: 'blur' }],
+                perTotalLimit: [{ validator: perTotalLimitValidate, trigger: 'blur' }],
+                perDayLimit: [{ validator: perDayLimitValidate, trigger: 'blur' }],
                 amount: [
                     { required: true, message: '优惠金额不能为空', trigger: 'blur' },
                     { validator: amountValidate, trigger: 'blur' }

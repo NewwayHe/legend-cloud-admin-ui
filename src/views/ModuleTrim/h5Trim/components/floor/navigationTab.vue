@@ -12,19 +12,14 @@
                     '--curTabColor': curTabColor
                 }"
             >
-				<!-- :style="{
+                <!-- :style="{
 				    borderRight: `${
 				        floors.data.tabList && floors.data.tabList.length != 1 && index != floors.data.tabList.length - 1 && floors.assistLine
 				            ? 1
 				            : 0
 				    }px solid ${floors.assistLineColor}`
 				}" -->
-                <div
-                    v-for="(item, index) in floors.data.tabList"
-                    :key="index"
-                    class="px-10 flex-center flex-1"
-					:ref="'tabListItem'+index"
-                >
+                <div v-for="(item, index) in floors.data.tabList" :key="index" :ref="'tabListItem' + index" class="px-10 flex-center flex-1">
                     <span
                         :class="[{ 'tab-pills': item.isSelect && floors.tabsType == 'pills' }]"
                         :style="{
@@ -93,13 +88,13 @@ export default {
                     return item.isSelect
                 }) //找出是要正在选中的那一个元素的index
                 this.currentIndex = index
-				
-				// 让选中的元素居中
-				if(this.$refs['tabListItem'+index]&&this.$refs['tabListItem'+index][0]){
-					this.$nextTick(() => {
-						this.$refs['tabListItem'+index][0].scrollIntoView({block:'center', inline: 'center', behavior: 'smooth' })
-					})
-				}
+
+                // 让选中的元素居中
+                if (this.$refs['tabListItem' + index] && this.$refs['tabListItem' + index][0]) {
+                    this.$nextTick(() => {
+                        this.$refs['tabListItem' + index][0].scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' })
+                    })
+                }
             },
             deep: true,
             immediate: true

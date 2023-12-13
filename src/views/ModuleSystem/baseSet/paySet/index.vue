@@ -3,7 +3,7 @@
 */ -->
 <template>
     <section>
-        <el-card shadow="never" :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card shadow="never" :body-style="{ padding: `20px 20px 10px 20px` }">
             <div class="search">
                 <el-form :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="配置类型">
@@ -12,7 +12,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="配置名称">
-                        <el-input v-model="searchFilters.des" placeholder="请输入"/>
+                        <el-input v-model="searchFilters.des" placeholder="请输入" />
                     </el-form-item>
                     <el-form-item>
                         <el-button @click.stop="dbnSearch">搜索</el-button>
@@ -43,11 +43,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
             <dialogSet ref="dialogSet" :type="currentType" />
         </el-card>
@@ -71,7 +76,7 @@ export default {
             },
             currentType: '',
             groupNameList: [],
-			isMounted:true
+            isMounted: true
         }
     },
     mounted() {

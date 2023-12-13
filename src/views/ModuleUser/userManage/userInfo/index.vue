@@ -20,8 +20,8 @@
                 <goodsComment />
             </el-tab-pane>
             <el-tab-pane label="余额明细" name="sixth" :lazy="true">
-				<depositDetail />
-			</el-tab-pane>
+                <depositDetail />
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -59,7 +59,7 @@ export default {
 <!--
     表格内容过长显示tooltip时的最大宽度设置 不能使用scoped
 -->
-<style >
+<style>
 .el-tooltip__popper {
     max-width: 60vw;
 }

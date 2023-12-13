@@ -6,7 +6,7 @@
         <el-card class="mb-15">
             <div class="table">
                 <el-row class="mb-20">
-                   <el-col><el-button type="primary" size="medium" @click="handleCreate(false)">新增</el-button></el-col>
+                    <el-col><el-button type="primary" size="medium" @click="handleCreate(false)">新增</el-button></el-col>
                 </el-row>
                 <!--列表-->
                 <el-table
@@ -16,7 +16,7 @@
                     class="w-100"
                     row-key="id"
                     :tree-props="{ children: 'children', hasChildren: '' }"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
                     <el-table-column prop="name" label="菜单名称" width="180" />
                     <el-table-column prop="icon" width="120" label="图标">
@@ -27,12 +27,12 @@
                     </el-table-column>
                     <el-table-column prop="path" label="链接地址" min-width="150">
                         <template slot-scope="scope">
-                            {{ scope.row.path || '-'}}
+                            {{ scope.row.path || '-' }}
                         </template>
                     </el-table-column>
                     <el-table-column prop="component" label="组件地址" min-width="250">
                         <template slot-scope="scope">
-                            {{ scope.row.component || '-'}}
+                            {{ scope.row.component || '-' }}
                         </template>
                     </el-table-column>
                     <el-table-column prop="icon" label="菜单类型">
@@ -47,7 +47,7 @@
                             </span>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="sort" label="顺序"/>
+                    <el-table-column prop="sort" label="顺序" />
                     <el-table-column label="操作" fixed="right" width="200">
                         <template slot-scope="scope">
                             <span class="table__action flex-center">
@@ -78,12 +78,7 @@
         </el-card>
 
         <!-- 新增-编辑 -->
-        <el-dialog
-            :title="dialogForm.title"
-            custom-class="dialog-form-small"
-            :visible.sync="dialogForm.isVisible"
-            :close-on-click-modal="false"
-        >
+        <el-dialog :title="dialogForm.title" custom-class="dialog-form-small" :visible.sync="dialogForm.isVisible" :close-on-click-modal="false">
             <el-form ref="myForm" :model="dialogForm.formData" :rules="dialogForm.formRule" label-width="98px" label-position="right" size="small">
                 <el-form-item v-if="dialogForm.isHasTop" label="上级菜单名称：">
                     <span>{{ parentName }}</span>
@@ -108,7 +103,7 @@
                 <el-form-item label="权限编码：" prop="permission">
                     <el-input v-model="dialogForm.formData.permission" type="textarea" :rows="2" placeholder="权限编码" maxlength="1000" />
                 </el-form-item>
-                <el-form-item label="备注：" prop="" v-if="dialogForm.formData.type == 1">
+                <el-form-item v-if="dialogForm.formData.type == 1" label="备注：" prop="">
                     <el-input v-model="dialogForm.formData.menuDesc" type="textarea" :rows="2" placeholder="备注" maxlength="20" />
                 </el-form-item>
                 <el-form-item label="顺序：" prop="sort">

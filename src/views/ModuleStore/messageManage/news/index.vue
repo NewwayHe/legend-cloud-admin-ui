@@ -52,7 +52,7 @@
                     <el-table-column prop="title" label="标题" align="center" />
                     <el-table-column prop="pic" label="图片" align="center">
                         <template slot-scope="scope">
-                            <ls-image style="vertical-align: middle" :src="scope.row.pic" :options="{ w: '50', h: '50', br: '6' }"/>
+                            <ls-image style="vertical-align: middle" :src="scope.row.pic" :options="{ w: '50', h: '50', br: '6' }" />
                         </template>
                     </el-table-column>
                     <el-table-column prop="createTime" label="创建时间" align="center">
@@ -66,7 +66,7 @@
                             <el-link v-else :underline="false" type="warning">下线</el-link>
                         </template>
                     </el-table-column>
-                    <el-table-column label="操作" align="center"  fixed="right" width="180px" >
+                    <el-table-column label="操作" align="center" fixed="right" width="180px">
                         <template slot-scope="scope">
                             <span class="table__action flex-center">
                                 <el-link :underline="false" type="primary" @click="changeStatus(scope.row)">
@@ -86,7 +86,7 @@
                 </el-row>
             </el-card>
         </div>
-		<dialogLink ref="dialogLink" />
+        <dialogLink ref="dialogLink" />
     </section>
 </template>
 <script>
@@ -106,7 +106,7 @@ export default {
             url: {
                 getData: '/admin/headline/news/page',
                 delete: '/admin/headline/news'
-            },
+            }
         }
     },
     mounted() {},
@@ -146,7 +146,7 @@ export default {
 
         // 查看链接
         checkLink(row) {
-			this.$refs.dialogLink.showDialog(`?detailsType=news&id=${row.id}`)
+            this.$refs.dialogLink.showDialog(`?detailsType=news&id=${row.id}`)
         },
 
         // 改变日期

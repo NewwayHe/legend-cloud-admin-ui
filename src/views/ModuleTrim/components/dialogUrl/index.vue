@@ -19,10 +19,15 @@
  *         	<dialogUrl :key="index" v-model="value.data.dateList[index]" :parmas="parmas" />
 */ -->
     <!-- 选择链接 -->
-    <el-dialog :custom-class="'dialog-form dialog-trim-url ' + (isCompatible ? 'compatibleWidth' : '')" append-to-body :visible.sync="dialogTableVisible" :close-on-click-modal="false">
-        <el-tabs v-model="type" style="overflow-y: hidden;" :style="{height:height+'px'}" @tab-click="handleClick">
+    <el-dialog
+        :custom-class="'dialog-form dialog-trim-url ' + (isCompatible ? 'compatibleWidth' : '')"
+        append-to-body
+        :visible.sync="dialogTableVisible"
+        :close-on-click-modal="false"
+    >
+        <el-tabs v-model="type" style="overflow-y: hidden" :style="{ height: height + 'px' }" @tab-click="handleClick">
             <Empty v-if="!type" text="暂无内容" />
-            <el-tab-pane :style="{height:height-40+'px'}" v-for="(item, index) in tabList" :key="index" :label="item.name" :name="item.name">
+            <el-tab-pane v-for="(item, index) in tabList" :key="index" :style="{ height: height - 40 + 'px' }" :label="item.name" :name="item.name">
                 <keep-alive v-if="reload">
                     <component :is="item.type" v-if="type == item.name" v-model="valueTemp" :parmas="parmas" :field="field"></component>
                 </keep-alive>
@@ -70,27 +75,27 @@ export default {
             type: String,
             default: 'url'
         },
-		// 是否建立引用关系(建立了引用关系，那点击选项时，外面的值会马上变化，不用点‘确认’)
-		isQuote:{
-			type: Boolean,
-			default: false
-		}
+        // 是否建立引用关系(建立了引用关系，那点击选项时，外面的值会马上变化，不用点‘确认’)
+        isQuote: {
+            type: Boolean,
+            default: false
+        }
     },
     data() {
         return {
             dialogTableVisible: false,
             type: '商品',
-			valueTemp:{},
-			reload:true,//点击【重置】按钮时，让所有页面的状态都重置(包括已经搜索出来的内容)
-            isCompatible: false,    //是否兼容1366px
-			height:630,
+            valueTemp: {},
+            reload: true, //点击【重置】按钮时，让所有页面的状态都重置(包括已经搜索出来的内容)
+            isCompatible: false, //是否兼容1366px
+            height: 630
         }
     },
     computed: {
-		//如果是PC端装修，则有些没有的功能要屏蔽
-		isPcTrim(){
-			return this.$route.name=='pcTrim'||this.$route.name=='PcTrim'
-		},
+        //如果是PC端装修，则有些没有的功能要屏蔽
+        isPcTrim() {
+            return this.$route.name == 'pcTrim' || this.$route.name == 'PcTrim'
+        },
         tabList() {
             const listTemp = [
                 { name: '商品', type: 'prod' },
@@ -120,19 +125,19 @@ export default {
         dialogTableVisible: {
             handler(newValue, oldValue) {
                 if (newValue && this.tabList.length) {
-					if(this.isQuote){
-						this.valueTemp = this.value
-					}else{
-						this.valueTemp = this.$utils.object.deepClone(this.value)
-					}
+                    if (this.isQuote) {
+                        this.valueTemp = this.value
+                    } else {
+                        this.valueTemp = this.$utils.object.deepClone(this.value)
+                    }
                     this.type = this.value[this.field] && this.value[this.field].type ? this.value[this.field].type : this.tabList[0].name //tab栏回选及赋默认值
                 }
-                if(!newValue) {
+                if (!newValue) {
                     // 如果弹窗关闭了 则清除事件监听
-					window.removeEventListener('resize', this.compatibleChange)
-                }else {
+                    window.removeEventListener('resize', this.compatibleChange)
+                } else {
                     this.$nextTick(() => {
-					    window.addEventListener('resize', this.compatibleChange)
+                        window.addEventListener('resize', this.compatibleChange)
                     })
                 }
             },
@@ -142,7 +147,7 @@ export default {
     },
     created() {
         this.compatibleChange()
-	},
+    },
     methods: {
         showDialog() {
             //这个方法是父组件来引用的，不能删
@@ -151,14 +156,14 @@ export default {
         // 重置
         resetForm() {
             this.valueTemp[this.field] = {}
-			this.reload = false
-			setTimeout(()=>{
-				this.reload = true
-			},100)
+            this.reload = false
+            setTimeout(() => {
+                this.reload = true
+            }, 100)
         },
         confirm() {
             this.dialogTableVisible = false
-			this.$emit('input',this.valueTemp)
+            this.$emit('input', this.valueTemp)
         },
         handleClick(tab, event) {
             // console.log(tab);
@@ -166,10 +171,10 @@ export default {
         },
         // 兼容1366px
         compatibleChange() {
-            if(window.innerWidth <= 1366) {
-                this.isCompatible = true;
-            }else {
-                this.isCompatible = false;
+            if (window.innerWidth <= 1366) {
+                this.isCompatible = true
+            } else {
+                this.isCompatible = false
             }
         }
     }
@@ -203,7 +208,8 @@ export default {
 <style lang="scss">
 .dialog-form.dialog-trim-url {
     max-height: 80vh;
-    &.compatibleWidth {   //兼容1366px下的弹窗最小宽度
+    &.compatibleWidth {
+        //兼容1366px下的弹窗最小宽度
         min-width: 60vw;
     }
 }

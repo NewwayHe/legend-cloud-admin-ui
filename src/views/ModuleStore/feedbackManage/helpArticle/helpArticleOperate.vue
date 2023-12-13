@@ -24,17 +24,17 @@
                         <el-option v-for="item in newsCategoryList" :key="item.id" :label="item.newsCategoryName" :value="item.id" />
                     </el-select>
                 </el-form-item>
-				
+
                 <el-form-item label="标题：" prop="newsTitle">
-                    <el-input v-model="form.newsTitle" class="w-450p" maxlength="20" show-word-limit placeholder="请输入"/>
+                    <el-input v-model="form.newsTitle" class="w-450p" maxlength="20" show-word-limit placeholder="请输入" />
                 </el-form-item>
 
                 <el-form-item v-if="form.type == 2" label="跳转链接：" prop="url">
-                    <el-input v-model="form.url" class="w-450p" type="textarea" maxlength="150" show-word-limit autosize/>
+                    <el-input v-model="form.url" class="w-450p" type="textarea" maxlength="150" show-word-limit autosize />
                 </el-form-item>
 
                 <el-form-item v-show="form.type == 1" label="摘要：">
-                    <el-input v-model="form.newsBrief" class="w-450p" type="textarea" maxlength="50" rows="3" show-word-limit placeholder="请输入"/>
+                    <el-input v-model="form.newsBrief" class="w-450p" type="textarea" maxlength="50" rows="3" show-word-limit placeholder="请输入" />
                 </el-form-item>
 
                 <el-form-item label="顺序：" prop="seq">
@@ -60,9 +60,7 @@
                 </el-form-item>
                 <el-form-item class="btnArea">
                     <el-button @click="onCancel">取消</el-button>
-                    <ls-button type="primary" :asyncFunction="onSubmit">
-						保存
-					</ls-button>
+                    <ls-button type="primary" :async-function="onSubmit">保存</ls-button>
                 </el-form-item>
             </el-form>
         </el-card>
@@ -75,17 +73,6 @@ import { helpArticle } from '@/api/ModuleStore'
 
 export default {
     components: { TinyMce },
-    watch: {
-        'pageTypeList.length'(nL) {
-            if(nL > 0) {
-                this.$refs.form.clearValidate('displayPage')
-            }else {
-                this.$nextTick(()=> {       //数组清空了 但是displayPage还没有被清空 
-                    this.$refs.form.validateField('displayPage')
-                })
-            }
-        }
-    },
     data() {
         return {
             form: {
@@ -116,11 +103,23 @@ export default {
             newsCategoryList: []
         }
     },
-    beforeRouteEnter(to,from,next) {
-        if(to.query.type == 'edit') {
-            to.meta.title = '编辑帮助文章'     //更改tab页同步标题
-        }else {
-            to.meta.title = '新增帮助文章'     //更改tab页同步标题
+    watch: {
+        'pageTypeList.length'(nL) {
+            if (nL > 0) {
+                this.$refs.form.clearValidate('displayPage')
+            } else {
+                this.$nextTick(() => {
+                    //数组清空了 但是displayPage还没有被清空
+                    this.$refs.form.validateField('displayPage')
+                })
+            }
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        if (to.query.type == 'edit') {
+            to.meta.title = '编辑帮助文章' //更改tab页同步标题
+        } else {
+            to.meta.title = '新增帮助文章' //更改tab页同步标题
         }
         next()
     },
@@ -188,9 +187,9 @@ export default {
 
         // 提交
         onSubmit() {
-            return new Promise(resolve=>{
+            return new Promise((resolve) => {
                 this.$refs.form.validate(async (valid) => {
-                console.log(this.form)
+                    console.log(this.form)
                     if (valid) {
                         if (this.isEdit) {
                             await this.edit()
@@ -198,7 +197,7 @@ export default {
                             await this.add()
                         }
                         resolve()
-                    }else{
+                    } else {
                         resolve()
                     }
                 })
@@ -207,46 +206,47 @@ export default {
 
         // 新增
         add() {
-            return new Promise(resolve=>{
+            return new Promise((resolve) => {
                 helpArticle
-                .add(this.form)
-                .then((res) => {
-                    if (res.code) {
-                        this.$message({
-                            message: '新增成功',
-                            type: 'success',
-                        })
-                        this.$router.push({ path: '/ModuleStore/feedbackManage/helpArticle' })
-                    }
-                })
-                .catch((err) => {
-                    console.log(err)
-                }).finally(()=>{
-                    resolve()
-                })
+                    .add(this.form)
+                    .then((res) => {
+                        if (res.code) {
+                            this.$message({
+                                message: '新增成功',
+                                type: 'success'
+                            })
+                            this.$router.push({ path: '/ModuleStore/feedbackManage/helpArticle' })
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+                    .finally(() => {
+                        resolve()
+                    })
             })
-            
         },
 
         // 编辑
         edit() {
-            return new Promise(resolve=>{
-            helpArticle
-                .edit(this.form)
-                .then((res) => {
-                    if (res.code) {
-                        this.$message({
-                            message: '编辑成功',
-                            type: 'success',
-                        })
-                        this.$router.push({ path: '/ModuleStore/feedbackManage/helpArticle' })
-                    }
-                })
-                .catch((err) => {
-                    console.log(err)
-                }).finally(()=>{
-                    resolve()
-                })
+            return new Promise((resolve) => {
+                helpArticle
+                    .edit(this.form)
+                    .then((res) => {
+                        if (res.code) {
+                            this.$message({
+                                message: '编辑成功',
+                                type: 'success'
+                            })
+                            this.$router.push({ path: '/ModuleStore/feedbackManage/helpArticle' })
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+                    .finally(() => {
+                        resolve()
+                    })
             })
         },
 
@@ -258,13 +258,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-    >>>.el-textarea{
-        >.el-textarea__inner{
-            overflow: hidden;
-            word-break: break-all;
-        }
-        .el-input__count{
-            line-height: 1;
-        }
+>>> .el-textarea {
+    > .el-textarea__inner {
+        overflow: hidden;
+        word-break: break-all;
     }
+    .el-input__count {
+        line-height: 1;
+    }
+}
 </style>

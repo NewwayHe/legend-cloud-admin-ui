@@ -42,7 +42,7 @@
                 <el-tooltip effect="dark" content="备注：当关闭[商品价格]时，[购物车]图标会自动关闭" placement="top-start">
                     <i class="el-icon-question font-16 text-ccc main-hover v-bottom"></i>
                 </el-tooltip>
-				<!-- (由于点击是不会进入购物车的，应客户要求屏蔽掉) -->
+                <!-- (由于点击是不会进入购物车的，应客户要求屏蔽掉) -->
                 <!-- <span class="pl-30">&emsp;购物车：</span>
                 <el-switch v-model="value.showShopCart" :disabled="value.listType == '4' || !value.showPrice"></el-switch> -->
             </div>
@@ -58,7 +58,12 @@
                     </div>
                     <div class="transition-all05 overflow-h" :style="{ height: `${value.showIcon == 'diy' ? '60px' : '0px'}` }">
                         <div class="mt-15 flex-start">
-                            <imgCenter v-model="value.iconImg" class="pr-15" :uploadStyle="{ width: '40px', height: '40px' }" :isPreview="false" ></imgCenter>
+                            <imgCenter
+                                v-model="value.iconImg"
+                                class="pr-15"
+                                :upload-style="{ width: '40px', height: '40px' }"
+                                :is-preview="false"
+                            ></imgCenter>
                             <el-tooltip effect="dark" content="建议尺寸：60*60px" placement="top-start">
                                 <i class="el-icon-question font-16 text-ccc main-hover v-bottom"></i>
                             </el-tooltip>
@@ -123,9 +128,9 @@
                             <!-- <img class="w-100 h-100" :src="$photoServer + item.pic" alt="" v-if="item.pic"> -->
                             <imgCenter
                                 v-model="item.pic"
-                                :uploadStyle="{ width: '80px', height: '80px', margin: '0' }"
-                                :isPreview="false"
-								:showClose="false"
+                                :upload-style="{ width: '80px', height: '80px', margin: '0' }"
+                                :is-preview="false"
+                                :show-close="false"
                                 @afterChoose="onSuccess(item)"
                             ></imgCenter>
                             <span
@@ -199,7 +204,7 @@ export default {
         },
         add(flag) {
             let addData = this.$utils.object.deepClone(defFloorVal.prodList.data[flag][0])
-			if (!this.value.data[flag]) this.$set(this.value.data, flag, []);//兼容旧数据专用，如果是旧数据里的data里没有该flag数组，下面的push会报错，所以在这里强行添加一个
+            if (!this.value.data[flag]) this.$set(this.value.data, flag, []) //兼容旧数据专用，如果是旧数据里的data里没有该flag数组，下面的push会报错，所以在这里强行添加一个
             this.value.data[flag].push(addData)
             this.$emit('add', flag)
         },

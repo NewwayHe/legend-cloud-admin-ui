@@ -17,9 +17,9 @@
         <el-form v-show="step == 1" ref="ruleForm" :model="ruleForm" @submit.native.prevent>
             <el-form-item
                 class="flex-start"
-                :label="`${value.category == 'POSTER'||value.category == 'POSTER-T' ? '海报' : '首页'}名称`"
+                :label="`${value.category == 'POSTER' || value.category == 'POSTER-T' ? '海报' : '首页'}名称`"
                 prop="name"
-                :rules="{ required: true, message: `${value.category == 'POSTER'||value.category == 'POSTER-T' ? '海报' : '首页'}名称不能为空` }"
+                :rules="{ required: true, message: `${value.category == 'POSTER' || value.category == 'POSTER-T' ? '海报' : '首页'}名称不能为空` }"
             >
                 <el-input v-model="ruleForm.name" placeholder="请输入" size="small" clearable maxlength="10" show-word-limit />
             </el-form-item>
@@ -64,11 +64,7 @@
                     </div>
                     <div class="flex-1 flex-start">
                         <span class="pr-15">背景图片：</span>
-                        <imgCenter
-                            v-model="value.backgroundImg"
-                            class="pr-15"
-                            :uploadStyle="{ width: '80px', height: '80px' }"
-                        ></imgCenter>
+                        <imgCenter v-model="value.backgroundImg" class="pr-15" :upload-style="{ width: '80px', height: '80px' }"></imgCenter>
                         <el-tooltip effect="dark" content="建议尺寸：宽750px，默认置顶显示" placement="top-start">
                             <i class="el-icon-question font-16 text-ccc main-hover v-bottom"></i>
                         </el-tooltip>
@@ -77,7 +73,7 @@
             </div>
         </div>
 
-        <div v-show="source != 'pc'&&step == 4 && (value.category == 'INDEX'||value.category == 'INDEX-T')" class="mb-15 floor-head">
+        <div v-show="source != 'pc' && step == 4 && (value.category == 'INDEX' || value.category == 'INDEX-T')" class="mb-15 floor-head">
             <el-radio-group v-model="value.head.type" size="mini">
                 <el-radio v-for="(item, index) in floorHead.botton" :key="index" border :label="item.flag" :disabled="item.disabled">
                     {{ item.name }}
@@ -94,7 +90,7 @@
 </template>
 <script>
 export default {
-    components: { },
+    components: {},
     props: {
         value: {
             type: Object,
@@ -129,10 +125,10 @@ export default {
         stepName() {
             let title = ''
             if (this.step == 1) {
-                title = this.value.category == 'POSTER'||this.value.category == 'POSTER-T' ? '请输入海报名称' : '请输入页面名称'
+                title = this.value.category == 'POSTER' || this.value.category == 'POSTER-T' ? '请输入海报名称' : '请输入页面名称'
             }
             if (this.step == 2) {
-                title = this.value.category == 'POSTER'||this.value.category == 'POSTER-T' ? '海报主题色' : '商城主题色'
+                title = this.value.category == 'POSTER' || this.value.category == 'POSTER-T' ? '海报主题色' : '商城主题色'
             }
             if (this.step == 3) {
                 title = '背景色/背景图(非必填)'
@@ -180,7 +176,7 @@ export default {
                 if (this.step == 5) {
                     this.ruleForm.isVisible = false
                 }
-                if ((this.value.category == 'POSTER'||this.value.category == 'POSTER-T'||this.source == 'pc') && this.step == 4) {
+                if ((this.value.category == 'POSTER' || this.value.category == 'POSTER-T' || this.source == 'pc') && this.step == 4) {
                     this.ruleForm.isVisible = false
                 }
             }
@@ -196,8 +192,8 @@ export default {
 ::v-deep .el-form-item__content {
     flex: 1;
 }
-::v-deep .el-dialog__body{
-	overflow: unset!important;
+::v-deep .el-dialog__body {
+    overflow: unset !important;
 }
 ::v-deep .mall-set-theme .el-radio__input.is-checked .el-radio__inner {
     border-color: var(--settingBackground);

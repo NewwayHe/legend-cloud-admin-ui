@@ -59,10 +59,10 @@ export default {
             let item = {
                 name: e,
                 type: '自定义',
-				url:e,// 当点击‘常用功能’里的选项后再点击自定义，由于value值是‘常用功能’里的值，如果el-input里v-model是用id或name值的话，会将‘常用功能’里的值赋到页面上，所以只能用另外一个参数来保存该值
+                url: e, // 当点击‘常用功能’里的选项后再点击自定义，由于value值是‘常用功能’里的值，如果el-input里v-model是用id或name值的话，会将‘常用功能’里的值赋到页面上，所以只能用另外一个参数来保存该值
                 id: true //由于页面是判断有ID值才显示内容，所以这里随便赋一个id值，该值可以为
             }
-			this.$set(this.value, this.field, this.$utils.object.deepClone(item))
+            this.$set(this.value, this.field, this.$utils.object.deepClone(item))
         }
     }
 }

@@ -84,7 +84,7 @@ export default {
     },
     mounted() {
         this.data = this.$utils.object.deepClone(iconfont)
-        this.data.glyphs = iconfont.glyphs.map(item => {
+        this.data.glyphs = iconfont.glyphs.map((item) => {
             return { font_class: iconfont.css_prefix_text + item.font_class, id: item.icon_id, name: item.name }
         })
     },

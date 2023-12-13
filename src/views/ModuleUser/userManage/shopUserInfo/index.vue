@@ -49,7 +49,7 @@
                                 {{ scope.row.roleDesc == null ? '--' : 'scope.row.roleDesc' }}
                             </template>
                         </el-table-column>
-                        <el-table-column label="操作" align="center"  fixed="right" width="180">
+                        <el-table-column label="操作" align="center" fixed="right" width="180">
                             <template slot-scope="scope">
                                 <el-link type="primary" @click="delUser(scope.row.id)">删除</el-link>
                             </template>

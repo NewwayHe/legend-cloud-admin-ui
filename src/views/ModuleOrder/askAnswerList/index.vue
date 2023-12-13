@@ -3,9 +3,9 @@
 */ -->
 <template>
     <section>
-        <el-card shadow :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card shadow :body-style="{ padding: `20px 20px 10px 20px` }">
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="店铺名称"><el-input v-model="searchFilters.shopName" placeholder="请输入" clearable /></el-form-item>
                     <el-form-item label="商品名称">
                         <el-input v-model="searchFilters.productName" placeholder="请输入" clearable />
@@ -47,7 +47,14 @@
                     </el-alert>
                 </el-row>
                 <!--列表-->
-                <el-table ref="multipleTable" v-loading="tableListLoading" :data="tableList" tooltip-effect="dark" class="w-100" header-row-class-name="headerRow">
+                <el-table
+                    ref="multipleTable"
+                    v-loading="tableListLoading"
+                    :data="tableList"
+                    tooltip-effect="dark"
+                    class="w-100"
+                    header-row-class-name="headerRow"
+                >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
@@ -60,13 +67,29 @@
                     <el-table-column label="商品" width="280">
                         <template slot-scope="scope">
                             <div class="d-flex a-center line-h-md">
-                                <ls-image style="flex: 0 0 50px" :src="scope.row.pic" :options="{ w: '50', h: '50', br: '4' }"/>
+                                <ls-image style="flex: 0 0 50px" :src="scope.row.pic" :options="{ w: '50', h: '50', br: '4' }" />
                                 <div class="ml-10">
                                     <el-link :underline="false" type="primary">
                                         <el-popover placement="top-start" width="500" trigger="hover" :title="scope.row.productName">
-                                            <el-link :underline="false" type="primary" target="_blank" :href="$shareRedirectUrl+'?detailsType=good&id='+scope.row.productId">{{ $shareRedirectUrl+'?detailsType=good&id='+scope.row.productId }}</el-link>                                                      
-                                            <el-link slot="reference" class="text-two" :underline="false" type="primary" target="_blank" :href="$shareRedirectUrl+'?detailsType=good&id='+scope.row.productId">{{ scope.row.productName }}</el-link>                                                        
-                                        </el-popover>                                            
+                                            <el-link
+                                                :underline="false"
+                                                type="primary"
+                                                target="_blank"
+                                                :href="$shareRedirectUrl + '?detailsType=good&id=' + scope.row.productId"
+                                            >
+                                                {{ $shareRedirectUrl + '?detailsType=good&id=' + scope.row.productId }}
+                                            </el-link>
+                                            <el-link
+                                                slot="reference"
+                                                class="text-two"
+                                                :underline="false"
+                                                type="primary"
+                                                target="_blank"
+                                                :href="$shareRedirectUrl + '?detailsType=good&id=' + scope.row.productId"
+                                            >
+                                                {{ scope.row.productName }}
+                                            </el-link>
+                                        </el-popover>
                                     </el-link>
                                 </div>
                             </div>
@@ -121,11 +144,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange"/>
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
         </el-card>
         <!-- 查看-问答详情 -->
@@ -205,7 +233,7 @@ export default {
 <!--
     表格内容过长显示tooltip时的最大宽度设置 不能使用scoped
 -->
-<style >
+<style>
 .el-tooltip__popper {
     max-width: 60vw;
 }

@@ -4,12 +4,16 @@
 <template>
     <div class="w-100 h-100 font-12">
         <div class="w-100" style="height: 63px">
-			<!-- bg-menu -->
-            <div class="position-fixed top-0 left-0 w-100 flex-end zindex-109 text-nowrap bg-fixed-menu" style="height: 63px" :style="{background:parmas.themeColor}">
-                <div class="platform flex-1 flex-center font-14" ref="platform">
-                    <el-button type="text" @click="platform = 'APP'" :class="{ 'curPlatform': platform == 'APP' }">APP端</el-button>
-                    <el-button type="text" @click="platform = 'MP'" :class="{ 'curPlatform': platform == 'MP' }">小程序端</el-button>
-                    <el-button type="text" @click="platform = 'H5'" :class="{ 'curPlatform': platform == 'H5' }">H5端</el-button>
+            <!-- bg-menu -->
+            <div
+                class="position-fixed top-0 left-0 w-100 flex-end zindex-109 text-nowrap bg-fixed-menu"
+                style="height: 63px"
+                :style="{ background: parmas.themeColor }"
+            >
+                <div ref="platform" class="platform flex-1 flex-center font-14">
+                    <el-button type="text" :class="{ curPlatform: platform == 'APP' }" @click="platform = 'APP'">APP端</el-button>
+                    <el-button type="text" :class="{ curPlatform: platform == 'MP' }" @click="platform = 'MP'">小程序端</el-button>
+                    <el-button type="text" :class="{ curPlatform: platform == 'H5' }" @click="platform = 'H5'">H5端</el-button>
                     <div class="bg-menu-triangle" :style="platformStyle"></div>
                 </div>
                 <div class="pr-20 flex-end" style="width: 480px; min-width: 380px">
@@ -23,7 +27,15 @@
                         返回
                     </el-button>
                     <el-button v-ls-loading plain size="small" @click.stop="confirm('save')">保存</el-button>
-					<el-button v-ls-loading plain size="small" @click.stop="confirm('release')" v-if="decoratePageDTO.category == 'INDEX'||decoratePageDTO.category == 'POSTER'||isUser">发布</el-button>
+                    <el-button
+                        v-if="decoratePageDTO.category == 'INDEX' || decoratePageDTO.category == 'POSTER' || isUser"
+                        v-ls-loading
+                        plain
+                        size="small"
+                        @click.stop="confirm('release')"
+                    >
+                        发布
+                    </el-button>
                 </div>
             </div>
         </div>
@@ -41,7 +53,12 @@
                             基本配置
                         </div>
                     </div>
-                    <div v-if="searchAndTabMode" class="seting-but" :style="{ backgroundColor: ctrlType == 'setUp' ? parmas.themeColor : '' }" @click="changeFloors('setUp')">
+                    <div
+                        v-if="searchAndTabMode"
+                        class="seting-but"
+                        :style="{ backgroundColor: ctrlType == 'setUp' ? parmas.themeColor : '' }"
+                        @click="changeFloors('setUp')"
+                    >
                         <div style="width: 12px">
                             <i class="el-icon-set-up" />
                             功能配置
@@ -58,7 +75,12 @@
                             添加楼层
                         </div>
                     </div>
-                    <div v-if="searchAndTabMode" class="seting-but" :style="{ backgroundColor: ctrlType == 'man' ? parmas.themeColor : '' }" @click="changeFloors('man')">
+                    <div
+                        v-if="searchAndTabMode"
+                        class="seting-but"
+                        :style="{ backgroundColor: ctrlType == 'man' ? parmas.themeColor : '' }"
+                        @click="changeFloors('man')"
+                    >
                         <div style="width: 12px">
                             <i class="el-icon-s-tools" />
                             组件管理
@@ -77,30 +99,41 @@
                 <iphone ref="iphone" class="mt-10" :scale="iphoneScale" :background-color="parmas.backgroundColor" @scroll="onScroll">
                     <slot slot="head">
                         <!-- 头部 -->
-                        <setUpHead :floors="parmas.head" v-model="parmas" :platform="platform" :scroll-top="scrollTop" @changeFloors="changeFloors" />
+                        <setUpHead v-model="parmas" :floors="parmas.head" :platform="platform" :scroll-top="scrollTop" @changeFloors="changeFloors" />
                         <!-- 悬浮按钮 -->
-						<suspendBut :floors="parmas.suspendBut" :parmas="parmas" :platform="platform" @changeFloors="changeFloors" />
-					</slot>
-					<template v-slot:screen="{height}">
+                        <suspendBut :floors="parmas.suspendBut" :parmas="parmas" :platform="platform" @changeFloors="changeFloors" />
+                    </slot>
+                    <template v-slot:screen="{ height }">
                         <!-- 背景 -->
-                        <div v-if="parmas.backgroundImg&&searchAndTabMode" class="w-100 position-absolute top-0 right-0 font-0">
+                        <div v-if="parmas.backgroundImg && searchAndTabMode" class="w-100 position-absolute top-0 right-0 font-0">
                             <img class="w-100 h-auto" :src="$photoServer + parmas.backgroundImg" alt="" />
                         </div>
                         <!-- 手机状态栏的占位符 -->
                         <div v-if="platform != 'H5'" class="w-100" style="height: 20px" />
                         <!-- 海报页面上小程序上的占位符 -->
-                        <div v-if="(decoratePageDTO.category == 'POSTER'||decoratePageDTO.category == 'POSTER-T') && platform == 'MP'" class="w-100 h-44p" />
+                        <div
+                            v-if="(decoratePageDTO.category == 'POSTER' || decoratePageDTO.category == 'POSTER-T') && platform == 'MP'"
+                            class="w-100 h-44p"
+                        />
 
                         <!-- 搜索+轮播图 -->
                         <div
-                            v-if="parmas.head.type == 'searchAndBanner' && (decoratePageDTO.category == 'INDEX'||decoratePageDTO.category == 'INDEX-T')"
+                            v-if="
+                                parmas.head.type == 'searchAndBanner' &&
+                                (decoratePageDTO.category == 'INDEX' || decoratePageDTO.category == 'INDEX-T')
+                            "
                             class="cursor-pointer overflow-h"
-							:style="{marginTop: !selectTabFirst ? '-20px':'', paddingTop: !selectTabFirst ? '20px':''}"
+                            :style="{ marginTop: !selectTabFirst ? '-20px' : '', paddingTop: !selectTabFirst ? '20px' : '' }"
                             @click.stop="changeFloors('set')"
                         >
-                            <bannerHeadSearch ref="bannerHeadSearch" :floors="parmas.head.data.searchAndBannerData.banner" :parmas="parmas" :platform="platform" />
-						</div>
-                        <div class="position-relative" :style="{ marginTop :`${conHeight}px` }" v-if="searchAndTabMode">
+                            <bannerHeadSearch
+                                ref="bannerHeadSearch"
+                                :floors="parmas.head.data.searchAndBannerData.banner"
+                                :parmas="parmas"
+                                :platform="platform"
+                            />
+                        </div>
+                        <div v-if="searchAndTabMode" class="position-relative" :style="{ marginTop: `${conHeight}px` }">
                             <vuedraggable
                                 v-model="parmas.floors"
                                 :options="{ group: 'data', animation: 150, chosenClass: 'shadow-lg', scroll: true, scrollSensitivity: 200 }"
@@ -129,19 +162,18 @@
                                 </transition-group>
                             </vuedraggable>
                         </div>
-						<!-- 搜索+标签栏 -->
-						<div
-						    v-if="
-						        parmas.head.type == 'searchAndTab' &&
-						        (decoratePageDTO.category == 'INDEX' || decoratePageDTO.category == 'INDEX-T')
-						    "
-						    :style="{ marginTop :`${conHeight}px` }"
-						    class="cursor-pointer overflow-h"
-						    @click.stop="changeFloors('set')"
-						>
-						    <iframe id="iframeId" v-show="iframeUrl" class="w-100 border-none" :src="iframeUrl" :height="height - 174"></iframe>
-						</div>
-					</template>
+                        <!-- 搜索+标签栏 -->
+                        <div
+                            v-if="
+                                parmas.head.type == 'searchAndTab' && (decoratePageDTO.category == 'INDEX' || decoratePageDTO.category == 'INDEX-T')
+                            "
+                            :style="{ marginTop: `${conHeight}px` }"
+                            class="cursor-pointer overflow-h"
+                            @click.stop="changeFloors('set')"
+                        >
+                            <iframe v-show="iframeUrl" id="iframeId" class="w-100 border-none" :src="iframeUrl" :height="height - 174"></iframe>
+                        </div>
+                    </template>
                 </iphone>
             </div>
 
@@ -151,7 +183,7 @@
                 class="right-edge position-absolute bottom-0 h-100 bg-transparent p-20 overflow-x-h overflow-y-scroll top-0 left-0"
                 style="width: 220px; min-width: 200px"
             >
-                <addFloors v-model="parmas" :uuid.sync="currentUUid" :is-wide-screen.sync="isWideScreen" :ctrlType="ctrlType"/>
+                <addFloors v-model="parmas" :uuid.sync="currentUUid" :is-wide-screen.sync="isWideScreen" :ctrl-type="ctrlType" />
             </div>
 
             <!-- 右边侧边栏 -->
@@ -160,10 +192,10 @@
                 class="right-edge position-fixed bottom-0 right-0 shadow-sm p-20 bg-white overflow-x-h overflow-y-scroll zindex-109"
                 style="width: 480px; min-width: 380px; top: 63px"
             >
-                <setting v-if="ctrlType == 'set'" ref="floorFlag" v-model="parmas" :uuid.sync="currentUUid" @change="changeHead"/>
-                <setUp v-else-if="ctrlType == 'setUp'" v-model="parmas" :uuid.sync="currentUUid"/>
-				<addFloors v-else-if="ctrlType == 'add'" v-model="parmas" :uuid.sync="currentUUid"/>
-                <manFloors v-else-if="ctrlType == 'man'" v-model="parmas" :uuid.sync="currentUUid" @clickFloor="clickFloor"/>
+                <setting v-if="ctrlType == 'set'" ref="floorFlag" v-model="parmas" :uuid.sync="currentUUid" @change="changeHead" />
+                <setUp v-else-if="ctrlType == 'setUp'" v-model="parmas" :uuid.sync="currentUUid" />
+                <addFloors v-else-if="ctrlType == 'add'" v-model="parmas" :uuid.sync="currentUUid" />
+                <manFloors v-else-if="ctrlType == 'man'" v-model="parmas" :uuid.sync="currentUUid" @clickFloor="clickFloor" />
                 <template v-else>
                     <component
                         :is="currentParmas.type + 'Ctrl'"
@@ -188,7 +220,7 @@
 <script>
 // JS方法
 import { defFloorVal } from './components/defFloorVal.js'
-import { throttle } from '@/utils/utils.js';
+import { throttle } from '@/utils/utils.js'
 import eventBus from '@/store/eventBus.js'
 
 // API接口
@@ -313,24 +345,24 @@ export default {
                     //头部组件
                     type: 'searchAndBanner', //头部组件类型：searchAndBanner：搜索+轮播图，searchAndTitle：搜索+标题栏，searchAndTab：搜索+标签页，none：无
                     themeColor: true, // 是否应用主题颜色(此时backgroundColor将会失效)
-					backgroundColor: '', // 背景颜色
-					backgroundImg: '', // 背景图
+                    backgroundColor: '', // 背景颜色
+                    backgroundImg: '', // 背景图
                     seachColor: '', // 搜索框颜色
                     bgGradualChange: false, // 背景色渐变
                     color: '#ffffff', // 文字颜色
                     // showLocation: true, // 显示关闭定位
-					locationAndLogo: {
-					    flag: 0, //默认显示定位 0为无 1为定位 2为logo
-					    logo: '', //logo图标
-					    logoWidth: 28 ,//logo宽度
-						logoBorderRadius:28,//logo圆角
-					},
+                    locationAndLogo: {
+                        flag: 0, //默认显示定位 0为无 1为定位 2为logo
+                        logo: '', //logo图标
+                        logoWidth: 28, //logo宽度
+                        logoBorderRadius: 28 //logo圆角
+                    },
                     showMessage: true, // 显示信息
-					title:{
-						name:'',//商城名字
-						size:18,//字体大小
-						fontWeight:'bold',//字重
-					},
+                    title: {
+                        name: '', //商城名字
+                        size: 18, //字体大小
+                        fontWeight: 'bold' //字重
+                    },
                     data: {
                         //不同type头部组件的专属数据
                         searchAndBannerData: {
@@ -356,29 +388,29 @@ export default {
                         },
                         searchAndTitleData: {},
                         searchAndTabData: {
-							tabBgThemeColor: false, //tab栏背景颜色采用主题色(这时tabBgColor会失效)
-							tabBgColor: '#fff', //tab栏自定义颜色
-							tabsType: 'pills', //下标样式，pills：胶囊模式，line：下划线模式，none：不显示下标
-							tabCurThemeColor: true, //tab栏选中的字体颜色采用主题色(这时tabCurColor会失效)
-							tabCurColor: '#333333', //tab栏选中的字体颜色
-							tabNoCurColor: '#999999', //tab栏未选中的字体颜色
-							tabsShow: true, //是否显示tab菜单栏。
-							linkType: 'poster', //海报链接的类型
-							bgGradualChange: false, // 背景色渐变
-							showCategoryText:true,//显示文字
-							showCategoryIcon:true,//显示图标
-							tabList: [
-								{
-									uuid: this.$utils.createUUID(),
-									isSelect: true,
-									title: '首页',
-									type: 'homePage', //首页 不可删除
-									themeColor: false,
-									color: '', //字体颜色
-									url: {}, //把对应的type的选中的元素对象赋值到该对象中
-								}
-							]
-						}
+                            tabBgThemeColor: false, //tab栏背景颜色采用主题色(这时tabBgColor会失效)
+                            tabBgColor: '#fff', //tab栏自定义颜色
+                            tabsType: 'pills', //下标样式，pills：胶囊模式，line：下划线模式，none：不显示下标
+                            tabCurThemeColor: true, //tab栏选中的字体颜色采用主题色(这时tabCurColor会失效)
+                            tabCurColor: '#333333', //tab栏选中的字体颜色
+                            tabNoCurColor: '#999999', //tab栏未选中的字体颜色
+                            tabsShow: true, //是否显示tab菜单栏。
+                            linkType: 'poster', //海报链接的类型
+                            bgGradualChange: false, // 背景色渐变
+                            showCategoryText: true, //显示文字
+                            showCategoryIcon: true, //显示图标
+                            tabList: [
+                                {
+                                    uuid: this.$utils.createUUID(),
+                                    isSelect: true,
+                                    title: '首页',
+                                    type: 'homePage', //首页 不可删除
+                                    themeColor: false,
+                                    color: '', //字体颜色
+                                    url: {} //把对应的type的选中的元素对象赋值到该对象中
+                                }
+                            ]
+                        }
                     }
                 },
 
@@ -396,39 +428,39 @@ export default {
                     offsetBottom: 30, //距离底部导航栏多少px
                     img: '',
                     url: {}
-                },
+                }
             },
             currentUUid: '', // 记录当前编辑的楼层的UUid
             ctrlType: 'set', // 右则栏的状态，set：基本配置，setUp：功能配置，add：添加楼层，man：管理组件，其它不是set或add或man的值：编辑(各个)楼层的edit，copy，delete，down，up
             platform: 'APP', //'APP'：APP端，'MP'：小程序端，'H5'：H5端
             iphoneScale: '1.0', // 手机视窗的大小
             isWideScreen: true, //监听PC屏幕是不是宽屏
-            scrollTop: 0 ,//监听屏幕滚动
-			isUser:this.$route.query.isUser ? true:'',//如果是点击了【页面模板】或【海报模板】里的【应用】进来的
+            scrollTop: 0, //监听屏幕滚动
+            isUser: this.$route.query.isUser ? true : '', //如果是点击了【页面模板】或【海报模板】里的【应用】进来的
 
             // 顶部栏[三端宽度]
-            platformWidth: [],  //分别为三个按钮的宽度
-            platformMove: 0,        //移动距离
-            platformStyle: {        //顶部栏三角形样式
-                'opacity': 0,
-                'left': 0,
-                'transfrom': 'translateX(0)',
-                'transition': 'all ease .4s',
-            },  
-			iframeUrl:'',
+            platformWidth: [], //分别为三个按钮的宽度
+            platformMove: 0, //移动距离
+            platformStyle: {
+                //顶部栏三角形样式
+                opacity: 0,
+                left: 0,
+                transfrom: 'translateX(0)',
+                transition: 'all ease .4s'
+            },
+            iframeUrl: ''
         }
     },
     computed: {
-		// 编辑当前楼层时临时保存的数据
-		currentParmas:{
-			 get () {
-				 if (!this.currentUUid) {
-					 return {}
-				 }
-				 return this.parmas.floors.find((item) => item.uuid == this.currentUUid)
-			 },
-			 
-		},
+        // 编辑当前楼层时临时保存的数据
+        currentParmas: {
+            get() {
+                if (!this.currentUUid) {
+                    return {}
+                }
+                return this.parmas.floors.find((item) => item.uuid == this.currentUUid)
+            }
+        },
         themesRGBA05() {
             const color = this.$utils.color.colorRgb(this.parmas.themeColor)
             return `rgba(${color.r}, ${color.g},${color.b},.5)`
@@ -439,46 +471,60 @@ export default {
                 // if (this.ctrlType == 'set' || this.ctrlType == 'add' || this.ctrlType == 'man' || this.ctrlType == 'setUp') {
                 this.currentUUid = '' //如果右侧侧边栏不是编辑中，则清空currentUUid，不然点击添加楼层时，生成的新楼层位置会在该currentUUid值的楼层以下
             }
-            return this.ctrlType != 'set' && this.ctrlType != 'setUp'? true : false
+            return this.ctrlType != 'set' && this.ctrlType != 'setUp' ? true : false
             // return this.ctrlType != 'set' && this.ctrlType != 'add' && this.ctrlType != 'man' && this.ctrlType != 'setUp' ? true : false;
         },
-		searchAndTabMode() {
-		    // 用于判断头部组件是否开启了 搜索+标签页 如果开启了，且选择了第一个标签（默认首页），则显示组件楼层
-		    return !['searchAndTab'].includes(this.parmas.head.type) || this.parmas.head.data.searchAndTabData.tabList.some(item => item.isSelect && item.type =='homePage')
-		},
-		selectTabFirst() {
-		    // 用于判断是否选中了 搜索+标签页 的首页
-		    return ['searchAndTab'].includes(this.parmas.head.type) && this.parmas.head.data.searchAndTabData.tabList.some(item => item.isSelect && item.type =='homePage')
-		},
-		
-		// 如果是后台选择了[搜索+轮播图]且开了轮播图开关且已经上传了轮播图
-		showBanner(){
-			return this.parmas.head && this.parmas.head.type == 'searchAndBanner' && this.parmas.head.data.searchAndBannerData.showBanner&&this.parmas.head.data.searchAndBannerData.banner.imgList.length
-		},
-		
-		// 用来处理各种情况下的占位符
-		conHeight(){
-			let height = 0
-			// setUpHead头部组件高度的占位符(注意：这个如果手机端是写在setUpHead里的话，由于手机端是用了竖向flex布局，而这个头部组件是在滚动view之外的，就会出现页面向下滚动时，页面显示穿透不了点位符的问题)
-			// if(this.selectTabFirst){
-			if(this.parmas.head.type == 'searchAndTab' && (this.decoratePageDTO.category == 'INDEX'||this.decoratePageDTO.category == 'INDEX-T')){
-				// 之前的代码
-				// height = (this.selectTabFirst&&this.parmas.head.data.searchAndTabData.tabsShow?40:0) + (this.parmas.head.title.name?40:0) + (this.selectTabFirst?44:0)
-				// 现在的代码
-				height = (this.parmas.head.data.searchAndTabData.tabsShow?40:0) + (this.parmas.head.title.name?40:0) + 44
-			} else if(this.parmas.head.type == 'searchAndBanner' && (this.decoratePageDTO.category == 'INDEX'||this.decoratePageDTO.category == 'INDEX-T')){
-				 // 如果没有设置头部轮播图或者设置了轮播图却没上传一张图片时，则加一个44px的占位符
-				 // 如果没有设置商城名字，则加一个40px的占位符
-				height = (!this.showBanner?40:0) + (this.parmas.head.title.name&&!this.showBanner?40:0)
-			}
-			return height
-		}
+        searchAndTabMode() {
+            // 用于判断头部组件是否开启了 搜索+标签页 如果开启了，且选择了第一个标签（默认首页），则显示组件楼层
+            return (
+                !['searchAndTab'].includes(this.parmas.head.type) ||
+                this.parmas.head.data.searchAndTabData.tabList.some((item) => item.isSelect && item.type == 'homePage')
+            )
+        },
+        selectTabFirst() {
+            // 用于判断是否选中了 搜索+标签页 的首页
+            return (
+                ['searchAndTab'].includes(this.parmas.head.type) &&
+                this.parmas.head.data.searchAndTabData.tabList.some((item) => item.isSelect && item.type == 'homePage')
+            )
+        },
+
+        // 如果是后台选择了[搜索+轮播图]且开了轮播图开关且已经上传了轮播图
+        showBanner() {
+            return (
+                this.parmas.head &&
+                this.parmas.head.type == 'searchAndBanner' &&
+                this.parmas.head.data.searchAndBannerData.showBanner &&
+                this.parmas.head.data.searchAndBannerData.banner.imgList.length
+            )
+        },
+
+        // 用来处理各种情况下的占位符
+        conHeight() {
+            let height = 0
+            // setUpHead头部组件高度的占位符(注意：这个如果手机端是写在setUpHead里的话，由于手机端是用了竖向flex布局，而这个头部组件是在滚动view之外的，就会出现页面向下滚动时，页面显示穿透不了点位符的问题)
+            // if(this.selectTabFirst){
+            if (this.parmas.head.type == 'searchAndTab' && (this.decoratePageDTO.category == 'INDEX' || this.decoratePageDTO.category == 'INDEX-T')) {
+                // 之前的代码
+                // height = (this.selectTabFirst&&this.parmas.head.data.searchAndTabData.tabsShow?40:0) + (this.parmas.head.title.name?40:0) + (this.selectTabFirst?44:0)
+                // 现在的代码
+                height = (this.parmas.head.data.searchAndTabData.tabsShow ? 40 : 0) + (this.parmas.head.title.name ? 40 : 0) + 44
+            } else if (
+                this.parmas.head.type == 'searchAndBanner' &&
+                (this.decoratePageDTO.category == 'INDEX' || this.decoratePageDTO.category == 'INDEX-T')
+            ) {
+                // 如果没有设置头部轮播图或者设置了轮播图却没上传一张图片时，则加一个44px的占位符
+                // 如果没有设置商城名字，则加一个40px的占位符
+                height = (!this.showBanner ? 40 : 0) + (this.parmas.head.title.name && !this.showBanner ? 40 : 0)
+            }
+            return height
+        }
     },
     watch: {
         currentUUid: {
             handler(newValue, oldValue) {
                 if (newValue) {
-					this.clickFloor(newValue)
+                    this.clickFloor(newValue)
                 }
             },
             deep: true,
@@ -494,23 +540,26 @@ export default {
             immediate: true
         },
         // 监听[三个按钮]的切换 做动画
-        'platform'(nV, oV) {
-            const weightMap = {  //权重对应
-                'APP': 0,
-                'MP': 1,
-                'H5': 2
+        platform(nV, oV) {
+            const weightMap = {
+                //权重对应
+                APP: 0,
+                MP: 1,
+                H5: 2
             }
-            let platformWidth = this.platformWidth;     //缩短作用域链
-            let step = weightMap[nV] - weightMap[oV];
-            let direction = step < 0;       //左移[true]还是右移[false]
-            let diffDis = 0;        //移动距离
-            if(Math.abs(step) > 1){   //走2步
-                diffDis = platformWidth[0] / 2 + platformWidth[1] + platformWidth[2] / 2 + 2*10;   //1,3按钮宽度各一半+2按钮+2间距
-            }else {     //走1步
-                diffDis = platformWidth[weightMap[nV]] / 2 + platformWidth[weightMap[oV]] / 2 + 10;     //各自按钮一半 + 1间距
+            let platformWidth = this.platformWidth //缩短作用域链
+            let step = weightMap[nV] - weightMap[oV]
+            let direction = step < 0 //左移[true]还是右移[false]
+            let diffDis = 0 //移动距离
+            if (Math.abs(step) > 1) {
+                //走2步
+                diffDis = platformWidth[0] / 2 + platformWidth[1] + platformWidth[2] / 2 + 2 * 10 //1,3按钮宽度各一半+2按钮+2间距
+            } else {
+                //走1步
+                diffDis = platformWidth[weightMap[nV]] / 2 + platformWidth[weightMap[oV]] / 2 + 10 //各自按钮一半 + 1间距
             }
-            diffDis *= direction ? -1 : 1;
-            this.platformMove += diffDis;   //移动距离
+            diffDis *= direction ? -1 : 1
+            this.platformMove += diffDis //移动距离
             this.platformStyle.transform = `translateX(${this.platformMove}px)`
         }
     },
@@ -518,11 +567,11 @@ export default {
         console.log('走了activated')
     },
     mounted() {
-		eventBus.$on('iframeUrl',(val)=>{
-			// console.log('组件传过来的值：',val)
-			this.iframeUrl = val
-		})
-        this.getPlatformBtnWidth();     //获取顶部栏按钮宽度
+        eventBus.$on('iframeUrl', (val) => {
+            // console.log('组件传过来的值：',val)
+            this.iframeUrl = val
+        })
+        this.getPlatformBtnWidth() //获取顶部栏按钮宽度
         if (this.$route.query.category) {
             //这个赋值要放在mounted的第一位，不然下面dialogFirstComeIn.showDialog()时由于没赋到值而出现bug
             this.decoratePageDTO.category = this.parmas.category = this.$route.query.category
@@ -546,7 +595,7 @@ export default {
                             this.decoratePageDTO = res.data
                             let parmasData = JSON.parse(res.data.data)
                             this.$set(this, 'parmas', this.$utils.object.deepMerge(this.parmas, parmasData)) //防止增加或修改参数后，旧数据报错
-                            console.log('edit-parmas~~~~~~~~',this.parmas)
+                            console.log('edit-parmas~~~~~~~~', this.parmas)
                         }
                     }
                 })
@@ -570,11 +619,11 @@ export default {
         setBannerHeight(scrollWidth) {
             if (scrollWidth <= 1180) {
                 this.isWideScreen = false
-				if (scrollWidth <= 1000){
-					this.iphoneScale = scrollWidth*0.8/1000
-				}
+                if (scrollWidth <= 1000) {
+                    this.iphoneScale = (scrollWidth * 0.8) / 1000
+                }
             } else {
-				this.iphoneScale = 1
+                this.iphoneScale = 1
                 this.isWideScreen = true
             }
             this.$forceUpdate() //不强制刷新的话值页面不会渲染
@@ -615,14 +664,24 @@ export default {
             }
 
             if (type == 'copy') {
-				if (this.parmas.floors[index].type == 'prodList'&&this.parmas?.floors?.filter((item)=>{ return item.type == 'prodList' })?.length>=5) {
-					this.$message({ message: '备注：出于性能上的考虑，该楼层整个页面最多只允许存在五个', type: 'warning' })
-					return
-				}
-				if (this.parmas.floors[index].type != 'assistLine'&&this.parmas?.floors?.filter((item)=>{ return item.type != 'assistLine' })?.length>=30) {
-					this.$message({ message: '备注：出于性能上的考虑，页面最多只允许存在30个楼层', type: 'warning' })
-					return
-				}
+                if (
+                    this.parmas.floors[index].type == 'prodList' &&
+                    this.parmas?.floors?.filter((item) => {
+                        return item.type == 'prodList'
+                    })?.length >= 5
+                ) {
+                    this.$message({ message: '备注：出于性能上的考虑，该楼层整个页面最多只允许存在五个', type: 'warning' })
+                    return
+                }
+                if (
+                    this.parmas.floors[index].type != 'assistLine' &&
+                    this.parmas?.floors?.filter((item) => {
+                        return item.type != 'assistLine'
+                    })?.length >= 30
+                ) {
+                    this.$message({ message: '备注：出于性能上的考虑，页面最多只允许存在30个楼层', type: 'warning' })
+                    return
+                }
                 const addFloor = this.$utils.object.deepClone(this.parmas.floors[index])
                 addFloor.uuid = this.$utils.createUUID()
                 this.parmas.floors.splice(index + 1, 0, addFloor)
@@ -655,13 +714,15 @@ export default {
             let validate = true //校验是否通过
             if (this.$refs.floorFlag && this.$refs.floorFlag.checkForm && this.$refs.floorFlag.checkForm().length) {
                 let alertMessage = ''
-				this.$refs.floorFlag.checkForm().forEach(element => {
-					alertMessage += `右侧底部列表${
-						element.field.split('.')[1]
-							? `的<span style="color:red">${element.fieldName||''}</span>第<span style="color:red">` + (Number(element.field.split('.')[1]) + 1) + '</span>项'
-							: ''
-					}：<span style="color:red">${element.message}</span>；</br>`;
-				});
+                this.$refs.floorFlag.checkForm().forEach((element) => {
+                    alertMessage += `右侧底部列表${
+                        element.field.split('.')[1]
+                            ? `的<span style="color:red">${element.fieldName || ''}</span>第<span style="color:red">` +
+                              (Number(element.field.split('.')[1]) + 1) +
+                              '</span>项'
+                            : ''
+                    }：<span style="color:red">${element.message}</span>；</br>`
+                })
                 this.$alert(`<strong>页面右侧操作框内有以下必填项没填，请先去完善数据:</strong></br>${alertMessage}`, '警告：', {
                     dangerouslyUseHTMLString: true,
                     confirmButtonText: '知道了'
@@ -690,24 +751,24 @@ export default {
             that.decoratePageDTO.data = JSON.stringify(that.parmas)
             console.log('confirm-parmas~~~~~~~~~', that.parmas)
             console.log('decoratePageDTO:', that.decoratePageDTO)
-			if(that.isUser){
-				that.decoratePageDTO.id = ''
-				if(that.decoratePageDTO.category=='INDEX-T'){
-					that.decoratePageDTO.category='INDEX'
-				}
-				if(that.decoratePageDTO.category=='POSTER-T'){
-					that.decoratePageDTO.category='POSTER'
-				}
-			}
+            if (that.isUser) {
+                that.decoratePageDTO.id = ''
+                if (that.decoratePageDTO.category == 'INDEX-T') {
+                    that.decoratePageDTO.category = 'INDEX'
+                }
+                if (that.decoratePageDTO.category == 'POSTER-T') {
+                    that.decoratePageDTO.category = 'POSTER'
+                }
+            }
             decorate[api](that.decoratePageDTO)
                 .then((res) => {
                     if (res.code) {
                         that.$message({ message: `${api == 'save' ? '保存' : '发布'}成功`, type: 'success' })
                         if (api == 'save') {
                             that.decoratePageDTO.id = res.data
-							if(that.isUser){
-								that.isUser = ''
-							}
+                            if (that.isUser) {
+                                that.isUser = ''
+                            }
                         }
                         if (api == 'release') {
                             that.$router.push({ name: 'mbTrimIndex', params: { category: that.decoratePageDTO.category } })
@@ -725,48 +786,54 @@ export default {
             if (!this.getFormMessage()) return //如果form表单里的必填项校验没有通过，则在这里return
             this.ctrlType = flag
         },
-		// 点击【添加楼层】里的按钮或点击【组件管理】里的楼层触发
-		clickFloor:throttle(function(curUid){
-			//如果是宽屏，点击【楼层】添加楼层，右则侧边栏切换到编辑界面。如果不是宽屏并且右则侧边栏为【添加楼层】，点击【楼层】添加楼层，右则侧边栏切换到编辑界面。
-			// if (curUid && ((!this.isWideScreen&&this.ctrlType == 'add')||this.isWideScreen) ) {
-			// 如果点击了【添加楼层】里的的楼层添加楼层
-			this.ctrlType = 'edit' // 右边侧边栏马上跳到该添加的楼层的编辑组件里
-			this.$nextTick(() => {
-			    this.$refs[curUid][0].$el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }) //定位到当前楼层
-			})
-		}),
+        // 点击【添加楼层】里的按钮或点击【组件管理】里的楼层触发
+        clickFloor: throttle(function (curUid) {
+            //如果是宽屏，点击【楼层】添加楼层，右则侧边栏切换到编辑界面。如果不是宽屏并且右则侧边栏为【添加楼层】，点击【楼层】添加楼层，右则侧边栏切换到编辑界面。
+            // if (curUid && ((!this.isWideScreen&&this.ctrlType == 'add')||this.isWideScreen) ) {
+            // 如果点击了【添加楼层】里的的楼层添加楼层
+            this.ctrlType = 'edit' // 右边侧边栏马上跳到该添加的楼层的编辑组件里
+            this.$nextTick(() => {
+                this.$refs[curUid][0].$el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }) //定位到当前楼层
+            })
+        }),
         // 获取顶部栏的按钮宽度
         getPlatformBtnWidth() {
             // console.log('ref--', [this.$refs.platform])
-            let ref_platform = this.$refs.platform;
-            let index = 0, tempWidth = [], totalWidth = 0;
-            for(let each of ref_platform.children) {
-                if(index > 2) {
-                    break;
+            let ref_platform = this.$refs.platform
+            let index = 0,
+                tempWidth = [],
+                totalWidth = 0
+            for (let each of ref_platform.children) {
+                if (index > 2) {
+                    break
                 }
                 tempWidth.push(each.offsetWidth)
-                ++index;
+                ++index
             }
-            this.platformWidth = tempWidth;
-            totalWidth = tempWidth.reduce((pre,cur)=> pre+cur, 0);
+            this.platformWidth = tempWidth
+            totalWidth = tempWidth.reduce((pre, cur) => pre + cur, 0)
             // console.log('plat--', this.platformWidth)
             Object.assign(this.platformStyle, {
-                'left': `calc((100% - ${totalWidth}px) / 2)`,
+                left: `calc((100% - ${totalWidth}px) / 2)`
             })
-            this.$nextTick(()=>{
-                let id = setTimeout(()=> {      //延迟显示
-                    this.platformStyle.opacity = 1;
+            this.$nextTick(() => {
+                let id = setTimeout(() => {
+                    //延迟显示
+                    this.platformStyle.opacity = 1
                     clearTimeout(id)
                 }, 300)
             })
         },
-		changeHead(type) {
-		    if(type == 'searchAndBanner') { //搜索+轮播图
-		        this.$refs.bannerHeadSearch.$el.scrollIntoView && this.$refs.bannerHeadSearch.$el.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
-		    } else if(type == 'searchAndTab') { //搜索+标签页
-		        // this.$refs.setUpHead.$el && this.$refs.setUpHead.$el.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
-		    }
-		}
+        changeHead(type) {
+            if (type == 'searchAndBanner') {
+                //搜索+轮播图
+                this.$refs.bannerHeadSearch.$el.scrollIntoView &&
+                    this.$refs.bannerHeadSearch.$el.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+            } else if (type == 'searchAndTab') {
+                //搜索+标签页
+                // this.$refs.setUpHead.$el && this.$refs.setUpHead.$el.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
+            }
+        }
     }
 }
 </script>
@@ -868,8 +935,9 @@ body::-webkit-scrollbar-corner {
         margin-left: 210px;
         .el-button--text {
             color: #fff;
-            &.curPlatform { //当前激活按钮样式
-                transition: all ease .4s;
+            &.curPlatform {
+                //当前激活按钮样式
+                transition: all ease 0.4s;
                 transform: scale(1.2);
             }
         }

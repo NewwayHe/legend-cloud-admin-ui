@@ -2,21 +2,21 @@
     <!-- /*
      * @Descripttion:(楼层组件：动态广播)：noticeBar
     */ -->
-    <div :style="{ color: floors.fontThemeColor ? parmas.themeColor : floors.color,padding: `${floors.paddingY}px ${floors.paddingX}px` }">
+    <div :style="{ color: floors.fontThemeColor ? parmas.themeColor : floors.color, padding: `${floors.paddingY}px ${floors.paddingX}px` }">
         <div
             class="font-14 overflow-h flex-start px-15"
-			:class="[{ 'rounded-10': floors.borderRadius }]"
+            :class="[{ 'rounded-10': floors.borderRadius }]"
             :style="{ backgroundColor: floors.themeColor ? parmas.themeColor : floors.backgroundColor, color: floors.contentColor }"
-            style="height: 32px;"
+            style="height: 32px"
         >
             <div class="font-weight" :style="{ color: floors.titleThemeColor ? parmas.themeColor : floors.titleColor }">{{ floors.title }}</div>
             <div class="pl-15 flex-1 flex-start" :style="{ color: floors.contentColor }">
                 <i class="iconfont icon-laba1 mr-5"></i>
                 <el-carousel class="flex-1" height="32px" direction="vertical" :autoplay="true" :indicator-position="'none'">
                     <el-carousel-item v-for="(item, index) in list" :key="index">
-						<div class="flex-start w-100 h-100 overflow-h">
-							<span class="line-clamp1" :style="{ color: item.color ? item.color : '' }" v-html="item.title"></span>
-						</div>
+                        <div class="flex-start w-100 h-100 overflow-h">
+                            <span class="line-clamp1" :style="{ color: item.color ? item.color : '' }" v-html="item.title"></span>
+                        </div>
                     </el-carousel-item>
                 </el-carousel>
             </div>

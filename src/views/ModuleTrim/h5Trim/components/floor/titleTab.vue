@@ -8,9 +8,9 @@
         :class="[floors.titleType == 1 ? 'flex-start' : 'flex-center']"
         :style="{
             backgroundColor: floors.themeColor ? parmas.themeColor : floors.backgroundColor,
-			borderRadius: borderRadius||0,
-			margin: `0 ${floors.paddingX?floors.paddingX + 'px':'0'}`
-		}"
+            borderRadius: borderRadius || 0,
+            margin: `0 ${floors.paddingX ? floors.paddingX + 'px' : '0'}`
+        }"
     >
         <div v-if="floors.titleType == 3" class="flex-1 px-10">
             <div class="h-0 w-100" :style="{ borderTop: `1px solid ${floors.data.title.borderColor}` }"></div>
@@ -101,19 +101,19 @@ export default {
             //如果菜单组件是第一层，在小程序时加入胶囊点占符
             return this.parmas.floors && this.parmas.floors[0].uuid == this.floors.uuid ? true : false
         },
-		borderRadius() {
-			let br = this.floors.borderRadius||0
-		    switch (this.floors.radius) {
-		        case 'top':
-		            return `${br}px ${br}px 0 0`
-		        case 'bottom':
-		            return `0 0 ${br}px ${br}px`
-		        case 'topAndBottom':
-		            return `${br}px`
-		        default:
-		            return '0'
-		    }
-		}
+        borderRadius() {
+            let br = this.floors.borderRadius || 0
+            switch (this.floors.radius) {
+                case 'top':
+                    return `${br}px ${br}px 0 0`
+                case 'bottom':
+                    return `0 0 ${br}px ${br}px`
+                case 'topAndBottom':
+                    return `${br}px`
+                default:
+                    return '0'
+            }
+        }
     },
     watch: {},
     mounted() {},

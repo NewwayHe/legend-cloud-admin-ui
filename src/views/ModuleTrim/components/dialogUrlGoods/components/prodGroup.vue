@@ -51,7 +51,7 @@
 <script>
 import { decorate } from '@/api/ModuleTrim'
 export default {
-    components: { },
+    components: {},
     props: {
         value: {
             type: Object,
@@ -82,7 +82,7 @@ export default {
             themeRGB: this.$utils.color.colorRgb(this.parmas.themeColor),
             loading: false,
             tempList: [], // 商品传入的临时数据。用于组件缓存数据
-            noMsg: false,
+            noMsg: false
         }
     },
     computed: {
@@ -106,21 +106,21 @@ export default {
                     if (newValue && newValue[this.field] && newValue[this.field].idList && newValue[this.field].idList.length) {
                         // 回选
                         this.tempList = this.$utils.object.deepClone(newValue[this.field].idList)
-                    }else{
-						this.tempList = []
-					}
+                    } else {
+                        this.tempList = []
+                    }
                 } else {
                     if (newValue && newValue && newValue.idList && newValue.idList.length) {
                         // 回选
                         this.tempList = this.$utils.object.deepClone(newValue.idList)
-                    }else{
-						this.tempList = []
-					}
+                    } else {
+                        this.tempList = []
+                    }
                 }
             },
             deep: true,
             immediate: true
-        },
+        }
     },
     created() {
         this.getData()
@@ -208,9 +208,9 @@ export default {
                 this.tempList = this.tempList.filter((item) => !currentList.includes(item.id))
             }
         },
-		confirm(){
-			this.$emit('getTempList', 'idList', this.tempList)
-		}
+        confirm() {
+            this.$emit('getTempList', 'idList', this.tempList)
+        }
     }
 }
 </script>

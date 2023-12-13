@@ -1,4 +1,4 @@
- <!-- /*
+<!-- /*
  * @Descripttion:优惠券-领取信息组件
 */ -->
 <template>
@@ -18,7 +18,7 @@
             </template>
             <el-table-column label="序号" type="index" width="48" />
             <el-table-column prop="couponCode" show-overflow-tooltip label="券号" />
-            <el-table-column prop="mobile" show-overflow-tooltip label="用户手机号"/>
+            <el-table-column prop="mobile" show-overflow-tooltip label="用户手机号" />
             <el-table-column show-overflow-tooltip label="领取时间" width="140">
                 <template slot-scope="scope">{{ scope.row.getTime }}</template>
             </el-table-column>
@@ -48,7 +48,7 @@
 <script>
 import common from '@/mixins/pages/commom'
 export default {
-    components: { },
+    components: {},
     filters: {
         getStatus(status) {
             let lableTest = {

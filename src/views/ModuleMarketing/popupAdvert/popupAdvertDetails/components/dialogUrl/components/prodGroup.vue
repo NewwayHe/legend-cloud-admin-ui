@@ -129,12 +129,12 @@ export default {
             this.getData()
         },
         choice(e) {
-			let item = {
-				type: '商品分组',
-			    name: e.name,
-			    id: e.id,
-			}
-			this.$set(this.value, this.field, this.$utils.object.deepClone(item))
+            let item = {
+                type: '商品分组',
+                name: e.name,
+                id: e.id
+            }
+            this.$set(this.value, this.field, this.$utils.object.deepClone(item))
         },
         goGoodReative() {
             this.$router.push({

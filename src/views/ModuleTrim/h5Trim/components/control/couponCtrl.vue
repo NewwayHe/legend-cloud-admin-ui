@@ -26,11 +26,7 @@
                 <el-radio v-model="value.showIcon" :label="'diy'">
                     自定义
                     <div class="d-inline-block transition-all05 overflow-h v-middle" :style="{ width: `${value.showIcon == 'diy' ? '50px' : '0%'}` }">
-                        <imgCenter
-                            v-model="value.iconImg"
-                            :uploadStyle="{ width: '40px', height: '40px' }"
-                            :isPreview="false"
-                        ></imgCenter>
+                        <imgCenter v-model="value.iconImg" :upload-style="{ width: '40px', height: '40px' }" :is-preview="false"></imgCenter>
                     </div>
                     <el-tooltip v-if="value.showIcon == 'diy'" effect="dark" content="建议尺寸：60*60px" placement="top-start">
                         <i class="el-icon-question font-16 text-ccc main-hover"></i>
@@ -215,13 +211,13 @@ export default {
     methods: {
         checkForm() {
             let result = []
-			if (this.$refs.ruleForm) {
-				this.$refs.ruleForm.validate((valid, valobj) => {
-				    for (var key in valobj) {
-				        result.push(valobj[key][0]) //将错误信息输出到一个数组里,如果数组有length就是校验不通过，如果result的length为0则校验通过
-				    }
-				})
-			}
+            if (this.$refs.ruleForm) {
+                this.$refs.ruleForm.validate((valid, valobj) => {
+                    for (var key in valobj) {
+                        result.push(valobj[key][0]) //将错误信息输出到一个数组里,如果数组有length就是校验不通过，如果result的length为0则校验通过
+                    }
+                })
+            }
             return result
         },
         changeListType(e) {

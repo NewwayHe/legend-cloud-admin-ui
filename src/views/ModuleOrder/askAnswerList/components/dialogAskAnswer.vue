@@ -7,18 +7,18 @@
                 <div class="mb-30">
                     <div class="text-333 font-14">商品信息</div>
                     <div class="mt-15 d-flex">
-                        <ls-image style="flex: 0 0 50px" :src="data.pic" :options="{ w: '50', h: '50', br: '6' }"/>
+                        <ls-image style="flex: 0 0 50px" :src="data.pic" :options="{ w: '50', h: '50', br: '6' }" />
                         <el-popover placement="top-start" width="500" trigger="hover" :content="data.productName">
                             <div slot="reference" class="ml-10 line-clamp2 v-top">{{ data.productName }}</div>
                         </el-popover>
-                    </div>  
+                    </div>
                 </div>
                 <!-- 咨询信息： -->
                 <div class="mb-30">
                     <div class="text-333 font-14">咨询信息</div>
                     <div class="mt-15 d-flex">
                         <span class="text-nowrap">咨询内容：</span>
-                        <div>{{data.content || '-'}}</div>
+                        <div>{{ data.content || '-' }}</div>
                     </div>
                     <div class="mt-15">
                         咨询用户：
@@ -36,7 +36,7 @@
                         <div>{{ data.replySts == 1 ? data.answer : '-' }}</div>
                     </div>
                     <div class="mt-15">回复时间：{{ data.replySts == 1 ? data.answerTime : '-' }}</div>
-                    <div class="mt-15">回复账号：{{ data.replySts == 1 ? data.replyName : '-' }}</div> 
+                    <div class="mt-15">回复账号：{{ data.replySts == 1 ? data.replyName : '-' }}</div>
                 </div>
                 <!-- 其他信息： -->
                 <div>

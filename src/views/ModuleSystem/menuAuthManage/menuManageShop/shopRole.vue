@@ -4,7 +4,7 @@
 -->
 <template>
     <section>
-        <el-card :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 查询 -->
             <div class="search">
                 <el-form :inline="true" :model="searchFilters" size="small">
@@ -28,7 +28,7 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
                     <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="roleName" label="角色名称" />
@@ -74,11 +74,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
             <!-- 新增-编辑 -->
             <el-dialog :title="dialogForm.title" custom-class="dialog-form-small" :visible.sync="dialogForm.isVisible" @close="dialogClose">
@@ -151,9 +156,9 @@ export default {
             roleList: [],
             dialogForm: {
                 formData: {
-                    roleName: '',   //角色名称
-                    roleCode: '',   //角色编码
-                    roledesc: '',   //角色描述信息
+                    roleName: '', //角色名称
+                    roleCode: '', //角色编码
+                    roledesc: '', //角色描述信息
                     delFlag: true
                 },
                 formRule: {
@@ -214,8 +219,8 @@ export default {
         },
         // 新增/编辑关闭弹窗需要重置表单
         dialogClose() {
-            let originData = this.$options.data.call(this);
-            this.dialogForm.formData = originData.dialogForm.formData;
+            let originData = this.$options.data.call(this)
+            this.dialogForm.formData = originData.dialogForm.formData
         }
     }
 }

@@ -31,7 +31,7 @@
                         {{ scope.row.status | getLabelText(couponStatus) }}
                     </template>
                 </el-table-column>
-                <el-table-column label="操作" align="center"  fixed="right" >
+                <el-table-column label="操作" align="center" fixed="right">
                     <template slot-scope="scope">
                         <span class="table__action flex-center">
                             <el-link v-if="scope.row.status == 1" :underline="false" type="primary" @click="forceInvalid(scope.row)">
@@ -51,7 +51,7 @@
 import common from '@/mixins/pages/commom'
 import { couponApi } from '@/api/ModuleMarketing'
 export default {
-    components: { },
+    components: {},
     mixins: [common],
     props: ['couponId'],
     data() {

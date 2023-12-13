@@ -4,10 +4,19 @@
 <template>
     <section class="formWarp mb-20">
         <el-card v-loading="lodaing">
-            <h3 class="form-title">{{$route.meta.title}}</h3>
+            <h3 class="form-title">{{ $route.meta.title }}</h3>
             <el-form ref="form" :model="form" :rules="rules" label-width="132px" size="small">
                 <el-form-item label="标题：" prop="title">
-                    <el-input v-model="form.title" type="textarea" placeholder="标题" resize="none" class="w-450p" :autosize="true" :maxlength="50" show-word-limit/>
+                    <el-input
+                        v-model="form.title"
+                        type="textarea"
+                        placeholder="标题"
+                        resize="none"
+                        class="w-450p"
+                        :autosize="true"
+                        :maxlength="50"
+                        show-word-limit
+                    />
                 </el-form-item>
                 <el-form-item label="公告类型：" prop="type">
                     <el-select v-model="form.type" placeholder="请选择" clearable class="w-450p">
@@ -41,14 +50,12 @@
                     ></el-date-picker>
                 </el-form-item>
                 <el-form-item label="内容：" prop="content" class="btn_lastItem">
-					<!-- 不加v-if，编辑一个后，再编辑另一个时，页面上不渲染内容 -->
-                    <TinyMce v-model="form.content" v-if="!lodaing"/>
+                    <!-- 不加v-if，编辑一个后，再编辑另一个时，页面上不渲染内容 -->
+                    <TinyMce v-if="!lodaing" v-model="form.content" />
                 </el-form-item>
                 <el-form-item class="btnArea">
                     <el-button @click="onCancel">取消</el-button>
-                    <ls-button type="primary" :asyncFunction="dbnSubmit">
-						保存
-					</ls-button>
+                    <ls-button type="primary" :async-function="dbnSubmit">保存</ls-button>
                 </el-form-item>
             </el-form>
         </el-card>
@@ -62,17 +69,6 @@ import { notice } from '@/api/ModuleStore'
 import { debounce } from '@/utils/utils'
 export default {
     components: { TinyMce },
-    // name: 'noticeOperate',
-    computed: {
-        // 有效时间的可选范围为 [当天及之后]
-        selectTimeOpt() {
-            return ({
-                'disabledDate': (cur) => {
-                    return cur.getTime() < Date.now() - 8.64e7
-                }
-            })
-        },
-    },
     data() {
         return {
             form: {
@@ -90,14 +86,25 @@ export default {
                 content: [{ required: true, message: '请输入公告内容', trigger: 'blur' }]
             },
             isEdit: false,
-			lodaing:true
+            lodaing: true
         }
     },
-    beforeRouteEnter(to,from,next) {
-        if(to.query.type == 'edit') {
-            to.meta.title = '编辑公告'     //更改tab页同步标题
-        }else {
-            to.meta.title = '新增公告'     //更改tab页同步标题
+    // name: 'noticeOperate',
+    computed: {
+        // 有效时间的可选范围为 [当天及之后]
+        selectTimeOpt() {
+            return {
+                disabledDate: (cur) => {
+                    return cur.getTime() < Date.now() - 8.64e7
+                }
+            }
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        if (to.query.type == 'edit') {
+            to.meta.title = '编辑公告' //更改tab页同步标题
+        } else {
+            to.meta.title = '新增公告' //更改tab页同步标题
         }
         next()
     },
@@ -107,13 +114,13 @@ export default {
             this.getDetail()
         } else {
             this.isEdit = false
-			this.lodaing = false
+            this.lodaing = false
         }
     },
     methods: {
         // 获取详情(编辑时调用)
         getDetail() {
-			this.lodaing = true
+            this.lodaing = true
             notice
                 .detail(this.$route.query.id)
                 .then((res) => {
@@ -121,15 +128,16 @@ export default {
                 })
                 .catch((err) => {
                     console.log(err)
-                }).finally(()=>{
-					this.lodaing = false
-				})
+                })
+                .finally(() => {
+                    this.lodaing = false
+                })
         },
 
         // 提交
-        dbnSubmit(){
-            return new Promise(async resolve=>{
-                await this.$refs.form.validate(async(valid) => {
+        dbnSubmit() {
+            return new Promise(async (resolve) => {
+                await this.$refs.form.validate(async (valid) => {
                     if (valid) {
                         if (this.isEdit) {
                             console.log('before API')
@@ -140,45 +148,45 @@ export default {
                             await this.add()
                             resolve()
                         }
-                    }else{
+                    } else {
                         return resolve()
                     }
                 })
             })
-            
         },
         // 新增
         add() {
-            return new Promise(async (resolve,reject)=>{
-            if(this.form.startTime && this.form.endTime && new Date(this.form.startTime) >= new Date(this.form.endTime)) {
-                return this.$message.error('生效时间必须早于失效时间')
-            }
-            notice
-                .add(this.form)
-                .then((res) => {
-                    if (res.code) {
-                        this.$message({
-                            message: '新增成功',
-                            type: 'success',
-                        })
-                        console.log('before Redirect')
-                        this.$router.push({ path: '/ModuleStore/messageManage/notice' })
-                        console.log('After Redirect')
-                    }
-                })
-                .catch((err) => {
-                    console.log(err)
-                    reject(err)
-                }).finally(res=>{
-                    resolve()
-                })
+            return new Promise(async (resolve, reject) => {
+                if (this.form.startTime && this.form.endTime && new Date(this.form.startTime) >= new Date(this.form.endTime)) {
+                    return this.$message.error('生效时间必须早于失效时间')
+                }
+                notice
+                    .add(this.form)
+                    .then((res) => {
+                        if (res.code) {
+                            this.$message({
+                                message: '新增成功',
+                                type: 'success'
+                            })
+                            console.log('before Redirect')
+                            this.$router.push({ path: '/ModuleStore/messageManage/notice' })
+                            console.log('After Redirect')
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        reject(err)
+                    })
+                    .finally((res) => {
+                        resolve()
+                    })
             })
         },
 
         // 编辑
         edit() {
-            return new Promise(async (resolve,reject)=>{
-                if(this.form.startTime && this.form.endTime && new Date(this.form.startTime) >= new Date(this.form.endTime)) {
+            return new Promise(async (resolve, reject) => {
+                if (this.form.startTime && this.form.endTime && new Date(this.form.startTime) >= new Date(this.form.endTime)) {
                     return this.$message.error('生效时间必须早于失效时间')
                 }
                 notice
@@ -187,7 +195,7 @@ export default {
                         if (res.code) {
                             this.$message({
                                 message: '编辑成功',
-                                type: 'success',
+                                type: 'success'
                             })
                             this.$router.push({ path: '/ModuleStore/messageManage/notice' })
                         }
@@ -195,7 +203,8 @@ export default {
                     .catch((err) => {
                         console.log(err)
                         reject(err)
-                    }).finally(res=>{
+                    })
+                    .finally((res) => {
                         resolve()
                     })
             })
@@ -208,13 +217,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-    ::v-deep .el-textarea{
-        >.el-textarea__inner{
-            overflow: hidden;
-            word-break: break-all;
-        }
-        .el-input__count{
-            line-height: 1;
-        }
+::v-deep .el-textarea {
+    > .el-textarea__inner {
+        overflow: hidden;
+        word-break: break-all;
     }
+    .el-input__count {
+        line-height: 1;
+    }
+}
 </style>

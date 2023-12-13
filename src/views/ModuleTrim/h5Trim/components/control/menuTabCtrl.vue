@@ -109,8 +109,8 @@
                                 <imgCenter
                                     v-model="item.img"
                                     class="pr-15"
-                                    :uploadStyle="{ width: '35px', height: '35px' }"
-                                    :isPreview="false"
+                                    :upload-style="{ width: '35px', height: '35px' }"
+                                    :is-preview="false"
                                 ></imgCenter>
                                 <el-tooltip effect="dark" content="该项为非必填，建议尺寸：20*20px" placement="top-start">
                                     <i class="el-icon-question font-16 text-ccc main-hover v-bottom"></i>
@@ -164,24 +164,24 @@ export default {
     mounted() {},
     destroyed() {},
     methods: {
-		checkForm() {
-		    let result = []
-			if (this.$refs.ruleForm) {
-				this.$refs.ruleForm.validate((valid, valobj) => {
-				    for (var key in valobj) {
-				        result.push(valobj[key][0]) //将错误信息输出到一个数组里,如果数组有length就是校验不通过，如果result的length为0则校验通过
-				    }
-				})
-			}
-		    return result
-		},
+        checkForm() {
+            let result = []
+            if (this.$refs.ruleForm) {
+                this.$refs.ruleForm.validate((valid, valobj) => {
+                    for (var key in valobj) {
+                        result.push(valobj[key][0]) //将错误信息输出到一个数组里,如果数组有length就是校验不通过，如果result的length为0则校验通过
+                    }
+                })
+            }
+            return result
+        },
         del(index, flag) {
             this.value.data[flag].splice(index, 1)
         },
         add(flag) {
             let addData = this.$utils.object.deepClone(defFloorVal.menuTab.data[flag][0])
             addData.title = ''
-			if (!this.value.data[flag]) this.$set(this.value.data, flag, []);//兼容旧数据专用，如果是旧数据里的data里没有该flag数组，下面的push会报错，所以在这里强行添加一个
+            if (!this.value.data[flag]) this.$set(this.value.data, flag, []) //兼容旧数据专用，如果是旧数据里的data里没有该flag数组，下面的push会报错，所以在这里强行添加一个
             this.value.data[flag].push(addData)
             this.$emit('add', flag)
         }

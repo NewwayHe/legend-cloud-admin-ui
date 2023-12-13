@@ -36,17 +36,17 @@
                 >
                     <i class="el-icon-question font-16 text-ccc main-hover v-bottom"></i>
                 </el-tooltip>
-				<span class="pl-20 pr-5">圆角：</span>
-				<el-switch v-model="value.borderRadius"></el-switch>
+                <span class="pl-20 pr-5">圆角：</span>
+                <el-switch v-model="value.borderRadius"></el-switch>
             </div>
-			<div class="flex-start text-nowrap mt-15 w-100">
-				<span class="pr-15">上下边距：</span>
-				<el-slider v-model="value.paddingY" class="w-100" input-size="mini" :max="100" show-input></el-slider>
-			</div>
-			<div class="flex-start text-nowrap mt-15 w-100">
-				<span class="pr-15">左右边距：</span>
-				<el-slider v-model="value.paddingX" class="w-100" input-size="mini" :max="100" show-input></el-slider>
-			</div>
+            <div class="flex-start text-nowrap mt-15 w-100">
+                <span class="pr-15">上下边距：</span>
+                <el-slider v-model="value.paddingY" class="w-100" input-size="mini" :max="100" show-input></el-slider>
+            </div>
+            <div class="flex-start text-nowrap mt-15 w-100">
+                <span class="pr-15">左右边距：</span>
+                <el-slider v-model="value.paddingX" class="w-100" input-size="mini" :max="100" show-input></el-slider>
+            </div>
         </div>
 
         <!-- 可拖拽的列表： -->
@@ -143,17 +143,17 @@ export default {
     mounted() {},
     destroyed() {},
     methods: {
-		checkForm() {
-		    let result = []
-			if (this.$refs.ruleForm) {
-				this.$refs.ruleForm.validate((valid, valobj) => {
-				    for (var key in valobj) {
-				        result.push(valobj[key][0]) //将错误信息输出到一个数组里,如果数组有length就是校验不通过，如果result的length为0则校验通过
-				    }
-				})
-			}
-		    return result
-		},
+        checkForm() {
+            let result = []
+            if (this.$refs.ruleForm) {
+                this.$refs.ruleForm.validate((valid, valobj) => {
+                    for (var key in valobj) {
+                        result.push(valobj[key][0]) //将错误信息输出到一个数组里,如果数组有length就是校验不通过，如果result的length为0则校验通过
+                    }
+                })
+            }
+            return result
+        },
         del(index, flag) {
             this.value.data[flag].splice(index, 1)
         },
@@ -162,7 +162,7 @@ export default {
             addData.title = ''
             // console.log(addData)
             // console.log(this.value.data)
-			if (!this.value.data[flag]) this.$set(this.value.data, flag, []);//兼容旧数据专用，如果是旧数据里的data里没有该flag数组，下面的push会报错，所以在这里强行添加一个
+            if (!this.value.data[flag]) this.$set(this.value.data, flag, []) //兼容旧数据专用，如果是旧数据里的data里没有该flag数组，下面的push会报错，所以在这里强行添加一个
             this.value.data[flag].push(addData)
             this.$emit('add', flag)
         }

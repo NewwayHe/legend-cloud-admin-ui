@@ -1,4 +1,4 @@
- <!-- /*
+<!-- /*
  * @Descripttion: 菜单权限->商家角色->配置权限
 */ -->
 <template>
@@ -53,7 +53,7 @@ export default {
     methods: {
         submitForm(formName) {
             const keys = this.$refs.tree.getCheckedKeys()
-            const parentKeys = this.$refs.tree.getHalfCheckedKeys()//父节点也要传，不然即使选了子节点也还是没权限
+            const parentKeys = this.$refs.tree.getHalfCheckedKeys() //父节点也要传，不然即使选了子节点也还是没权限
             shopAuthManage.saveRole({ roleId: this.roleId, menuIds: keys.concat(parentKeys).join() }).then((res) => {
                 if (res.code === 1) {
                     this.$message.success(`编辑成功`)
@@ -90,6 +90,5 @@ export default {
     }
 }
 </script>
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 <style lang="scss" scoped></style>

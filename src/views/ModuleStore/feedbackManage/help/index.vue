@@ -6,7 +6,7 @@
         <el-card>
             <!-- 查询 -->
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="栏目名称">
                         <el-input v-model="searchFilters.newsCategoryName" placeholder="栏目名称" />
                     </el-form-item>
@@ -43,7 +43,7 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100 mb-20"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
                     <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="displayPage" label="显示页面">
@@ -78,11 +78,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
                 <el-alert type="warning" class="defalult mt-20" :closable="false">
                     <div style="line-height: 30px" class="text-999">
                         <p class="font-16 font-weight">说明</p>
@@ -122,7 +127,7 @@
                 </el-form>
                 <div slot="footer" class="dialog-footer font-0">
                     <el-button size="small" @click.stop="isVisible = false">取 消</el-button>
-                    <ls-button v-ls-loading size="small" type="primary" :asyncFunction="sureSubmit">确 定</ls-button>
+                    <ls-button v-ls-loading size="small" type="primary" :async-function="sureSubmit">确 定</ls-button>
                 </div>
             </el-dialog>
         </el-card>
@@ -225,8 +230,8 @@ export default {
 
         // 提交
         sureSubmit() {
-            return new Promise(resolve=>{
-                this.$refs.myForm.validate(async(valid) => {
+            return new Promise((resolve) => {
+                this.$refs.myForm.validate(async (valid) => {
                     if (valid) {
                         let pageNum = 0
                         if (this.dialogForm.data.displayPage.length > 1) {
@@ -243,38 +248,43 @@ export default {
                             await this.add()
                         }
                         resolve()
-                    }else{
+                    } else {
                         resolve()
                     }
                 })
             })
-            
         },
 
         add() {
-            return new Promise(async resolve=>{
+            return new Promise(async (resolve) => {
                 console.log('before APII')
-                helpCategory.add(this.dialogForm.data).then((res) => {
-                    this.isVisible = false
-                    this.$message.success('新增成功')
-                    this.getData()
-                }).finally(_=>{
-                    resolve()
-                })
+                helpCategory
+                    .add(this.dialogForm.data)
+                    .then((res) => {
+                        this.isVisible = false
+                        this.$message.success('新增成功')
+                        this.getData()
+                    })
+                    .finally((_) => {
+                        resolve()
+                    })
                 console.log('After APII')
             })
         },
 
         edit() {
-            return new Promise(async resolve=>{
-                helpCategory.edit(this.dialogForm.data).then((res) => {
-                    console.log(res)
-                    this.isVisible = false
-                    this.$message.success('编辑成功')
-                    this.getData()
-                }).finally(_=>{
-                    resolve()
-                })
+            return new Promise(async (resolve) => {
+                helpCategory
+                    .edit(this.dialogForm.data)
+                    .then((res) => {
+                        console.log(res)
+                        this.isVisible = false
+                        this.$message.success('编辑成功')
+                        this.getData()
+                    })
+                    .finally((_) => {
+                        resolve()
+                    })
             })
         },
 

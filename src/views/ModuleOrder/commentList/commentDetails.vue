@@ -29,13 +29,7 @@
                     <p class="text-wrap">{{ formData.content }}</p>
                 </el-form-item>
                 <el-form-item label="评论图片：">
-                    <ls-image
-                        v-for="(item, index) in formData.photos"
-                        :key="index"
-                        class="mr-20"
-                        :src="item"
-                        :options="{ w: '100', h: '100' }"
-                    />
+                    <ls-image v-for="(item, index) in formData.photos" :key="index" class="mr-20" :src="item" :options="{ w: '100', h: '100' }" />
                 </el-form-item>
                 <el-form-item label="评论时间：">
                     <p>{{ formData.addTime || '-' }}</p>
@@ -66,7 +60,13 @@
                 </el-form-item>
                 <el-form-item label="评论图片：">
                     <div v-if="formData.addPhotos && formData.addPhotos.length > 0">
-                        <ls-image v-for="(item, index) in formData.addPhotos" :key="index" class="mr-20" :src="item" :options="{ w: '100', h: '100' }"/>
+                        <ls-image
+                            v-for="(item, index) in formData.addPhotos"
+                            :key="index"
+                            class="mr-20"
+                            :src="item"
+                            :options="{ w: '100', h: '100' }"
+                        />
                     </div>
                     <div v-else>-</div>
                 </el-form-item>
@@ -95,14 +95,18 @@
                 <el-form-item label="平台审核时间：" class="btn_lastItem">
                     <p>{{ formData.addAuditTime || '-' }}</p>
                 </el-form-item>
-				<LsSticky :data="formData">
-					<el-row type="flex" justify="center" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<!-- 用户信息的商品评论也会跳转至此 因此要用back -->
-						<el-button size="small" @click="$router.back()">返回</el-button>
-						<el-button size="small" v-if="formData.status == 0" type="primary" @click="showDialog(formData.status, 1)">审核初评</el-button>
-						<el-button size="small" v-if="formData.addStatus == 0" type="primary" @click="showDialog(formData.addStatus, 2)">审核追评</el-button>
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="formData">
+                    <el-row type="flex" justify="center" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <!-- 用户信息的商品评论也会跳转至此 因此要用back -->
+                        <el-button size="small" @click="$router.back()">返回</el-button>
+                        <el-button v-if="formData.status == 0" size="small" type="primary" @click="showDialog(formData.status, 1)">
+                            审核初评
+                        </el-button>
+                        <el-button v-if="formData.addStatus == 0" size="small" type="primary" @click="showDialog(formData.addStatus, 2)">
+                            审核追评
+                        </el-button>
+                    </el-row>
+                </LsSticky>
             </el-form>
         </el-card>
         <dialogComment

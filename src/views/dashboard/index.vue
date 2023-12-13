@@ -10,7 +10,7 @@
                         <el-row type="flex" justify="start" class="">
                             <el-col :span="6" class="py-25 px-20">
                                 <span class="text-999 font-weight-400 font-14">当天注册用户数量</span>
-                                <p class="text-333 font-28 font-weight-600 mt-10" >{{ registerList.userRegisterToday }}</p>
+                                <p class="text-333 font-28 font-weight-600 mt-10">{{ registerList.userRegisterToday }}</p>
                             </el-col>
                             <el-col :span="6" class="py-25 px-20">
                                 <span class="text-999 font-weight-400 font-14">累计注册用户数量</span>
@@ -56,34 +56,45 @@
                             <span class="text-333 font-18 font-weight-600">待处理事项</span>
                         </div>
                         <ul class="p-0">
-                            <li v-for="(item,index) in pendingList" :key="index" class="font-14 flex-between" style="list-style:none">
+                            <li v-for="(item, index) in pendingList" :key="index" class="font-14 flex-between" style="list-style: none">
                                 <div>
-                                    <span class="text-666">{{item.name}}</span> 
-                                    <span class="text-222 ml-5">({{item.value}})</span>
-                                </div>                                
-                                <el-button v-if="item.value>0" type="text" class="p-0" @click="handle(index)">处理</el-button>
+                                    <span class="text-666">{{ item.name }}</span>
+                                    <span class="text-222 ml-5">({{ item.value }})</span>
+                                </div>
+                                <el-button v-if="item.value > 0" type="text" class="p-0" @click="handle(index)">处理</el-button>
                             </li>
                         </ul>
                     </el-card>
                 </el-aside>
             </el-container>
-            <el-footer class="p-0" style="height:auto;">
+            <el-footer class="p-0" style="height: auto">
                 <el-card class="border">
                     <div slot="header" class="flex-between">
                         <div class="flex-1">
                             <span class="text-333 font-18 font-weight-600">访问统计</span>
-                            <span class="font-12 text-999 ml-10">{{ '数据截止' + (ossStatistics.length && ossStatistics[ossStatistics.length - 1].createTime) + ' 23:59:59（近7天数据）' }}</span>
+                            <span class="font-12 text-999 ml-10">
+                                {{
+                                    '数据截止' +
+                                    (ossStatistics.length && ossStatistics[ossStatistics.length - 1].createTime) +
+                                    ' 23:59:59（近7天数据）'
+                                }}
+                            </span>
                             <!-- <el-button type="text" class="p-0 font-12"  @click.stop="$router.push({ name: 'accessStatisticsSummary' })">查看更多</el-button> -->
                         </div>
-                        <el-radio-group v-model="source" @change="getOss" class="text-333">
+                        <el-radio-group v-model="source" class="text-333" @change="getOss">
                             <el-radio label="" class="text-333">全部</el-radio>
                             <el-radio label="MINI" class="text-333">小程序</el-radio>
                             <el-radio label="H5" class="text-333">H5</el-radio>
                         </el-radio-group>
                     </div>
-                    <div v-loading='!ossStatistics.length'>
-                        <pole-chart v-if="ossStatistics.length" :chart-data="ossStatistics" :dimensions="dimensions" :name-list="['访问次数', '访问用户数']" />
-                        <empty v-else/>
+                    <div v-loading="!ossStatistics.length">
+                        <pole-chart
+                            v-if="ossStatistics.length"
+                            :chart-data="ossStatistics"
+                            :dimensions="dimensions"
+                            :name-list="['访问次数', '访问用户数']"
+                        />
+                        <empty v-else />
                     </div>
                 </el-card>
             </el-footer>
@@ -97,7 +108,7 @@ import { indexApi } from '@/api/Dashboard'
 import { ossApi } from '@/api/ModuleData'
 import poleChart from './components/poleChart'
 export default {
-    name: 'dashboard',
+    name: 'Dashboard',
     components: {
         poleChart
     },
@@ -145,7 +156,7 @@ export default {
             ],
             ossStatistics: [],
             dimensions: ['createTime', 'pv', 'uv'],
-            source: '',
+            source: ''
         }
     },
     computed: {
@@ -243,20 +254,18 @@ export default {
         ::v-deep .el-card {
             &__header {
                 padding: 14px 20px;
-            }   
+            }
         }
         .el-container {
             .el-aside {
-                ul>li {
-                    &+li {
+                ul > li {
+                    & + li {
                         margin-top: 8px;
                     }
                 }
             }
         }
-       
     }
-    
 
     &-text {
         font-size: 30px;

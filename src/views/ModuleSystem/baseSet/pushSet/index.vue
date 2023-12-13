@@ -47,7 +47,7 @@ import cud from '@/mixins/pages/cud.js'
 
 export default {
     name: '',
-    components: { },
+    components: {},
     mixins: [cud, common],
     data() {
         return {

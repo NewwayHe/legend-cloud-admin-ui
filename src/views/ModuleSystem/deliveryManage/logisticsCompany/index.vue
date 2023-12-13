@@ -30,7 +30,7 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
@@ -52,11 +52,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
             <el-alert type="warning" class="theme mt-20" :closable="false">
                 <div style="line-height: 30px" class="text-999">
@@ -98,7 +103,7 @@ import cud from '@/mixins/pages/cud.js'
 
 export default {
     name: 'LogisticsCompany',
-    components: { },
+    components: {},
     mixins: [common, cud],
     data() {
         return {
@@ -142,7 +147,7 @@ export default {
                 getData: '/order/admin/logistics/company/page',
                 update: '/order/admin/logistics/company',
                 delete: '/order/admin/logistics/company',
-                create: '/order/admin/logistics/company',
+                create: '/order/admin/logistics/company'
             }
         }
     },

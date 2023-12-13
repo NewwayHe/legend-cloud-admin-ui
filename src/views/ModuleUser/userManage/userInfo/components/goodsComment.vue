@@ -3,10 +3,10 @@
 */ -->
 <template>
     <section>
-        <el-card shadow :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card shadow :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 查询 -->
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="商品名称"><el-input v-model="searchFilters.productName" placeholder="请输入" /></el-form-item>
                     <el-form-item label="订单编号"><el-input v-model="searchFilters.orderNumber" placeholder="请输入" /></el-form-item>
                     <el-form-item label="评分">
@@ -50,7 +50,7 @@
                     class="w-100"
                     :data="tableList"
                     tooltip-effect="dark"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
@@ -60,7 +60,7 @@
                     <el-table-column label="商品信息" width="280">
                         <template slot-scope="scope">
                             <div class="d-flex a-center line-h-md">
-                                <ls-image style="flex: 0 0 50px" :src="scope.row.prodPic" :options="{ w: '50', h: '50', br: '4' }"/>
+                                <ls-image style="flex: 0 0 50px" :src="scope.row.prodPic" :options="{ w: '50', h: '50', br: '4' }" />
                                 <div class="ml-10">
                                     <el-link :underline="false" type="primary">
                                         <el-popover placement="top-start" width="500" trigger="hover" :content="scope.row.productName">
@@ -123,11 +123,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
         </el-card>
     </section>
@@ -136,8 +141,7 @@
 import common from '@/mixins/pages/commom'
 import cud from '@/mixins/pages/cud.js'
 export default {
-    components: {
-    },
+    components: {},
     mixins: [common, cud],
     data() {
         return {

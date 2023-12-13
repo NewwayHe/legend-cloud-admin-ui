@@ -58,7 +58,7 @@
                             <span v-else style="color: red">删除</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="操作" align="center"  fixed="right" width="200px">
+                    <el-table-column label="操作" align="center" fixed="right" width="200px">
                         <template slot-scope="scope">
                             <span class="table__action">
                                 <el-link :underline="false" type="primary" @click.stop="handleEdit(scope.row, scope.column, scope.$index)">

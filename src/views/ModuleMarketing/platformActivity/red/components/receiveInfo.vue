@@ -4,11 +4,19 @@
 <template>
     <section>
         <div class="table">
-            <el-table ref="multipleTable" v-loading="tableListLoading" row-key="id" :data="tableList" tooltip-effect="dark" class="w-100" header-row-class-name="headerRow">
+            <el-table
+                ref="multipleTable"
+                v-loading="tableListLoading"
+                row-key="id"
+                :data="tableList"
+                tooltip-effect="dark"
+                class="w-100"
+                header-row-class-name="headerRow"
+            >
                 <template slot="empty">
                     <empty empty-type="pro" text="暂无活动信息" />
                 </template>
-                <el-table-column label="序号" type="index" width="48"/>
+                <el-table-column label="序号" type="index" width="48" />
                 <el-table-column prop="couponCode" show-overflow-tooltip label="券号"></el-table-column>
                 <el-table-column prop="mobile" label="用户手机号码" />
                 <el-table-column prop="getTime" label="领取时间" width="140">
@@ -37,9 +45,7 @@
                             <el-link v-if="scope.row.status == 1" :underline="false" type="primary" @click="forceInvalid(scope.row)">
                                 强制失效
                             </el-link>
-                            <template v-else>
-                                -
-                            </template>
+                            <template v-else>-</template>
                         </span>
                     </template>
                 </el-table-column>
@@ -54,13 +60,14 @@
 import common from '@/mixins/pages/commom'
 import { couponApi } from '@/api/ModuleMarketing'
 export default {
-    components: { },
+    components: {},
     mixins: [common],
     props: {
-        couponId: {//背景颜色
+        couponId: {
+            //背景颜色
             type: Number,
-            require:true
-        },
+            require: true
+        }
     },
     data() {
         return {
@@ -70,15 +77,14 @@ export default {
                 { label: '已使用', value: 2 },
                 { label: '已失效', value: -1 }
             ],
-            searchFilters: {couponId: this.couponId},
+            searchFilters: { couponId: this.couponId },
             url: {
                 getData: '/activity/admin/coupon/user'
             },
-            isMounted:true
+            isMounted: true
         }
     },
-    created() {
-    },
+    created() {},
     mounted() {},
     methods: {
         //强制失效

@@ -142,12 +142,12 @@
                                     :rules="{ required: true, message: '图片不能为空', trigger: ['blur', 'change'] }"
                                 >
                                     <imgCenter
+                                        :key="index"
                                         v-model="item.img"
                                         class="pr-15"
-                                        :uploadStyle="{ width: '80px', height: '80px' }"
-           								:key="index"
-										:isPreview="false"
-										@input="checkForm"
+                                        :upload-style="{ width: '80px', height: '80px' }"
+                                        :is-preview="false"
+                                        @input="checkForm"
                                     ></imgCenter>
                                 </el-form-item>
                                 <el-popover
@@ -222,17 +222,17 @@ export default {
     methods: {
         checkForm() {
             let result = []
-			if (this.$refs.ruleForm) {
-				this.$refs.ruleForm.validate((valid, valobj) => {
-				    for (var key in valobj) {
-						let mes = valobj[key][0]//{field: "advertImg.0.img",message: "图片不能为空"}
-						if (mes.field.indexOf('imgList')!=-1) {
-							mes['fieldName'] = '轮播图'
-						}
-						result.push(mes)//将错误信息输出到一个数组里,如果数组有length就是校验不通过，如果result的length为0则校验通过
-				    }
-				})
-			}
+            if (this.$refs.ruleForm) {
+                this.$refs.ruleForm.validate((valid, valobj) => {
+                    for (var key in valobj) {
+                        let mes = valobj[key][0] //{field: "advertImg.0.img",message: "图片不能为空"}
+                        if (mes.field.indexOf('imgList') != -1) {
+                            mes['fieldName'] = '轮播图'
+                        }
+                        result.push(mes) //将错误信息输出到一个数组里,如果数组有length就是校验不通过，如果result的length为0则校验通过
+                    }
+                })
+            }
             return result
         },
         del(index, flag) {
@@ -240,7 +240,7 @@ export default {
         },
         add(flag) {
             let addData = this.$utils.object.deepClone(defFloorVal.banner.data[flag][0])
-			if (!this.value.data[flag]) this.$set(this.value.data, flag, []);//兼容旧数据专用，如果是旧数据里的data里没有该flag数组，下面的push会报错，所以在这里强行添加一个
+            if (!this.value.data[flag]) this.$set(this.value.data, flag, []) //兼容旧数据专用，如果是旧数据里的data里没有该flag数组，下面的push会报错，所以在这里强行添加一个
             this.value.data[flag].push(addData)
             this.$emit('add', flag)
         },

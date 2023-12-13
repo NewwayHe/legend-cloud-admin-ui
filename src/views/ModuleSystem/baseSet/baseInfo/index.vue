@@ -14,7 +14,7 @@
                     <el-input v-show="isEdit" v-model="form.domainName" class="w-450p" maxlength="50" />
                     <span v-show="!isEdit">{{ form.domainName }}</span>
 					<el-popover placement="top-start" title="用处:" width="500" trigger="hover" >
-					    <i class="el-icon-question ml-5 text-999" style="font-size: 16px;" slot="reference"></i>
+					    <i slot="reference" class="el-icon-question ml-5 text-999" style="font-size: 16px;"></i>
 						<div>【移动APP端】：一、[分享]商品或文章时如果没有商品名称或文章名称时则用该值作为消息的标题，二、APP启动广告下方显示的商城名称。</br>【微信小程序端】：一、页面[发送给朋友]时显示的商城名称，二、小程序登录页面上显示的商城名称。</br>【移动端】：[订单详情]页面交易成功后页面顶部显示的商城名称。</div>
 					</el-popover>
                 </el-form-item>
@@ -22,7 +22,7 @@
                     <el-input v-show="isEdit" v-model="form.companyName" class="w-450p" maxlength="50" />
                     <span v-show="!isEdit">{{ form.companyName }}</span>
 					<el-popover placement="top-start" title="用处:" width="500" trigger="hover" >
-					    <i class="el-icon-question ml-5 text-999" style="font-size: 16px;" slot="reference"></i>
+					    <i slot="reference" class="el-icon-question ml-5 text-999" style="font-size: 16px;"></i>
 						<div>【移动端】：[个人中心]->[设置]页面底部的版权信息上显示</div>
 					</el-popover>
                 </el-form-item>
@@ -37,7 +37,7 @@
 				<div class="flex-between">
 					<el-form-item class="flex-1" label="系统logo：">
 						<div class="flex-start" style="align-items: flex-start;">
-							<imgCenter v-model="form.logo" :disabled="!isEdit" :uploadStyle="{ width: '80px',height:'80px', marginRight: '10px'}"></imgCenter>
+							<imgCenter v-model="form.logo" :disabled="!isEdit" :upload-style="{ width: '80px',height:'80px', marginRight: '10px'}"></imgCenter>
                             <div class="font-12 text-999" style="line-height:18px;">
                                 <p>建议尺寸：200 x 200像素(PNG格式透明底反白图效果最佳)</p>
                                 <div>
@@ -49,7 +49,7 @@
 					</el-form-item>
 					<el-form-item class="flex-1" label="PC端logo：">
 						<div class="flex-start" style="align-items: flex-start;">
-							<imgCenter v-model="form.pcUserLogo" :disabled="!isEdit" :uploadStyle="{ width: '80px',height:'80px', marginRight: '10px' }"></imgCenter>
+							<imgCenter v-model="form.pcUserLogo" :disabled="!isEdit" :upload-style="{ width: '80px',height:'80px', marginRight: '10px' }"></imgCenter>
                             <div class="font-12 text-999" style="line-height:18px;">
                                 <p>建议尺寸：高 150 像素，宽 100 ~ 300 像素</p>
                                 <div>
@@ -64,7 +64,7 @@
 				<div class="flex-between">
 					<el-form-item class="flex-1" label="平台端登录页logo：">
 						<div class="flex-start" style="align-items: flex-start;">
-							<imgCenter v-model="form.adminBigLogo" :disabled="!isEdit" :uploadStyle="{ width: '80px',height:'80px', marginRight: '10px' }"></imgCenter>
+							<imgCenter v-model="form.adminBigLogo" :disabled="!isEdit" :upload-style="{ width: '80px',height:'80px', marginRight: '10px' }"></imgCenter>
                             <div class="font-12 text-999" style="line-height:18px;">
                                 <p>建议尺寸：200 x 60 像素</p>
                                 <div>
@@ -76,7 +76,7 @@
 					</el-form-item>
 					<el-form-item class="flex-1" label="平台端侧边栏logo：">
 						<div class="flex-start" style="align-items: flex-start;">
-							<imgCenter v-model="form.adminSmallLogo" :disabled="!isEdit" :uploadStyle="{ width: '80px',height:'80px', marginRight: '10px'  }"></imgCenter>
+							<imgCenter v-model="form.adminSmallLogo" :disabled="!isEdit" :upload-style="{ width: '80px',height:'80px', marginRight: '10px'  }"></imgCenter>
                             <div class="font-12 text-999" style="line-height:18px;">
                                 <p>建议尺寸：150 x 50 像素(PNG格式透明底反白图效果最佳)</p>
                                 <div>
@@ -90,7 +90,7 @@
 				<div class="flex-between">
 					<el-form-item class="flex-1" label="商家端登录页logo：">
 						<div class="flex-start" style="align-items: flex-start;">
-							<imgCenter v-model="form.shopBigLogo" :disabled="!isEdit" :uploadStyle="{ width: '80px',height:'80px', marginRight: '10px'  }"></imgCenter>
+							<imgCenter v-model="form.shopBigLogo" :disabled="!isEdit" :upload-style="{ width: '80px',height:'80px', marginRight: '10px'  }"></imgCenter>
                             <div class="font-12 text-999" style="line-height:18px;">
                                 <p>建议尺寸：150 x 50 像素</p>
                                 <div>
@@ -102,7 +102,7 @@
 					</el-form-item>
 					<el-form-item class="flex-1" label="商家端侧边栏logo：">
 						<div class="flex-start" style="align-items: flex-start;">
-							<imgCenter v-model="form.shopSmallLogo" :disabled="!isEdit" :uploadStyle="{ width: '80px',height:'80px', marginRight: '10px'  }"></imgCenter>
+							<imgCenter v-model="form.shopSmallLogo" :disabled="!isEdit" :upload-style="{ width: '80px',height:'80px', marginRight: '10px'  }"></imgCenter>
                             <div class="font-12 text-999" style="line-height:18px;">
                                 <p>建议尺寸：150 x 50 像素(PNG格式透明底反白图效果最佳)</p>
                                 <div>
@@ -132,8 +132,8 @@
             </el-form>
         </el-card>
 		<Sticky>
-		    <el-button @click="isEdit = false" size="small" v-if="isEdit">取消</el-button>
-		    <ls-button type="primary" size="small" :asyncFunction="onSubmit">
+		    <el-button v-if="isEdit" size="small" @click="isEdit = false">取消</el-button>
+		    <ls-button type="primary" size="small" :async-function="onSubmit">
 				{{ isEdit ? '保存' : '编辑' }}
 			</ls-button>
 		</Sticky>

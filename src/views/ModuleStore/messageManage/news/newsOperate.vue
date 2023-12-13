@@ -10,7 +10,7 @@
                 </el-form-item>
 
                 <el-form-item label="图片" prop="pic">
-                    <imgCenter v-model="form.pic" :uploadStyle="{ width: '80px' }" @input="$refs.form.validateField('pic')"></imgCenter>
+                    <imgCenter v-model="form.pic" :upload-style="{ width: '80px' }" @input="$refs.form.validateField('pic')"></imgCenter>
                 </el-form-item>
 
                 <el-form-item label="序号" prop="seq">
@@ -31,9 +31,9 @@
                 <el-form-item>
                     <el-button @click="onCancel">取消</el-button>
                     <el-button type="primary" @click="onSubmit">
-						保存
-						<!-- {{ isEdit ? '编辑' : '新增' }} -->
-					</el-button>
+                        保存
+                        <!-- {{ isEdit ? '编辑' : '新增' }} -->
+                    </el-button>
                 </el-form-item>
             </el-form>
         </el-card>

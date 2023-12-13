@@ -84,8 +84,12 @@ export default {
                     //如果有传field值
                     if (newValue && newValue.categoryIdList && newValue.categoryIdList[this.field] && newValue.categoryIdList[this.field].length) {
                         this.num++ //如果不加这个，cascaderValue值更新后不会在页面上渲染
-						this.cascaderValue =  this.$utils.object.deepClone(newValue.categoryIdList[this.field].map((item) => {return item.id}))  //回选
-						this.tempList = this.$utils.object.deepClone(newValue.categoryIdList[this.field])
+                        this.cascaderValue = this.$utils.object.deepClone(
+                            newValue.categoryIdList[this.field].map((item) => {
+                                return item.id
+                            })
+                        ) //回选
+                        this.tempList = this.$utils.object.deepClone(newValue.categoryIdList[this.field])
                         this.$forceUpdate()
                     } else {
                         this.cascaderValue = []
@@ -95,8 +99,12 @@ export default {
                     //如果没有传field值
                     if (newValue && newValue.categoryIdList && newValue.categoryIdList.length) {
                         this.num++ //如果不加这个，cascaderValue值更新后不会在页面上渲染
-						this.cascaderValue =  this.$utils.object.deepClone(newValue.categoryIdList.map((item) => {return item.id}))  //回选
-						this.tempList = this.$utils.object.deepClone(newValue.categoryIdList) 
+                        this.cascaderValue = this.$utils.object.deepClone(
+                            newValue.categoryIdList.map((item) => {
+                                return item.id
+                            })
+                        ) //回选
+                        this.tempList = this.$utils.object.deepClone(newValue.categoryIdList)
                         this.$forceUpdate()
                     } else {
                         this.cascaderValue = []
@@ -106,7 +114,7 @@ export default {
             },
             deep: true,
             immediate: true
-        },
+        }
     },
     created() {
         this.getData()
@@ -163,15 +171,15 @@ export default {
             this.tempList.splice(index, 1)
             this.$forceUpdate()
         },
-		confirm(){
-			this.$emit('getTempList', 'categoryIdList', this.tempList)
-		}
+        confirm() {
+            this.$emit('getTempList', 'categoryIdList', this.tempList)
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-    ::v-deep .el-cascader-menu__wrap{
-        height: 520px;
-	}
+::v-deep .el-cascader-menu__wrap {
+    height: 520px;
+}
 </style>

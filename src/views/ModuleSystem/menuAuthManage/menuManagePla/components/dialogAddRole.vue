@@ -18,7 +18,7 @@
                 />
             </el-form-item>
             <el-form-item label="上传图片" prop="img">
-                <imgCenter v-model="ruleForm.img"/>
+                <imgCenter v-model="ruleForm.img" />
             </el-form-item>
         </el-form>
         s
@@ -31,7 +31,7 @@
 </template>
 <script>
 export default {
-    components: { },
+    components: {},
     mixins: [],
     props: {},
     data() {

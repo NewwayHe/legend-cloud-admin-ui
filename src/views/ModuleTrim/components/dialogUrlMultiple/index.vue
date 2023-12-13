@@ -3,8 +3,13 @@
  * @Descripttion:选择链接弹框组件(多选)
 */ -->
     <!-- 选择链接 -->
-    <el-dialog :custom-class="'dialog-form dialog-trim-url ' + (isCompatible ? 'compatibleWidth' : '')" append-to-body :visible.sync="dialogTableVisible" :close-on-click-modal="false">
-        <el-tabs v-model="temp.type" style="height: 630px; overflow-y: hidden;" @tab-click="handleClick">
+    <el-dialog
+        :custom-class="'dialog-form dialog-trim-url ' + (isCompatible ? 'compatibleWidth' : '')"
+        append-to-body
+        :visible.sync="dialogTableVisible"
+        :close-on-click-modal="false"
+    >
+        <el-tabs v-model="temp.type" style="height: 630px; overflow-y: hidden" @tab-click="handleClick">
             <Empty v-if="!temp.type" text="暂无内容" />
 
             <el-tab-pane v-for="(item, index) in tabList" :key="index" :label="item.name" :name="item.name">
@@ -54,9 +59,9 @@ export default {
                 // 缓存文件
                 type: '商品'
             },
-            tempItem: [] ,//传到子组件里的元素，建议引用关系,这个不能删(用于回选)
-			valueTemp:[],
-            isCompatible: false,    //是否兼容1366px
+            tempItem: [], //传到子组件里的元素，建议引用关系,这个不能删(用于回选)
+            valueTemp: [],
+            isCompatible: false //是否兼容1366px
         }
     },
     computed: {
@@ -82,7 +87,7 @@ export default {
         dialogTableVisible: {
             handler(newValue, oldValue) {
                 if (newValue) {
-					this.valueTemp = this.$utils.object.deepClone(this.value)
+                    this.valueTemp = this.$utils.object.deepClone(this.value)
                     if (newValue && this.tabList.length) {
                         this.temp.type = this.value.length ? this.value[0].type : this.tabList[0].name //tab栏回选及赋默认值
                     }
@@ -123,13 +128,13 @@ export default {
         // 重置
         resetForm() {
             // this.$emit('input', [])
-			this.valueTemp = []
+            this.valueTemp = []
         },
         // 确定
         confirm() {
             this.dialogTableVisible = false
             // this.$emit('confirm', this.value)
-			this.$emit('input', this.valueTemp)
+            this.$emit('input', this.valueTemp)
         },
         handleClick(tab, event) {
             this.temp.type = event.target.innerText
@@ -139,10 +144,10 @@ export default {
         },
         // 兼容1366px
         compatibleChange() {
-            if(window.innerWidth <= 1366) {
-                this.isCompatible = true;
-            }else {
-                this.isCompatible = false;
+            if (window.innerWidth <= 1366) {
+                this.isCompatible = true
+            } else {
+                this.isCompatible = false
             }
         }
     }
@@ -176,7 +181,8 @@ export default {
 <style lang="scss">
 .dialog-form.dialog-trim-url {
     max-height: 80vh;
-    &.compatibleWidth {   //兼容1366px下的弹窗最小宽度
+    &.compatibleWidth {
+        //兼容1366px下的弹窗最小宽度
         min-width: 60vw;
     }
 }

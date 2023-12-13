@@ -3,10 +3,10 @@
 */ -->
 <template>
     <section>
-        <el-card :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 查询 -->
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="用户名">
                         <el-input v-model="searchFilters.username" placeholder="用户名" />
                     </el-form-item>
@@ -29,21 +29,30 @@
                 </el-form>
             </div>
             <div class="table">
-				<el-row class="mb-20">
-					<el-alert type="info" class="theme" :closable="false" show-icon>
-						<p>说明：用户分为两种类型：用户、商家；用户状态为有效时，用户才可正常使用；若状态为失效。用户不可正常登录使用。</p>
-					</el-alert>
-				</el-row>
+                <el-row class="mb-20">
+                    <el-alert type="info" class="theme" :closable="false" show-icon>
+                        <p>说明：用户分为两种类型：用户、商家；用户状态为有效时，用户才可正常使用；若状态为失效。用户不可正常登录使用。</p>
+                    </el-alert>
+                </el-row>
                 <!--列表-->
-				<el-table ref="multipleTable" v-loading="tableListLoading" :data="tableList" tooltip-effect="dark" class="w-100" header-row-class-name="headerRow" row-key="id" @selection-change="selectionChange">
+                <el-table
+                    ref="multipleTable"
+                    v-loading="tableListLoading"
+                    :data="tableList"
+                    tooltip-effect="dark"
+                    class="w-100"
+                    header-row-class-name="headerRow"
+                    row-key="id"
+                    @selection-change="selectionChange"
+                >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
                     <el-table-column type="selection" reserve-selection width="42" />
                     <el-table-column label="序号" type="index" width="48" />
-                    <el-table-column prop="username" label="用户名" min-width="100"/>
-                    <el-table-column prop="nickName" label="昵称" min-width="100"/>
-                    <el-table-column prop="mobile" label="手机号码" min-width="100"/>
+                    <el-table-column prop="username" label="用户名" min-width="100" />
+                    <el-table-column prop="nickName" label="昵称" min-width="100" />
+                    <el-table-column prop="mobile" label="手机号码" min-width="100" />
                     <el-table-column prop="consumptionAmount" label="累计消费余额" sortable width="120">
                         <template slot-scope="scope">
                             {{ scope.row.consumptionAmount | priceFilter }}
@@ -54,7 +63,7 @@
                             {{ scope.row.consumptionOrderCount || 0 }}
                         </template>
                     </el-table-column>
-                    <el-table-column prop="createTime" label="注册时间" width="140"/>
+                    <el-table-column prop="createTime" label="注册时间" width="140" />
                     <el-table-column prop="recentConsumptionTime" label="最近消费时间" width="140">
                         <template slot-scope="scope">
                             {{ scope.row.recentConsumptionTime || '-' }}
@@ -63,7 +72,7 @@
 
                     <el-table-column prop="productName" label="状态">
                         <template slot-scope="scope">
-                           <span :class="scope.row.lockFlag ? 'status-pass' : 'status-done'">{{ scope.row.lockFlag ? '有效' : '无效' }}</span>
+                            <span :class="scope.row.lockFlag ? 'status-pass' : 'status-done'">{{ scope.row.lockFlag ? '有效' : '无效' }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="操作" fixed="right" width="180">
@@ -95,64 +104,70 @@
                     </el-table-column>
                 </el-table>
             </div>
-			<LsSticky :data="tableList">
-				<el-row type="flex" justify="space-between" class="w-100 overflow-h py-10 mt-10 bg-white">
-					<el-col class="text-nowrap flex-start">
-						<el-button size="mini" class="allCheck">
-							<el-checkbox v-model="checkAll" label="全选" size="small" @change="selAll" :indeterminate="checkHalf" :disabled='!selectableList.length'/>
-						</el-button>
-						<el-button size="small" @click="batchUpdate(1)">批量上线</el-button>
-						<el-button size="small" @click="batchUpdate(0)">批量下线</el-button>
-					</el-col>
-					<pagination :current-page="page.curPage" :page-size="page.pageSize" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-				</el-row>
-			</LsSticky>
+            <LsSticky :data="tableList">
+                <el-row type="flex" justify="space-between" class="w-100 overflow-h py-10 mt-10 bg-white">
+                    <el-col class="text-nowrap flex-start">
+                        <el-button size="mini" class="allCheck">
+                            <el-checkbox
+                                v-model="checkAll"
+                                label="全选"
+                                size="small"
+                                :indeterminate="checkHalf"
+                                :disabled="!selectableList.length"
+                                @change="selAll"
+                            />
+                        </el-button>
+                        <el-button size="small" @click="batchUpdate(1)">批量上线</el-button>
+                        <el-button size="small" @click="batchUpdate(0)">批量下线</el-button>
+                    </el-col>
+                    <pagination
+                        :current-page="page.curPage"
+                        :page-size="page.pageSize"
+                        :total="tableTotal"
+                        @size-change="pageSizeChange"
+                        @current-change="currentPageChange"
+                    />
+                </el-row>
+            </LsSticky>
         </el-card>
-		
-		<!-- 新增-编辑 -->
-		<el-dialog title="修改密码" custom-class="dialog-form-small" :visible.sync="dialogForm.isVisible">
-		    <el-form
-		        ref="myForm"
-		        :model="dialogForm.formData"
-		        :rules="dialogForm.formRule"
-		        label-width="98px"
-		        size="small"
-		        label-position="right"
-		    >
-		        <el-form-item label="新密码：" prop="password">
-		            <el-input v-model="dialogForm.formData.password" placeholder="请输入新密码" maxlength="16" />
-		        </el-form-item>
-		    </el-form>
-		    <div slot="footer" class="dialog-footer">
-		        <el-button size="small" @click.stop="dialogForm.isVisible = false">取 消</el-button>
-		        <ls-button type="primary" size="small" :asyncFunction="()=>editPwdSumbit('myForm')">确 定</ls-button>
-		    </div>
-		</el-dialog>
-		<!-- 站内信 -->
-		<el-dialog title="站内信" custom-class="dialog-form-small" :visible.sync="dialogForminfo.isinfoVisible">
-		    <el-form
-		        ref="myinfo"
-		        :model="dialogForminfo.formData"
-		        :rules="dialogForminfo.formRule"
-		        label-width="98px"
-		        size="small"
-		        label-position="right"
-		    >
-		        <el-form-item label="内容：" prop="info">
-		            <el-input
-		                maxlength="450"
-		                type="textarea"
-		                v-model="dialogForminfo.formData.info"
-		                placeholder="请输入信息"
-		                :autosize="{minRows:3,maxRows:7}"
-		            />
-		        </el-form-item>
-		    </el-form>
-		    <div slot="footer" class="dialog-footer">
-		        <el-button size="small" @click.stop="dialogForminfo.isinfoVisible = false">取 消</el-button>
-		        <ls-button type="primary" size="small" :asyncFunction="()=>editInfoSumbit('myinfo')">确 定</ls-button>
-		    </div>
-		</el-dialog>
+
+        <!-- 新增-编辑 -->
+        <el-dialog title="修改密码" custom-class="dialog-form-small" :visible.sync="dialogForm.isVisible">
+            <el-form ref="myForm" :model="dialogForm.formData" :rules="dialogForm.formRule" label-width="98px" size="small" label-position="right">
+                <el-form-item label="新密码：" prop="password">
+                    <el-input v-model="dialogForm.formData.password" placeholder="请输入新密码" maxlength="16" />
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button size="small" @click.stop="dialogForm.isVisible = false">取 消</el-button>
+                <ls-button type="primary" size="small" :async-function="() => editPwdSumbit('myForm')">确 定</ls-button>
+            </div>
+        </el-dialog>
+        <!-- 站内信 -->
+        <el-dialog title="站内信" custom-class="dialog-form-small" :visible.sync="dialogForminfo.isinfoVisible">
+            <el-form
+                ref="myinfo"
+                :model="dialogForminfo.formData"
+                :rules="dialogForminfo.formRule"
+                label-width="98px"
+                size="small"
+                label-position="right"
+            >
+                <el-form-item label="内容：" prop="info">
+                    <el-input
+                        v-model="dialogForminfo.formData.info"
+                        maxlength="450"
+                        type="textarea"
+                        placeholder="请输入信息"
+                        :autosize="{ minRows: 3, maxRows: 7 }"
+                    />
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button size="small" @click.stop="dialogForminfo.isinfoVisible = false">取 消</el-button>
+                <ls-button type="primary" size="small" :async-function="() => editInfoSumbit('myinfo')">确 定</ls-button>
+            </div>
+        </el-dialog>
     </section>
 </template>
 <script>
@@ -161,16 +176,16 @@ import cud from '@/mixins/pages/cud'
 import { userList } from '@/api/ModuleUser.js'
 export default {
     name: 'UserList',
-    components: { },
+    components: {},
     mixins: [common, cud],
     data() {
         const validatePassword = (rule, value, callback) => {
-			if(this.$checkInfo([{ type: 'loginPassword', value: value }]) ) {
-				callback();
-			}else {
-				callback(new Error('请输入由数字、字母不含特殊字符组成5-16长度的密码'))
-			}
-		};
+            if (this.$checkInfo([{ type: 'loginPassword', value: value }])) {
+                callback()
+            } else {
+                callback(new Error('请输入由数字、字母不含特殊字符组成5-16长度的密码'))
+            }
+        }
         return {
             dialogForm: {
                 isVisible: false,
@@ -193,10 +208,10 @@ export default {
             url: {
                 getData: '/user/admin/ordinary/user/page'
             },
-			page: {
-			    // 表格页码
-			    pageSize: 20,
-			}
+            page: {
+                // 表格页码
+                pageSize: 20
+            }
         }
     },
     mounted() {},
@@ -253,43 +268,47 @@ export default {
 
         // 修改密码
         editPwdSumbit() {
-            return new Promise(resolve=>{
+            return new Promise((resolve) => {
                 this.$refs.myForm.validate((valid) => {
                     if (valid) {
-                        userList.editUserPwd(this.dialogForm.formData).then((res) => {
-                            if (res.code == 1) {
-                                this.dialogForm.isVisible = false
-                                this.$message.success('修改成功')
-                            }
-                        }).finally(_=>{
-                            resolve()
-                        })
-                    }else{
+                        userList
+                            .editUserPwd(this.dialogForm.formData)
+                            .then((res) => {
+                                if (res.code == 1) {
+                                    this.dialogForm.isVisible = false
+                                    this.$message.success('修改成功')
+                                }
+                            })
+                            .finally((_) => {
+                                resolve()
+                            })
+                    } else {
                         resolve()
                     }
                 })
             })
-            
         },
         // 发布站内信
         editInfoSumbit() {
-            return new Promise(resolve=>{
+            return new Promise((resolve) => {
                 this.$refs.myinfo.validate((valid) => {
                     if (valid) {
-                        userList.addUserInfo({ userId: this.dialogForminfo.formData.id, content: this.dialogForminfo.formData.info }).then((res) => {
-                            if (res.code == 1) {
-                                this.dialogForminfo.isinfoVisible = false
-                                this.$message.success('发布成功')
-                            }
-                        }).finally(_=>{
-                            resolve()
-                        })
-                    }else{
+                        userList
+                            .addUserInfo({ userId: this.dialogForminfo.formData.id, content: this.dialogForminfo.formData.info })
+                            .then((res) => {
+                                if (res.code == 1) {
+                                    this.dialogForminfo.isinfoVisible = false
+                                    this.$message.success('发布成功')
+                                }
+                            })
+                            .finally((_) => {
+                                resolve()
+                            })
+                    } else {
                         resolve()
                     }
                 })
             })
-            
         },
         setClick(info) {
             if (info.type === 'editPwd') {

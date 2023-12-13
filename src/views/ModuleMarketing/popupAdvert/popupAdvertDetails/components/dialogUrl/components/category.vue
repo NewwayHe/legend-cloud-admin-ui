@@ -137,7 +137,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	::v-deep .el-cascader-menu__wrap{
-        height: 520px;
-	}
+::v-deep .el-cascader-menu__wrap {
+    height: 520px;
+}
 </style>

@@ -21,7 +21,14 @@
                     <div class="d-flex a-center line-h-md">
                         <ls-image style="flex: 0 0 50px" :src="scope.row.pic" :options="{ w: '50', h: '50', br: '4' }" />
                         <el-popover placement="top" width="450" trigger="hover" :title="scope.row.name || scope.row.productName">
-                            <el-link type="primary" target="_blank" :underline="false" :href="$shareRedirectUrl + '?detailsType=good&id=' + scope.row.productId">{{$shareRedirectUrl + '?detailsType=good&id=' + scope.row.productId}}</el-link>
+                            <el-link
+                                type="primary"
+                                target="_blank"
+                                :underline="false"
+                                :href="$shareRedirectUrl + '?detailsType=good&id=' + scope.row.productId"
+                            >
+                                {{ $shareRedirectUrl + '?detailsType=good&id=' + scope.row.productId }}
+                            </el-link>
                             <el-link
                                 slot="reference"
                                 :underline="false"
@@ -37,10 +44,10 @@
                 </template>
             </el-table-column>
             <el-table-column prop="cnProperties" show-overflow-tooltip label="商品规格">
-                <template slot-scope="scope">{{ scope.row.cnProperties || '-'}}</template>
+                <template slot-scope="scope">{{ scope.row.cnProperties || '-' }}</template>
             </el-table-column>
             <el-table-column prop="price" show-overflow-tooltip label="商品价格">
-                <template slot-scope="scope">{{ scope.row.price | priceFilter}}</template>
+                <template slot-scope="scope">{{ scope.row.price | priceFilter }}</template>
             </el-table-column>
             <el-table-column prop="stocks" show-overflow-tooltip label="库存" />
         </el-table>
@@ -60,7 +67,7 @@ import serviceConfig from '@/config'
 import common from '@/mixins/pages/commom'
 export default {
     name: 'TableGoods',
-    components: { },
+    components: {},
     mixins: [common],
     props: ['useType', 'couponId'],
     data() {
@@ -90,7 +97,7 @@ export default {
 <!--
     表格内容过长显示tooltip时的最大宽度设置 不能使用scoped
 -->
-<style >
+<style>
 .el-tooltip__popper {
     max-width: 60vw;
 }

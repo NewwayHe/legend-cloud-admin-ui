@@ -3,7 +3,7 @@
 */ -->
 <template>
     <section class="">
-        <el-card :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 查询 -->
             <div class="search">
                 <el-form :inline="true" :model="searchFilters" size="small">
@@ -27,8 +27,8 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
+                    header-row-class-name="headerRow"
                     @selection-change="selectionChange"
-					header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
@@ -47,23 +47,28 @@
                         </template>
                     </el-table-column>
                     <el-table-column label="操作" fixed="right" width="180">
-						<template slot-scope="scope">
-							<span class="edit table__action">
+                        <template slot-scope="scope">
+                            <span class="edit table__action">
                                 <el-link :underline="false" type="primary" @click.stop="handleEdit(scope.row, scope.column, scope.$index)">
                                     修改
                                 </el-link>
                                 <el-link :underline="false" type="primary" @click.stop="handleDel(scope.row, scope.column, scope.$index)">
                                     删除
                                 </el-link>
-							</span>
-						</template>
-					</el-table-column>
+                            </span>
+                        </template>
+                    </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
         </el-card>
 
@@ -76,14 +81,14 @@
                 size="small"
                 label-width="120px"
                 label-position="right"
-                @submit.native.prevent 
-                @keyup.enter.native="()=>{}"
+                @submit.native.prevent
+                @keyup.enter.native="() => {}"
             >
                 <el-form-item label="敏感字：" prop="words">
                     <el-input v-model="dialogForm.formData.words" placeholder="敏感字" />
                 </el-form-item>
                 <el-form-item label="是否全局敏感字：" prop="isGlobal">
-                   <el-radio-group v-model="dialogForm.formData.isGlobal">
+                    <el-radio-group v-model="dialogForm.formData.isGlobal">
                         <el-radio :label="1">是</el-radio>
                         <el-radio :label="0">否</el-radio>
                     </el-radio-group>
@@ -101,31 +106,25 @@ import common from '@/mixins/pages/commom'
 import cud from '@/mixins/pages/cud.js'
 
 export default {
-    name: 'keyword',
+    name: 'Keyword',
     components: {},
     mixins: [common, cud],
-    watch: {
-        tableList(nv) {
-            console.log('nv--',nv)
-        }
-    },
     data() {
         return {
             searchFilters: {
-                words: '',
+                words: ''
             },
             url: {
                 getData: 'basic/sensWord/page',
                 update: 'basic/sensWord',
                 delete: 'basic/sensWord',
-                create: 'basic/sensWord',
-
+                create: 'basic/sensWord'
             },
             editVisible: false,
             dialogForm: {
                 formData: {
                     words: '',
-                    isGlobal: true,
+                    isGlobal: true
                 },
                 formRule: {
                     words: [
@@ -146,8 +145,12 @@ export default {
             }
         }
     },
+    watch: {
+        tableList(nv) {
+            console.log('nv--', nv)
+        }
+    },
     mounted() {},
-    methods: {
-    }
+    methods: {}
 }
 </script>
