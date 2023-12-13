@@ -3,9 +3,11 @@
 */ -->
 <template>
     <section>
-        <el-card shadow :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card shadow :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 指引 -->
-			<step><p><span>创建规格参数组，关联规格、参数、参数组、品牌后，将该规格参数分组关联到类目。</span></p></step>
+            <step>
+                <p><span>创建规格参数组，关联规格、参数、参数组、品牌后，将该规格参数分组关联到类目。</span></p>
+            </step>
             <!-- 查询 -->
             <div class="search">
                 <el-form :inline="true" :model="searchFilters" size="small" label-width="120px">
@@ -30,14 +32,14 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
+                    header-row-class-name="headerRow"
                     @selection-change="selectionChange"
-					header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
-                    <el-table-column label="序号" type="index" width="48"/>
-                    <el-table-column prop="name" label="规格参数分组标题" show-overflow-tooltip/>
+                    <el-table-column label="序号" type="index" width="48" />
+                    <el-table-column prop="name" label="规格参数分组标题" show-overflow-tooltip />
                     <el-table-column prop="specificationStr" label="关联规格" show-overflow-tooltip>
                         <template slot-scope="scope">
                             <span class="line-clamp1">{{ scope.row.specificationStr || '-' }}</span>
@@ -50,20 +52,20 @@
                     </el-table-column>
                     <el-table-column prop="paramStr" label="关联参数组" show-overflow-tooltip>
                         <template slot-scope="scope">
-                            <span class="line-clamp1">{{ scope.row.paramGroupStr || '-'}}</span>
+                            <span class="line-clamp1">{{ scope.row.paramGroupStr || '-' }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column prop="brandStr" label="关联品牌" show-overflow-tooltip>
                         <template slot-scope="scope">
-                            <span class="line-clamp1">{{ scope.row.brandStr || '-'}}</span>
+                            <span class="line-clamp1">{{ scope.row.brandStr || '-' }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column prop="categoryStr" label="关联类目" show-overflow-tooltip>
                         <template slot-scope="scope">
-                            <span class="line-clamp1">{{ scope.row.categoryStr || '-'}}</span>
+                            <span class="line-clamp1">{{ scope.row.categoryStr || '-' }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="操作" fixed="right" width="250" >
+                    <el-table-column label="操作" fixed="right" width="250">
                         <template slot-scope="scope">
                             <span class="table__action flex-center">
                                 <el-link :underline="false" type="primary" @click="checkDetail(scope.row)">查看</el-link>
@@ -75,19 +77,19 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<el-pagination
-							:page-sizes="[10, 30, 50, 100, 500, 1000]"
-							:page-size="10"
-							layout="total, sizes, prev, pager, next, jumper"
-							:current-page="page.curPage"
-							:total="tableTotal"
-							@size-change="pageSizeChange"
-							@current-change="currentPageChange"
-						/>
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <el-pagination
+                            :page-sizes="[10, 30, 50, 100, 500, 1000]"
+                            :page-size="10"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
         </el-card>
     </section>
@@ -153,7 +155,7 @@ export default {
 <!--
     表格内容过长显示tooltip时的最大宽度设置 不能使用scoped
 -->
-<style >
+<style>
 .el-tooltip__popper {
     max-width: 60vw;
 }

@@ -35,8 +35,8 @@ const settle = {
     billtoexamine: (id) => request.put(`/order/admin/shop/order/bill/check/${id}`),
     //账单结算
     settlement: (data) => request.postForm('/order/admin/shop/order/bill/pay', data),
-	// 【后台】提现审核后，如果出现异常，重新支付
-	compensate: (id) => request.get(`/pay/admin/wallet/compensate/${id}`),
+    // 【后台】提现审核后，如果出现异常，重新支付
+    compensate: (id) => request.get(`/pay/admin/wallet/compensate/${id}`)
 }
 
 export { settle, deposit }

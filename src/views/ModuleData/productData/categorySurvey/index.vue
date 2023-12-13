@@ -2,7 +2,7 @@
     商品报表->类目概况
 -->
 <template>
-    <el-card :body-style="{padding:`20px 20px 10px 20px`}">
+    <el-card :body-style="{ padding: `20px 20px 10px 20px` }">
         <el-row slot="header" class="font-weight font-26">
             <el-col class="d-flex a-center">
                 <span>商品类目概况</span>
@@ -57,7 +57,7 @@
                 </el-form-item>
             </el-form>
         </div>
-        
+
         <el-row type="flex" justify="space-around" align="top">
             <el-col :span="8">
                 <div>
@@ -78,7 +78,7 @@
                 </div>
             </el-col>
         </el-row>
-        
+
         <div class="table">
             <el-table
                 ref="multipleTable"
@@ -86,8 +86,8 @@
                 :data="tableList"
                 tooltip-effect="dark"
                 class="w-100 mt-50"
-                @sort-change="changeSort"
                 header-row-class-name="headerRow"
+                @sort-change="changeSort"
             >
                 <template slot="empty">
                     <empty empty-type="pro" />
@@ -96,12 +96,12 @@
                 <el-table-column prop="firstName" label="一级类目" />
                 <el-table-column prop="secondName" label="二级类目">
                     <template slot-scope="scope">
-                        {{ scope.row.secondName || '-'}}
+                        {{ scope.row.secondName || '-' }}
                     </template>
                 </el-table-column>
                 <el-table-column prop="thirdName" label="三级类目">
                     <template slot-scope="scope">
-                        {{ scope.row.thirdName || '-'}}
+                        {{ scope.row.thirdName || '-' }}
                     </template>
                 </el-table-column>
                 <el-table-column prop="skuAmount" sortable="custom" label="SKU数量" />
@@ -127,11 +127,11 @@
             </el-table-column> -->
             </el-table>
         </div>
-		<LsSticky :data="tableList">
-			<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-				<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-			</el-row>
-		</LsSticky>
+        <LsSticky :data="tableList">
+            <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                <pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
+            </el-row>
+        </LsSticky>
     </el-card>
 </template>
 
@@ -143,7 +143,7 @@ import { csyApi } from '@/api/ModuleData'
 export default {
     name: 'CategorySurvey',
     components: {
-        chart,
+        chart
     },
     mixins: [common, cud],
     data() {

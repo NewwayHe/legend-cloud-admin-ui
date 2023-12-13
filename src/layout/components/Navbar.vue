@@ -5,8 +5,8 @@
         <breadcrumb class="breadcrumb-container" />
 
         <div class="right-menu d-flex">
-            <div class="w-50p h-100 flex-center" @click.stop="$router.push({name:'excelCenter'})">
-                <i class="iconfont icon-backtop1 font-20 cursor-pointer" style="transform:rotate(180deg)"></i>
+            <div class="w-50p h-100 flex-center" @click.stop="$router.push({ name: 'excelCenter' })">
+                <i class="iconfont icon-backtop1 font-20 cursor-pointer" style="transform: rotate(180deg)"></i>
             </div>
             <!-- 暂无后端接口，先屏蔽 -->
             <!-- <div class="w-50p h-100 flex-center">
@@ -14,7 +14,7 @@
             </div> -->
             <div class="w-50p h-100 flex-center position-relative cursor-pointer" @click.stop="$router.push({ name: 'message' })">
                 <i class="iconfont icon-lingdang" style="font-size: 20px"></i>
-                <span v-if="messegeNum" class="position-absolute text-fff _message font" style="right: 4px; top: 12px;">
+                <span v-if="messegeNum" class="position-absolute text-fff _message font" style="right: 4px; top: 12px">
                     {{ messegeNum > 99 ? '99+' : messegeNum }}
                 </span>
             </div>
@@ -62,8 +62,8 @@ export default {
             await this.$store.dispatch('user/logout')
             // this.$router.push(`/login?redirect=${this.$route.fullPath}`)
             this.$router.push(`/login`)
-			this.$store.dispatch('tagsView/delAllVisitedViews')//不把标签视图清空的话，切换另一个没权限的角色，他仍然能通过标签进入他没权限的页面
-		}
+            this.$store.dispatch('tagsView/delAllVisitedViews') //不把标签视图清空的话，切换另一个没权限的角色，他仍然能通过标签进入他没权限的页面
+        }
     }
 }
 </script>
@@ -93,13 +93,13 @@ export default {
         float: left;
     }
 
-    ._message{
+    ._message {
         display: block;
         padding: 2px 4px;
         // width: 28px;
         // height: 20px;
         line-height: 1.2;
-        background:#F56C6C;
+        background: #f56c6c;
         border-radius: 100px;
         text-align: center;
     }

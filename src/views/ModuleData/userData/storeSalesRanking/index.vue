@@ -57,7 +57,7 @@
                     </el-form-item>
                 </el-form>
             </div>
-            
+
             <chart height="700px" :all-list="allList" />
 
             <div class="table mt-20">
@@ -67,8 +67,8 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
+                    header-row-class-name="headerRow"
                     @sort-change="changeSort"
-					header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
@@ -76,14 +76,16 @@
                     <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="shopName" label="店铺名称" width="140">
                         <template slot-scope="scope">
-                            <el-popover
-                            trigger="hover"
-                            placement="top"
-                            width="450"
-                            :title="scope.row.shopName"
-                            >
-                                <el-link type="primary" target="_blank" :underline="false" :href="$shareRedirectUrl+'?detailsType=shop&shopId='+scope.row.shopId" >{{$shareRedirectUrl+'?detailsType=shop&shopId='+scope.row.shopId}}</el-link>
-                                <el-link slot="reference" type="primary" :underline="false">{{scope.row.shopName}}</el-link>
+                            <el-popover trigger="hover" placement="top" width="450" :title="scope.row.shopName">
+                                <el-link
+                                    type="primary"
+                                    target="_blank"
+                                    :underline="false"
+                                    :href="$shareRedirectUrl + '?detailsType=shop&shopId=' + scope.row.shopId"
+                                >
+                                    {{ $shareRedirectUrl + '?detailsType=shop&shopId=' + scope.row.shopId }}
+                                </el-link>
+                                <el-link slot="reference" type="primary" :underline="false">{{ scope.row.shopName }}</el-link>
                             </el-popover>
                         </template>
                     </el-table-column>
@@ -112,20 +114,14 @@
                             {{ scope.row.refundOrderNum || '-' }}
                         </template>
                     </el-table-column>
-                    <el-table-column prop="outStockRate" sortable="custom" label="缺货率" >
-                        <template slot-scope="scope">
-                            {{ scope.row.outStockRate || 0 }}%
-                        </template>
+                    <el-table-column prop="outStockRate" sortable="custom" label="缺货率">
+                        <template slot-scope="scope">{{ scope.row.outStockRate || 0 }}%</template>
                     </el-table-column>
                     <el-table-column prop="orderResponseTime" sortable="custom" label="订单响应时间" min-width="110">
-                        <template slot-scope="scope">
-                            {{ scope.row.orderResponseTime || 0 }}h
-                        </template>
+                        <template slot-scope="scope">{{ scope.row.orderResponseTime || 0 }}h</template>
                     </el-table-column>
                     <el-table-column prop="undercarriageRate" sortable="custom" label="下架率">
-                        <template slot-scope="scope">
-                            {{ scope.row.undercarriageRate || 0 }}%
-                        </template>
+                        <template slot-scope="scope">{{ scope.row.undercarriageRate || 0 }}%</template>
                     </el-table-column>
                 </el-table>
             </div>

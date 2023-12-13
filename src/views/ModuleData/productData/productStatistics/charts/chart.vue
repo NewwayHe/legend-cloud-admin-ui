@@ -49,8 +49,8 @@ export default {
                 title: {},
                 tooltip: {
                     trigger: 'item',
-                    textStyle:{
-                        color:'#fff'
+                    textStyle: {
+                        color: '#fff'
                     }
                 },
                 // legend: {

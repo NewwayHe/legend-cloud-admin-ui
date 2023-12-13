@@ -3,29 +3,19 @@
     <section class="mb-50">
         <div class="table">
             <el-card shadow>
-                <el-table
-                    ref="table"
-                    v-loading="tableDetailListLoading"
-                    :data="brandTable"
-                    class="w-100 mb-50"
-                    header-row-class-name="headerRow"
-                >
+                <el-table ref="table" v-loading="tableDetailListLoading" :data="brandTable" class="w-100 mb-50" header-row-class-name="headerRow">
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
                     <el-table-column prop="brandName" label="品牌名称" align="center" />
                     <el-table-column prop="brandPic" label="品牌LOGO" align="center">
                         <template slot-scope="scope">
-                            <ls-image style="vertical-align: middle" :src="scope.row.brandPic" :options="{ w: '50', h: '50', br: '4' }"/>
+                            <ls-image style="vertical-align: middle" :src="scope.row.brandPic" :options="{ w: '50', h: '50', br: '4' }" />
                         </template>
                     </el-table-column>
                     <el-table-column prop="bigImage" label="品牌大图" align="center">
                         <template slot-scope="scope">
-                            <ls-image
-                                style="vertical-align: middle"
-                                :src="scope.row.bigImage"
-                                :options="{ w: '50', h: '50', br: '4' }"
-                            />
+                            <ls-image style="vertical-align: middle" :src="scope.row.bigImage" :options="{ w: '50', h: '50', br: '4' }" />
                         </template>
                     </el-table-column>
                     <el-table-column prop="brief" label="品牌介绍" align="center" />
@@ -58,10 +48,10 @@
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
-                    <el-table-column label="序号" type="index" width="48"/>
+                    <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="pic" label="商品主图">
                         <template slot-scope="scope">
-                            <ls-image class="v-middle" :src="scope.row.pic" :options="{ w: '50', h: '50', br: '4' }"/>
+                            <ls-image class="v-middle" :src="scope.row.pic" :options="{ w: '50', h: '50', br: '4' }" />
                         </template>
                     </el-table-column>
                     <el-table-column prop="name" label="商品名称" show-overflow-tooltip width="280">
@@ -69,7 +59,7 @@
                             <el-link class="line-clamp1" :underline="false" type="primary">{{ scope.row.name }}</el-link>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="siteName" label="店铺名称" width="140"/>
+                    <el-table-column prop="siteName" label="店铺名称" width="140" />
                     <el-table-column prop="status" label="状态">
                         <template slot-scope="scope">
                             <span v-if="scope.row.status == 0" class="status-done">下架</span>
@@ -109,8 +99,7 @@ import { commodityBrandDetail } from '@/api/ModuleGoods'
 
 export default {
     name: 'CommodityBrandDetail',
-    components: {
-    },
+    components: {},
     mixins: [common, cud],
     data() {
         return {
@@ -122,7 +111,7 @@ export default {
             },
             searchFilters: {
                 brandId: this.$route.query.id,
-				status:3//-10：未发布; 0：下架、1：上架、3：全部
+                status: 3 //-10：未发布; 0：下架、1：上架、3：全部
             }
         }
     },
@@ -160,7 +149,7 @@ export default {
 <!--
     表格内容过长显示tooltip时的最大宽度设置 不能使用scoped
 -->
-<style >
+<style>
 .el-tooltip__popper {
     max-width: 60vw;
 }

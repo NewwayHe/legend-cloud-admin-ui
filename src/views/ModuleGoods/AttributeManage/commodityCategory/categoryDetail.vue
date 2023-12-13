@@ -24,7 +24,7 @@
                     <el-table-column prop="seq" label="排序" align="center" />
                     <el-table-column prop="icon" label="PC端图标" align="center">
                         <template slot-scope="scope">
-                            <ls-image class="v-middle" :src="scope.row.icon" :options="{ w: '50', h: '50', br: '4' }"/>
+                            <ls-image class="v-middle" :src="scope.row.icon" :options="{ w: '50', h: '50', br: '4' }" />
                         </template>
                     </el-table-column>
                     <el-table-column prop="aggName" label="关联规格参数分组" align="center">
@@ -59,10 +59,10 @@
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
-                    <el-table-column label="序号" type="index" width="48"/>
+                    <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="pic" label="商品主图">
                         <template slot-scope="scope">
-                            <ls-image class="v-middle" :src="scope.row.pic" :options="{ w: '50', h: '50', br: '4' }"/>
+                            <ls-image class="v-middle" :src="scope.row.pic" :options="{ w: '50', h: '50', br: '4' }" />
                         </template>
                     </el-table-column>
                     <el-table-column prop="name" label="商品名称" show-overflow-tooltip width="280">
@@ -74,12 +74,10 @@
                         <template slot-scope="scope">{{ scope.row.brandName || '-' }}</template>
                     </el-table-column>
                     <el-table-column prop="price" label="销售价" width="224">
-                        <template slot-scope="scope">
-							￥{{ scope.row.price }}
-						</template>
+                        <template slot-scope="scope">￥{{ scope.row.price }}</template>
                     </el-table-column>
-                    <el-table-column prop="buys" label="销量"/>
-                    <el-table-column prop="shopName" label="店铺名称" width="140"/>
+                    <el-table-column prop="buys" label="销量" />
+                    <el-table-column prop="shopName" label="店铺名称" width="140" />
                     <el-table-column prop="status" label="状态">
                         <template slot-scope="scope">
                             <span v-if="scope.row.status == 0" class="status-done">下架</span>
@@ -119,8 +117,7 @@ import { category } from '@/api/ModuleGoods'
 
 export default {
     name: 'CategoryDetail',
-    components: {
-    },
+    components: {},
     mixins: [common, cud],
     data() {
         return {

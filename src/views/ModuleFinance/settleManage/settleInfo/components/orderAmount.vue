@@ -1,14 +1,21 @@
 <!-- 订单金额 -->
 <template>
     <div class="table">
-        <el-table ref="multipleTable" v-loading="tableListLoading" :data="tableList" tooltip-effect="dark" class="w-100" header-row-class-name="headerRow">
+        <el-table
+            ref="multipleTable"
+            v-loading="tableListLoading"
+            :data="tableList"
+            tooltip-effect="dark"
+            class="w-100"
+            header-row-class-name="headerRow"
+        >
             <template slot="empty">
                 <empty empty-type="pro" />
             </template>
             <el-table-column label="序号" type="index" width="48" />
-            <el-table-column label="订单编号" prop="orderNumber" min-width="180"/>
-            <el-table-column label="下单时间" prop="orderTime" width="140"/>
-            <el-table-column label="支付时间" prop="payTime" width="140"/>
+            <el-table-column label="订单编号" prop="orderNumber" min-width="180" />
+            <el-table-column label="下单时间" prop="orderTime" width="140" />
+            <el-table-column label="支付时间" prop="payTime" width="140" />
             <el-table-column label="订单金额" width="115">
                 <template slot-scope="scope">
                     <div>{{ scope.row.orderAmount | priceFilter }}</div>
@@ -66,7 +73,7 @@ export default {
                 orderType: 1,
                 id: this.$route.query.id
             },
-            sonEffect: true,    //作用参考commom.js
+            sonEffect: true //作用参考commom.js
         }
     },
     watch: {

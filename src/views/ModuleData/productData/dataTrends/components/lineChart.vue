@@ -40,7 +40,7 @@ export default {
             deep: true,
             handler(val) {
                 this.setOptions(val)
-                console.log('变化了');
+                console.log('变化了')
             }
         }
     },
@@ -61,7 +61,7 @@ export default {
             this.chart = echarts.init(this.$el, 'macarons')
             this.setOptions(this.chartData)
         },
-        setOptions({ totalDealAmount, dealAmount,dealGoodNum,totalDealGoodNum,date } = {}) {
+        setOptions({ totalDealAmount, dealAmount, dealGoodNum, totalDealGoodNum, date } = {}) {
             this.chart.setOption({
                 xAxis: {
                     data: date,
@@ -90,7 +90,7 @@ export default {
                     }
                 },
                 legend: {
-                    data: ['累计成交金额', '成交金额','累计成交商品数量','当天成交商品数量']
+                    data: ['累计成交金额', '成交金额', '累计成交商品数量', '当天成交商品数量']
                 },
                 series: [
                     {

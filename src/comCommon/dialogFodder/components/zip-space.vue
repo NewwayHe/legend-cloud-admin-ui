@@ -2,13 +2,14 @@
     <div>
         <el-form ref="form" :model="modelParams" size="small" label-width="90px" @submit.native.prevent>
             <el-form-item key="zip" label="本地压缩包" :rules="rules.zip" prop="zip">
-                <upload ref="upload" key="modelParamsUpload" v-model="modelParams.zip" uploadType="zip" :floder-id="floderId" :limit="1" />
+                <upload ref="upload" key="modelParamsUpload" v-model="modelParams.zip" upload-type="zip" :floder-id="floderId" :limit="1" />
                 <div style="color: #999; font-size: 12px">
-					最多可上传
-					<span style="color: #F56C6C; font-weight: 500;">&ensp;{{ 1 }}&ensp;</span>
-					<!-- 个附件，支持zip、rar格式 -->
-					个附件，支持zip格式<!-- 现在还不支持rar格式 -->
-				</div>
+                    最多可上传
+                    <span style="color: #f56c6c; font-weight: 500">&ensp;{{ 1 }}&ensp;</span>
+                    <!-- 个附件，支持zip、rar格式 -->
+                    个附件，支持zip格式
+                    <!-- 现在还不支持rar格式 -->
+                </div>
             </el-form-item>
         </el-form>
     </div>
@@ -25,7 +26,8 @@ export default {
             type: [Number, String],
             required: true
         },
-        treeValue: {        //这个也不知道有什么用
+        treeValue: {
+            //这个也不知道有什么用
             type: [String, Number],
             default: ''
         },
@@ -40,11 +42,11 @@ export default {
             modelParams: {
                 TreeValue: 0,
                 upload: 1,
-                zip: [],
+                zip: []
             },
             rules: {
                 // TreeValue: [{ required: true, trigger: 'blur', message: `请选择分组` }],
-                zip: [{ required: true, message: `请上传压缩包`, trigger: 'blur' }],
+                zip: [{ required: true, message: `请上传压缩包`, trigger: 'blur' }]
             }
         }
     },
@@ -59,7 +61,8 @@ export default {
         this.modelParams.TreeValue = this.TreeValue
     },
     methods: {
-        check() {   //这个暂时用不上了
+        check() {
+            //这个暂时用不上了
             console.log(this.modelParams.upload, '123')
             this.$refs['form'].validate((valid) => {
                 if (valid) {
@@ -106,13 +109,13 @@ export default {
         },
         // resetFields会失效 使用这个resetData
         resetData() {
-            if(this.$refs.upload){
-                this.$refs.upload.clearFiles();
+            if (this.$refs.upload) {
+                this.$refs.upload.clearFiles()
             }
             this.modelParams = {
                 TreeValue: 0,
                 upload: 1,
-                zip: [],
+                zip: []
                 // group: '',
             }
         }

@@ -9,7 +9,7 @@
             :before-close="handleClose"
             custom-class="imgCenterDialog"
             append-to-body
-			@close="closeDialog"
+            @close="closeDialog"
         >
             <materialCenter
                 ref="materialCenter"
@@ -17,10 +17,10 @@
                 :mult="multiple"
                 :limit="limit"
                 :upload-tab="uploadTab"
-				:tempUrl.sync="tempUrlTemp"
-                :isEcho="isEcho"
+                :temp-url.sync="tempUrlTemp"
+                :is-echo="isEcho"
                 @transfers-select="transfersSelect"
-				@echo-success="echoSuccess"
+                @echo-success="echoSuccess"
             ></materialCenter>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="handleClose">取 消</el-button>
@@ -65,15 +65,16 @@ export default {
             type: String,
             default: 'PHOTO'
         },
-        inRichText: {   //如果是在富文本里 则可以选择图片和视频 否则其余页面 应该只选择单一类型
+        inRichText: {
+            //如果是在富文本里 则可以选择图片和视频 否则其余页面 应该只选择单一类型
             type: Boolean,
-            default: false,
+            default: false
         },
-		// true：为了防止客户上传完图片后在列表里找不到刚才上传的图片，上传完图片并点击【上传】后，立即选中上传的数据并且关闭弹窗(这时不用点击【确定】)[例子：商品发布上传图片]
-		isEcho: {
-		    type: Boolean,
-		    default: true,
-		}
+        // true：为了防止客户上传完图片后在列表里找不到刚才上传的图片，上传完图片并点击【上传】后，立即选中上传的数据并且关闭弹窗(这时不用点击【确定】)[例子：商品发布上传图片]
+        isEcho: {
+            type: Boolean,
+            default: true
+        }
     },
     data() {
         return {
@@ -88,90 +89,98 @@ export default {
             videoUrl: '',
             isVisible: false,
 
-            selectItem: [] ,// 选中的item
-			
-			tempUrlTemp:''
+            selectItem: [], // 选中的item
+
+            tempUrlTemp: ''
         }
     },
 
     computed: {
-		// 是否展示 上传图片和视频面板 BOTH代表两个 IMG代表只展示图片面板 VIDEO只展示视频面板 [上传要求]
-		uploadTab() {
-		    return this.inRichText ? 'BOTH' : this.uploadType == 'PHOTO' ? 'IMG' : 'VIDEO'
-		}
+        // 是否展示 上传图片和视频面板 BOTH代表两个 IMG代表只展示图片面板 VIDEO只展示视频面板 [上传要求]
+        uploadTab() {
+            return this.inRichText ? 'BOTH' : this.uploadType == 'PHOTO' ? 'IMG' : 'VIDEO'
+        }
     },
-	watch:{
-		tempUrl: {
-		    handler(newValue) {
-		       this.tempUrlTemp = newValue
-		    },
-			immediate: true,
-		},
-	    tempUrlTemp(newValue){
-	        this.$emit('update:tempUrl', newValue)
-	    },
-	},
+    watch: {
+        tempUrl: {
+            handler(newValue) {
+                this.tempUrlTemp = newValue
+            },
+            immediate: true
+        },
+        tempUrlTemp(newValue) {
+            this.$emit('update:tempUrl', newValue)
+        }
+    },
     mounted() {},
     methods: {
         //选中图片点击确定
         success() {
             // console.log(this.$refs['materialCenter'].selectItem)
             this.$refs['materialCenter'].handleEmit()
-            if(!this.filterSrc.length) {
+            if (!this.filterSrc.length) {
                 return this.$message.warning('请先进行选择~')
             }
             const checkType = (src, showMsg = true) => {
                 let picExt = src.split('.').slice(-1)
-                if(this.diffPicOrVideo(`.${picExt}`)) {     //视频
-                    if(this.uploadType == "PHOTO") {
-                        showMsg && this.$message.warning('请选择正确格式的图片');
-                        return false;
+                if (this.diffPicOrVideo(`.${picExt}`)) {
+                    //视频
+                    if (this.uploadType == 'PHOTO') {
+                        showMsg && this.$message.warning('请选择正确格式的图片')
+                        return false
                     }
-                }else {     //图片
-                    if(this.uploadType == "VIDEO") {
-                        showMsg && this.$message.warning('请选择正确格式的视频');
-                        return false;
+                } else {
+                    //图片
+                    if (this.uploadType == 'VIDEO') {
+                        showMsg && this.$message.warning('请选择正确格式的视频')
+                        return false
                     }
                 }
-                return true;
+                return true
             }
-            if(!this.inRichText) {
-                if(this.multiple) {     //多选
+            if (!this.inRichText) {
+                if (this.multiple) {
+                    //多选
                     // let count = 0        //这是循环剔除遇到视频后的每一项 第一种做法
-                    for(let each of this.filterSrc) {
-                        if(!checkType(each, false)) {
+                    for (let each of this.filterSrc) {
+                        if (!checkType(each, false)) {
                             // this.filterSrc.length = count;  //在此截断 否则filterSrc会一直堆积
                             // 第二种做法 是剔除选择中含有的视频
-                            const rawLen = this.filterSrc.length;
-                            this.filterSrc = this.filterSrc.filter(item => checkType(item, false)); //截断
-                            if(this.filterSrc.length) {
-                                this.$message.warning(`当前选择${rawLen}个文件，已自动过滤不符合正确格式的${this.filterSrc.length}个${this.uploadType == "PHOTO" ? '视频' : '图片'}`)
+                            const rawLen = this.filterSrc.length
+                            this.filterSrc = this.filterSrc.filter((item) => checkType(item, false)) //截断
+                            if (this.filterSrc.length) {
+                                this.$message.warning(
+                                    `当前选择${rawLen}个文件，已自动过滤不符合正确格式的${this.filterSrc.length}个${
+                                        this.uploadType == 'PHOTO' ? '视频' : '图片'
+                                    }`
+                                )
                                 this.isVisible = false
                                 this.$emit('success', this.filterSrc, this.selectItem)
                             }
-                            return;      //如果有一个不符合 直接跳出函数
+                            return //如果有一个不符合 直接跳出函数
                         }
                         // ++count;
                     }
-                }else {     //单选
-                    if(!checkType(this.filterSrc[0])) return;
+                } else {
+                    //单选
+                    if (!checkType(this.filterSrc[0])) return
                 }
             }
             this.isVisible = false
             this.$emit('success', this.filterSrc, this.selectItem)
         },
         transfersSelect(arr) {
-			arr = this.$utils.array.delRepeat(arr,'key')//去重
-			// console.log('arr~~~~',this.filterSrc)
+            arr = this.$utils.array.delRepeat(arr, 'key') //去重
+            // console.log('arr~~~~',this.filterSrc)
             if (this.multiple) {
-				this.filterSrc = arr.map((v) => {
-					if(this.diffPicOrVideo(`.${v.ext}`)) {
-						return v.videoUrl
-					}else {
-						return v.url
-					}
-				})
-				// 下面这个concat的话,会导致商品发布页面上传图片时,选择了图片关掉窗口,再选择相同的图片,导致图片重复。但却未知当初为何写concat，所以先保留
+                this.filterSrc = arr.map((v) => {
+                    if (this.diffPicOrVideo(`.${v.ext}`)) {
+                        return v.videoUrl
+                    } else {
+                        return v.url
+                    }
+                })
+                // 下面这个concat的话,会导致商品发布页面上传图片时,选择了图片关掉窗口,再选择相同的图片,导致图片重复。但却未知当初为何写concat，所以先保留
                 // this.filterSrc = this.filterSrc.concat(
                 //     arr.map((v) => {
                 //         if(this.diffPicOrVideo(`.${v.ext}`)) {
@@ -183,22 +192,22 @@ export default {
                 // )
             } else {
                 this.filterSrc = arr.map((v) => {
-                    if(this.diffPicOrVideo(`.${v.ext}`)) {
+                    if (this.diffPicOrVideo(`.${v.ext}`)) {
                         return v.videoUrl
-                    }else {
+                    } else {
                         return v.url
                     }
                 })
             }
             this.selectItem = arr
-			this.filterSrc = this.$utils.array.delRepeat(this.filterSrc)//去重
+            this.filterSrc = this.$utils.array.delRepeat(this.filterSrc) //去重
             console.log(this.filterSrc)
         },
         //显示对话框事件，判断请求类型，执行不同getdata()
         showDialog() {
             this.isVisible = true
-            this.$nextTick(()=> {
-                this.$refs['materialCenter'].getSaveHistory(); //在弹窗中的imgCenter打开时要刷新历史数据
+            this.$nextTick(() => {
+                this.$refs['materialCenter'].getSaveHistory() //在弹窗中的imgCenter打开时要刷新历史数据
             })
             // 回显
             // if (typeof this.tempUrl == 'string' && this.tempUrl.length != 0) {
@@ -228,14 +237,14 @@ export default {
                 this.videoUrl = item.videoPath
             }
         },
-		// 关闭前动作
-		closeDialog() {
-		    // console.log('beforeClose--', this.$refs.materialCenter)
-		    const materialCenter = this.$refs.materialCenter;   //要清空所选内容
-		    this.$nextTick(() => {
-		        materialCenter.filterKeys = [];
-		    })
-		},
+        // 关闭前动作
+        closeDialog() {
+            // console.log('beforeClose--', this.$refs.materialCenter)
+            const materialCenter = this.$refs.materialCenter //要清空所选内容
+            this.$nextTick(() => {
+                materialCenter.filterKeys = []
+            })
+        },
         //关闭对话框清空
         handleClose() {
             this.isVisible = false
@@ -263,23 +272,41 @@ export default {
         },
         // 区分 视频Or图片 true为视频 false为图片
         diffPicOrVideo(ext) {
-            const videoExt = ['.wmv', '.asf', '.asx', '.rm', '.rmvb', '.MPEG', '.mp4', '.3gp', '.mov', '.m4v', '.avi', '.dat', '.mkv', '.flv', '.vob', '.webm', '.ogg'];
+            const videoExt = [
+                '.wmv',
+                '.asf',
+                '.asx',
+                '.rm',
+                '.rmvb',
+                '.MPEG',
+                '.mp4',
+                '.3gp',
+                '.mov',
+                '.m4v',
+                '.avi',
+                '.dat',
+                '.mkv',
+                '.flv',
+                '.vob',
+                '.webm',
+                '.ogg'
+            ]
             return videoExt.includes(ext.toLowerCase())
         },
-		inte(){
-			if (this.$refs['materialCenter']) {
-				this.$refs['materialCenter'].inte()
-			}
-		},
-		
-		// 立即回显
-		echoSuccess(files) {
-		    // this.filterSrc = this.isEcho&&!this.multiple?files:this.filterSrc.concat(files);//由于在materialCenter组件里已经concat，并且加入了tempUrl回选功能，所以这里不用concat
-		    this.filterSrc = files;
-			// console.log('files--', this.filterSrc, files)
-		    this.$emit('success', this.filterSrc, [])
-		    this.isVisible = false
-		},
+        inte() {
+            if (this.$refs['materialCenter']) {
+                this.$refs['materialCenter'].inte()
+            }
+        },
+
+        // 立即回显
+        echoSuccess(files) {
+            // this.filterSrc = this.isEcho&&!this.multiple?files:this.filterSrc.concat(files);//由于在materialCenter组件里已经concat，并且加入了tempUrl回选功能，所以这里不用concat
+            this.filterSrc = files
+            // console.log('files--', this.filterSrc, files)
+            this.$emit('success', this.filterSrc, [])
+            this.isVisible = false
+        }
     }
 }
 </script>

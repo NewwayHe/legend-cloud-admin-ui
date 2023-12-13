@@ -17,7 +17,7 @@
                             :ref="item.component"
                             :floder-id="floderId"
                             :tree-value="treeValue"
-							:limit="limit"
+                            :limit="limit"
                             @checkSussess="checkSussess"
                             @changeUpload="changeUpload"
                             @uploadSussess="uploadSussess"
@@ -46,39 +46,39 @@ import { materialCenter } from '@/api/ModuleSystem'
 const tabsArr = [
     { value: 'IMG', label: '上传图片', component: 'pictureSpace' },
     { value: 'VIDEO', label: '上传视频', component: 'videoSpace' },
-	{ value: 'ZIP', label: '上传图片压缩包', component: 'zipSpace' },
+    { value: 'ZIP', label: '上传图片压缩包', component: 'zipSpace' }
 ]
 
 export default {
     components: {
         pictureSpace,
         videoSpace,
-		zipSpace
+        zipSpace
     },
     props: {
-		treeValue: {
-		    type: [String, Number],
-		    default: ''
-		},
-		floderId: {
-		    type: [Number, String],
-		    required: true
-		},
-		// 是否展示 上传图片和视频面板 BOTH代表两个 IMG代表只展示图片面板 VIDEO只展示视频面板 
-		uploadTab: {
-		    type: String,
-		    default: 'BOTH'
-		},
-		// 当前次可上传张数[现暂时只用于图片面板]
-		limit: {
-		    type: Number,
-		    default: 15
-		},
-		// true：为了防止客户上传完图片后在列表里找不到刚才上传的图片，上传完图片并点击【上传】后，立即选中上传的数据并且关闭弹窗(这时不用点击【确定】)[例子：商品发布上传图片]
-		isEcho: {
-		    type: Boolean,
-		    default: true,
-		},
+        treeValue: {
+            type: [String, Number],
+            default: ''
+        },
+        floderId: {
+            type: [Number, String],
+            required: true
+        },
+        // 是否展示 上传图片和视频面板 BOTH代表两个 IMG代表只展示图片面板 VIDEO只展示视频面板
+        uploadTab: {
+            type: String,
+            default: 'BOTH'
+        },
+        // 当前次可上传张数[现暂时只用于图片面板]
+        limit: {
+            type: Number,
+            default: 15
+        },
+        // true：为了防止客户上传完图片后在列表里找不到刚才上传的图片，上传完图片并点击【上传】后，立即选中上传的数据并且关闭弹窗(这时不用点击【确定】)[例子：商品发布上传图片]
+        isEcho: {
+            type: Boolean,
+            default: true
+        }
     },
     data() {
         return {
@@ -89,23 +89,22 @@ export default {
 
             isVisible: false,
 
-            activeName: 'IMG',
+            activeName: 'IMG'
         }
     },
     computed: {
-		tabsArr() {
-		    if(this.uploadTab == 'BOTH') {
-		        return tabsArr
-		    }else if(this.uploadTab == 'IMG') {
-		        return [tabsArr[0]]
-		    }else if(this.uploadTab == 'VIDEO') {
-		        return [tabsArr[1]]
-		    }
-		}
-	},
-    watch: {},
-    created() {
+        tabsArr() {
+            if (this.uploadTab == 'BOTH') {
+                return tabsArr
+            } else if (this.uploadTab == 'IMG') {
+                return [tabsArr[0]]
+            } else if (this.uploadTab == 'VIDEO') {
+                return [tabsArr[1]]
+            }
+        }
     },
+    watch: {},
+    created() {},
     methods: {
         //显示事件
         showDialog() {
@@ -114,9 +113,9 @@ export default {
         // 点击模板时初始化数据
         handleClose() {
             this.$nextTick(() => {
-                const refs = ['pictureSpace', 'videoSpace','zipSpace']
-                for(let each of refs) {
-                    if(this.$refs[each] && this.$refs[each].length) {
+                const refs = ['pictureSpace', 'videoSpace', 'zipSpace']
+                for (let each of refs) {
+                    if (this.$refs[each] && this.$refs[each].length) {
                         this.$refs[each][0].resetData()
                     }
                 }
@@ -132,26 +131,28 @@ export default {
         //上传成功
         uploadSussess() {
             // this.isVisible = false
-            if(this.activeName == 'IMG') {      //第一个Tab
-                if(this.$refs['pictureSpace']) {
+            if (this.activeName == 'IMG') {
+                //第一个Tab
+                if (this.$refs['pictureSpace']) {
                     this.$refs['pictureSpace'][0].resetData()
                 }
-            }else if (this.activeName == 'VIDEO') {
-                if(this.$refs['videoSpace']) {
+            } else if (this.activeName == 'VIDEO') {
+                if (this.$refs['videoSpace']) {
                     this.$refs['videoSpace'][0].resetData()
                 }
-            }else if (this.activeName == 'ZIP') {
-                if(this.$refs['zipSpace']) {
+            } else if (this.activeName == 'ZIP') {
+                if (this.$refs['zipSpace']) {
                     this.$refs['zipSpace'][0].resetData()
                 }
             }
             this.$message.success('上传成功！')
-			if(!this.isEcho) {
-			    this.$parent.dbnSearch()
-			}
-			this.$nextTick(() => {  //关闭弹窗
-			    this.isVisible = false;
-			})
+            if (!this.isEcho) {
+                this.$parent.dbnSearch()
+            }
+            this.$nextTick(() => {
+                //关闭弹窗
+                this.isVisible = false
+            })
         },
         //网络图片抓取成功后确认上传到分组
         // updatedAttachment() {
@@ -172,74 +173,81 @@ export default {
         submitForm() {
             // console.log('refs--', this.$refs)
             // const refs = [['pictureSpace', 'modelParams'], ['videoSpace', 'modelVideo']];
-            let uploadFiles = [];  //是否有上传数据
-            if(this.activeName == 'IMG') {      //第一个Tab
-                if(this.$refs['pictureSpace']) {
+            let uploadFiles = [] //是否有上传数据
+            if (this.activeName == 'IMG') {
+                //第一个Tab
+                if (this.$refs['pictureSpace']) {
                     let pics = this.$refs['pictureSpace'][0]['modelParams']['pic']
-                    if(pics.length) {   //有图片
+                    if (pics.length) {
+                        //有图片
                         // uploadFiles.push(...pics)
-                        uploadFiles = pics;
+                        uploadFiles = pics
                     }
                 }
-            }else if (this.activeName == 'VIDEO') {
-                if(this.$refs['videoSpace']) {
+            } else if (this.activeName == 'VIDEO') {
+                if (this.$refs['videoSpace']) {
                     let videos = this.$refs['videoSpace'][0]['modelVideo']['video']
-                    if(videos.length) {   //有视频
+                    if (videos.length) {
+                        //有视频
                         // uploadFiles.push(...videos)
-                        uploadFiles = videos;
+                        uploadFiles = videos
                     }
                 }
-            }else if(this.activeName == 'ZIP'){
-				if(this.$refs['zipSpace']) {
-				    // let zips = this.$refs['zipSpace'][0]['modelParams']['zip'].map(item=>{return item.file})
-				    let zips = this.$refs['zipSpace'][0]['modelParams']['zip']
-				    if(zips.length) {   //有图片
-						// console.log('zips~~~~',zips)
-						// 使用form表单的数据格式
-						const paramsData = new FormData();
-						// 将上传文件数组依次添加到参数paramsData中
-						zips.forEach((it, index) => {
-							// console.log('it~~~~',it)
-							paramsData.append('fileFolderId', this.floderId)
-							paramsData.append(`file`, it.file);//只能上传一个文件
-							// paramsData.append(`file${index}`, it.file);//可以上传多个文件
-						});
-						// console.log('paramsData~~~~',paramsData)
-						this.loadingFlag = this.$loading({ text: '正在上传' });
-						materialCenter.tempUpload(paramsData).then((res) => {
-						    if (res.code) {
-								this.$emit('upload-success', uploadFiles);   //上传成功后 将这次的图片返回给上层 方便直接回显
-								this.uploadSussess() //上传成功
-						    }
-						}).catch((res) => {
-							// 如果10秒钟后还未上传完成,后台会上传超时
-							this.isVisible = false;
-							this.loadingFlag.close();
-							// this.$message.error(res.message)
-							this.$message.warning('上传超时，请一会后再查看上传结果！');
-						}).finally(()=>{
-							this.loadingFlag.close();
-						})
-				    }else{
-						return this.$message.warning('请选择要上传的图片压缩包！');
-					}
-				}
-				return
-			}
+            } else if (this.activeName == 'ZIP') {
+                if (this.$refs['zipSpace']) {
+                    // let zips = this.$refs['zipSpace'][0]['modelParams']['zip'].map(item=>{return item.file})
+                    let zips = this.$refs['zipSpace'][0]['modelParams']['zip']
+                    if (zips.length) {
+                        //有图片
+                        // console.log('zips~~~~',zips)
+                        // 使用form表单的数据格式
+                        const paramsData = new FormData()
+                        // 将上传文件数组依次添加到参数paramsData中
+                        zips.forEach((it, index) => {
+                            // console.log('it~~~~',it)
+                            paramsData.append('fileFolderId', this.floderId)
+                            paramsData.append(`file`, it.file) //只能上传一个文件
+                            // paramsData.append(`file${index}`, it.file);//可以上传多个文件
+                        })
+                        // console.log('paramsData~~~~',paramsData)
+                        this.loadingFlag = this.$loading({ text: '正在上传' })
+                        materialCenter
+                            .tempUpload(paramsData)
+                            .then((res) => {
+                                if (res.code) {
+                                    this.$emit('upload-success', uploadFiles) //上传成功后 将这次的图片返回给上层 方便直接回显
+                                    this.uploadSussess() //上传成功
+                                }
+                            })
+                            .catch((res) => {
+                                // 如果10秒钟后还未上传完成,后台会上传超时
+                                this.isVisible = false
+                                this.loadingFlag.close()
+                                // this.$message.error(res.message)
+                                this.$message.warning('上传超时，请一会后再查看上传结果！')
+                            })
+                            .finally(() => {
+                                this.loadingFlag.close()
+                            })
+                    } else {
+                        return this.$message.warning('请选择要上传的图片压缩包！')
+                    }
+                }
+                return
+            }
 
-
-            if(!uploadFiles.length) {
-                return this.$message.warning('请选择要上传的图片或者视频！');
+            if (!uploadFiles.length) {
+                return this.$message.warning('请选择要上传的图片或者视频！')
             }
             // console.log('lastFiles--', uploadFiles)
 
             materialCenter
-                .confirmUpload({ filePath: uploadFiles , tabType: this.activeName == 'IMG' ? 1 : 2 })
+                .confirmUpload({ filePath: uploadFiles, tabType: this.activeName == 'IMG' ? 1 : 2 })
                 .then((res) => {
                     if (!res.code) {
                         return this.$message.error(res.message)
                     }
-					this.$emit('upload-success', uploadFiles);   //上传成功后 将这次的图片返回给上层 方便直接回显
+                    this.$emit('upload-success', uploadFiles) //上传成功后 将这次的图片返回给上层 方便直接回显
                     this.uploadSussess() //上传成功
                 })
                 .catch((res) => {
@@ -255,44 +263,48 @@ export default {
         beforeChangeTab(nTab, oTab) {
             // console.log('切换--', nTab, oTab)
             let uploadFiles = []
-            if(oTab == 'IMG') {      //第一个Tab
-                if(this.$refs['pictureSpace']) {
+            if (oTab == 'IMG') {
+                //第一个Tab
+                if (this.$refs['pictureSpace']) {
                     let pics = this.$refs['pictureSpace'][0]['modelParams']['pic']
-                    if(pics.length) {   //有图片
+                    if (pics.length) {
+                        //有图片
                         // uploadFiles.push(...pics)
-                        uploadFiles = pics;
+                        uploadFiles = pics
                     }
                 }
-            }else if (oTab == 'VIDEO') {
-                if(this.$refs['videoSpace']) {
+            } else if (oTab == 'VIDEO') {
+                if (this.$refs['videoSpace']) {
                     let videos = this.$refs['videoSpace'][0]['modelVideo']['video']
-                    if(videos.length) {   //有视频
+                    if (videos.length) {
+                        //有视频
                         // uploadFiles.push(...videos)
-                        uploadFiles = videos;
+                        uploadFiles = videos
                     }
                 }
-			}else if(oTab == 'ZIP'){
-				if(this.$refs['zipSpace']) {
-				    let zips = this.$refs['zipSpace'][0]['modelParams']['zip']
-				    if(zips.length) {
-				        uploadFiles = zips;
-				    }
-				}
-			}
-            if(uploadFiles.length){
+            } else if (oTab == 'ZIP') {
+                if (this.$refs['zipSpace']) {
+                    let zips = this.$refs['zipSpace'][0]['modelParams']['zip']
+                    if (zips.length) {
+                        uploadFiles = zips
+                    }
+                }
+            }
+            if (uploadFiles.length) {
                 return new Promise((resolve, reject) => {
                     this.$confirm('请先上传当前Tab的内容！', '提示', {
                         confirmButtonText: '确定',
                         showCancelButton: false,
                         // cancelButtonText: '取消',
                         type: 'warning'
-                    }).then(() => {
-                    }).catch(() => {
-                    }).finally(()=> {
-                        reject(false)
                     })
+                        .then(() => {})
+                        .catch(() => {})
+                        .finally(() => {
+                            reject(false)
+                        })
                 })
-            }else {
+            } else {
                 return true
             }
         }

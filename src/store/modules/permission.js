@@ -153,7 +153,7 @@ const actions = {
             } else {
                 // 后端动态路由
                 const loadMenuList = await loadMenus()
-                console.log('menuList--',loadMenuList)
+                console.log('menuList--', loadMenuList)
                 const sdata = JSON.parse(JSON.stringify(loadMenuList || []))
                 const rdata = JSON.parse(JSON.stringify(loadMenuList || []))
                 //侧边栏路由

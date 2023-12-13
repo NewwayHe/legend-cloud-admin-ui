@@ -3,16 +3,16 @@
 */ -->
 <template>
     <section>
-        <el-card :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 查询 -->
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="更新日期">
                         <el-date-picker
                             v-model="date"
                             type="daterange"
                             value-format="yyyy-MM-dd HH:mm:ss"
-                            :default-time="['00:00:00','23:59:59']"
+                            :default-time="['00:00:00', '23:59:59']"
                             range-separator="至"
                             start-placeholder="开始日期"
                             end-placeholder="结束日期"
@@ -32,8 +32,8 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
-					row-key="id"
-					header-row-class-name="headerRow"
+                    row-key="id"
+                    header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
@@ -64,14 +64,19 @@
                             {{ scope.row.updateTime || '-' }}
                         </template>
                     </el-table-column>
-                    
+
                     <!-- <el-table-column prop="updateTime" width="150" label="更新时间"/> -->
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
         </el-card>
     </section>
@@ -83,27 +88,20 @@ import { debounce } from '@/utils/utils.js'
 import { report, GoodsManage } from '@/api/ModuleGoods'
 export default {
     name: 'Report',
-    components: {
-    },
+    components: {},
     mixins: [common, cud],
     data() {
         return {
-            searchFilters: {
-            },
+            searchFilters: {},
             date: '',
             url: {
                 getData: '/pay/settlement/querySettlementExceptionList'
             },
-            isMounted:true,
-
+            isMounted: true
         }
     },
-    mounted() {
-
-    },
+    mounted() {},
     methods: {
-
-
         // 改变日期
         changeDate(date) {
             if (date) {

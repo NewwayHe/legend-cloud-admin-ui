@@ -11,15 +11,15 @@ const ModuleMarketing = [
             icon: 'shuju'
         },
         children: [
-			{
-			    path: 'marketing',
-			    component: () => import('@/views/ModuleMarketing/marketing'),
-			    name: 'marketing',
-			    meta: {
-			        title: '营销广场'
-			    }
-			},
-			{
+            {
+                path: 'marketing',
+                component: () => import('@/views/ModuleMarketing/marketing'),
+                name: 'marketing',
+                meta: {
+                    title: '营销广场'
+                }
+            },
+            {
                 path: 'shopActivity',
                 component: () => import('@/views/ModuleMarketing/shopActivity/index'),
                 name: 'shopActivity',
@@ -107,7 +107,7 @@ const ModuleMarketing = [
                 meta: {
                     title: '弹窗广告'
                 },
-                children:[
+                children: [
                     {
                         path: 'popupAdvertData',
                         component: () => import('@/views/ModuleMarketing/popupAdvert/popupAdvertData'), // Parent router-view
@@ -131,10 +131,9 @@ const ModuleMarketing = [
                         meta: {
                             title: '弹窗广告数据'
                         }
-                    },
+                    }
                 ]
-                
-            },
+            }
         ]
     }
 ]

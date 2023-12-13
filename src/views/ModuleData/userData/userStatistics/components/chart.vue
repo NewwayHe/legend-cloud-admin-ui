@@ -30,10 +30,10 @@ export default {
         chartList: {
             type: Array
         },
-        grid:{
+        grid: {
             // containLabel 为 true 的时候：grid.left grid.right grid.top grid.bottom grid.width grid.height 决定的是包括了坐标轴标签在内的所有内容所形成的矩形的位置。这常用于『防止标签溢出』的场景，标签溢出指的是，标签长度动态变化时，可能会溢出容器或者覆盖其他组件。
-            type:Object,
-            default:()=>{
+            type: Object,
+            default: () => {
                 return {
                     left: 0,
                     right: 0,
@@ -52,13 +52,13 @@ export default {
             handler() {
                 this.initChart()
             },
-            deep: true,
+            deep: true
             // immediate: true,     //丢失DOM
         }
     },
     mounted() {
         // console.log('mount--',this.chartList,this.chart)
-        if(!this.$utils.test.isEmpty(this.chartList)) {
+        if (!this.$utils.test.isEmpty(this.chartList)) {
             this.$nextTick(() => {
                 this.initChart()
             })
@@ -84,7 +84,7 @@ export default {
                         type: 'shadow'
                     }
                 },
-                grid:this.grid,
+                grid: this.grid,
                 xAxis: {
                     type: 'value',
                     show: false

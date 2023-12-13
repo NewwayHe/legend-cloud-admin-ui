@@ -30,10 +30,10 @@
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
-                    <el-table-column label="序号" type="index" width="48"/>
+                    <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="pic" label="商品主图">
                         <template slot-scope="scope">
-                            <ls-image class="v-middle" :src="scope.row.pic" :options="{ w: '50', h: '50', br: '4' }"/>
+                            <ls-image class="v-middle" :src="scope.row.pic" :options="{ w: '50', h: '50', br: '4' }" />
                         </template>
                     </el-table-column>
 
@@ -81,8 +81,7 @@ import { category } from '@/api/ModuleGoods'
 
 export default {
     name: 'GroupDetail',
-    components: {
-    },
+    components: {},
     mixins: [common, cud],
     data() {
         return {
@@ -128,7 +127,7 @@ export default {
 <!--
     表格内容过长显示tooltip时的最大宽度设置 不能使用scoped
 -->
-<style >
+<style>
 .el-tooltip__popper {
     max-width: 60vw;
 }

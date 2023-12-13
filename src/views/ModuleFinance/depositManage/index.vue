@@ -67,7 +67,7 @@ export default {
             // 完成时删除
             checkAll: true,
             // 完成时删除
-            switchType: 'top',
+            switchType: 'top'
         }
     },
     mounted() {

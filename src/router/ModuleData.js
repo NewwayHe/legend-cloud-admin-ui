@@ -160,7 +160,7 @@ const ModuleData = [
                         meta: {
                             title: '销售分析'
                         }
-                    },
+                    }
                 ]
             },
             {
@@ -206,7 +206,7 @@ const ModuleData = [
                         }
                     }
                 ]
-            },
+            }
         ]
     }
 ]

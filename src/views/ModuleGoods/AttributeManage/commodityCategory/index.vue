@@ -6,20 +6,19 @@
         <div class="table">
             <el-card class="mb-15" shadow>
                 <!-- 指引 -->
-				<step/>
+                <step />
                 <el-row class="mb-20">
                     <el-button type="primary" size="medium" @click="toAdd">新增一级类目</el-button>
                 </el-row>
                 <el-row class="mb-20">
                     <el-alert class="theme" :closable="false" show-icon>
-                        <p>
-                            商品类目：用于管理商品，需要先创建一级类目＞再创建二级类目＞再创建三级类目
-                        </p>
+                        <p>商品类目：用于管理商品，需要先创建一级类目＞再创建二级类目＞再创建三级类目</p>
                     </el-alert>
                 </el-row>
 
                 <el-table
                     ref="table"
+                    :key="reloadTime"
                     v-loading="tableListLoading"
                     tooltip-effect="dark"
                     class="w-100"
@@ -30,8 +29,7 @@
                     :data="tableList"
                     :load="load"
                     :tree-props="{ hasChildren: 'hasChildren' }"
-                    :key="reloadTime"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" text="暂无相关类目" />
@@ -49,7 +47,7 @@
                             <ls-image :src="scope.row.icon" :options="{ w: '50', h: '50', br: '4' }" />
                         </template>
                     </el-table-column>
-                    <el-table-column prop="seq" label="权重" min-width="80" align="left"/>
+                    <el-table-column prop="seq" label="权重" min-width="80" align="left" />
                     <el-table-column prop="icon" label="状态" width="150">
                         <template slot-scope="scope">
                             <span v-if="scope.row.status == 1" class="status-pass">上线</span>
@@ -74,31 +72,31 @@
                 </el-table>
             </el-card>
         </div>
-        <el-dialog
-            title="提示"
-            :visible.sync="dialogVisible"
-            custom-class="dialog-form-small"
-            :before-close="dialogClose">
-                <div>
-                    <el-alert show-icon class="theme" :closable='false'>
-                        <template v-if="updateStateItem.hasChildren">
-                            <span slot="title">{{updateStateItem.status ? "类目下线后，是否下线关联的商品？" : "类目上线后，是否上线关联的商品？"}}</span>
-                        </template>
-                        <template v-else>
-                            <span slot="title">{{updateStateItem.status ? "类目下线后，用户无法浏览该类目。确定下线？" : "类目上线后，用户无法浏览该类目。确定上线？"}}</span>
-                        </template>
-                    </el-alert>
-                    <el-form label-width="98px" size="small" class="mt-20" v-if="updateStateItem.hasChildren">
-                        <el-form-item label="选择下线范围：" style="padding:0 16px;">
-                            <el-radio-group v-model="radioStatus">
-                                <el-radio :label="true">{{updateStateItem.status?"下线":"上线"}}类目和商品</el-radio>
-                                <el-radio :label="false">仅{{updateStateItem.status?"下线":"上线"}}类目</el-radio>
-                            </el-radio-group>
-                        </el-form-item>
-                    </el-form>
-                </div>
+        <el-dialog title="提示" :visible.sync="dialogVisible" custom-class="dialog-form-small" :before-close="dialogClose">
+            <div>
+                <el-alert show-icon class="theme" :closable="false">
+                    <template v-if="updateStateItem.hasChildren">
+                        <span slot="title">
+                            {{ updateStateItem.status ? '类目下线后，是否下线关联的商品？' : '类目上线后，是否上线关联的商品？' }}
+                        </span>
+                    </template>
+                    <template v-else>
+                        <span slot="title">
+                            {{ updateStateItem.status ? '类目下线后，用户无法浏览该类目。确定下线？' : '类目上线后，用户无法浏览该类目。确定上线？' }}
+                        </span>
+                    </template>
+                </el-alert>
+                <el-form v-if="updateStateItem.hasChildren" label-width="98px" size="small" class="mt-20">
+                    <el-form-item label="选择下线范围：" style="padding: 0 16px">
+                        <el-radio-group v-model="radioStatus">
+                            <el-radio :label="true">{{ updateStateItem.status ? '下线' : '上线' }}类目和商品</el-radio>
+                            <el-radio :label="false">仅{{ updateStateItem.status ? '下线' : '上线' }}类目</el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                </el-form>
+            </div>
             <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogClose" size="small">取 消</el-button>
+                <el-button size="small" @click="dialogClose">取 消</el-button>
                 <el-button v-ls-loading type="primary" size="small" @click="updateState(undefined)">确定</el-button>
             </span>
         </el-dialog>
@@ -122,12 +120,11 @@ export default {
             tableList: [],
             dialogVisible: false,
             reloadTime: Date.now(),
-            updateStateItem:{},
-            radioStatus:true,       //下线范围单选
+            updateStateItem: {},
+            radioStatus: true //下线范围单选
         }
     },
-    mounted() {
-    },
+    mounted() {},
     activated() {
         console.log('进入了activated')
         //如果页面从添加分类进来就会获取分类父级id，初始化该子级的数据
@@ -222,25 +219,25 @@ export default {
             }
         },
         // 上/下线
-        updateState:debounce(function(includeProduct) {
-            if(this.updateStateItem.hasChildren) {
-                includeProduct = this.radioStatus;
+        updateState: debounce(function (includeProduct) {
+            if (this.updateStateItem.hasChildren) {
+                includeProduct = this.radioStatus
             }
-                category
-                    .changeStatus(this.updateStateItem.id, Number(!this.updateStateItem.status),{includeProduct:includeProduct})
-                    .then((res) => {
-                        if(res.code){
-                            this.$message.success('操作成功')
-                            this.updateSubDepData(this.updateStateItem.parentId)//更新自身
-                            if(includeProduct==true){
-                                this.updateSubDepData(this.updateStateItem.id)//更新子
-                            }
-                            this.dialogClose()
+            category
+                .changeStatus(this.updateStateItem.id, Number(!this.updateStateItem.status), { includeProduct: includeProduct })
+                .then((res) => {
+                    if (res.code) {
+                        this.$message.success('操作成功')
+                        this.updateSubDepData(this.updateStateItem.parentId) //更新自身
+                        if (includeProduct == true) {
+                            this.updateSubDepData(this.updateStateItem.id) //更新子
                         }
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                    })
+                        this.dialogClose()
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
             // })
         }),
 
@@ -258,11 +255,11 @@ export default {
                 })
             })
         },
-        dialogOpen(row){
+        dialogOpen(row) {
             this.dialogVisible = true
             this.updateStateItem = row
         },
-        dialogClose(){
+        dialogClose() {
             this.dialogVisible = false
             this.updateStateItem = {}
             this.radioStatus = true
@@ -272,7 +269,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .el-tree ::v-deep .el-tree-node__expand-icon.expanded {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);

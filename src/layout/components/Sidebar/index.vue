@@ -11,7 +11,7 @@
                 :active-text-color="variables.menuActiveText"
                 :collapse-transition="false"
                 mode="vertical"
-				class="mb-30"
+                class="mb-30"
             >
                 <sidebar-item v-for="route in sidebarRouters" :key="route.path" :item="route" :base-path="route.path" />
             </el-menu>

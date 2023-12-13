@@ -16,11 +16,11 @@
                 size="small"
                 row-key="id"
                 :data="dialogTable"
+                header-row-class-name="headerRow"
                 @select-all="handleAllSelectionChange"
                 @select="selectionChange"
-                header-row-class-name="headerRow"
             >
-                <el-table-column type="selection" width="42" reserve-selection/>
+                <el-table-column type="selection" width="42" reserve-selection />
                 <template v-for="item in colData">
                     <el-table-column v-if="item.type == 'img'" :key="item.id" :prop="item.propName" :label="item.label">
                         <template slot-scope="scope">
@@ -29,14 +29,16 @@
                     </el-table-column>
                     <el-table-column v-else :key="item.id" show-overflow-tooltip :prop="item.propName" :label="item.label">
                         <template slot-scope="scope">
-                            {{scope.row[item.propName] || '-'}}
+                            {{ scope.row[item.propName] || '-' }}
                         </template>
                     </el-table-column>
                 </template>
             </el-table>
         </div>
         <el-row type="flex" justify="space-between" align="middle" class="dialog-paging mt-10">
-            <el-checkbox v-model="checkAll" @change="checkedAll" class="pl-10" :indeterminate="checkHalf" :disabled='!dialogTable.length'>全选</el-checkbox>
+            <el-checkbox v-model="checkAll" class="pl-10" :indeterminate="checkHalf" :disabled="!dialogTable.length" @change="checkedAll">
+                全选
+            </el-checkbox>
             <el-pagination
                 small
                 layout="prev, pager, next"
@@ -126,12 +128,12 @@ export default {
         },
         //底部全选按钮与表格顶部的全选按钮状态同步[半选状态]
         checkHalf() {
-            if(this.checkAll) {
-                return false;
-            }else if(this.tempTableIds.length) {
-                return true;
-            }else {
-                return false;
+            if (this.checkAll) {
+                return false
+            } else if (this.tempTableIds.length) {
+                return true
+            } else {
+                return false
             }
         },
         checkAll: {

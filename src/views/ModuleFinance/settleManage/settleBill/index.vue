@@ -16,7 +16,7 @@
                 </el-form>
             </div>
             <div class="table">
-                <el-row type="flex" class="mb-20" >
+                <el-row type="flex" class="mb-20">
                     <el-col>
                         <el-radio-group v-model="searchFilters.status" size="large" @change="changeStatus">
                             <el-radio-button>所有结算单</el-radio-button>
@@ -30,7 +30,16 @@
                 <el-alert type="info" class="theme mb-20" :closable="false" show-icon>
                     平台跟商家结算方式是账单在商家和平台确认后，平台线下转账给到商家，这里只是记账
                 </el-alert>
-				<el-table ref="multipleTable" v-loading="tableListLoading" :data="tableList" tooltip-effect="dark" class="w-100" header-row-class-name="headerRow" row-key="id" @selection-change="selectionChange">
+                <el-table
+                    ref="multipleTable"
+                    v-loading="tableListLoading"
+                    :data="tableList"
+                    tooltip-effect="dark"
+                    class="w-100"
+                    header-row-class-name="headerRow"
+                    row-key="id"
+                    @selection-change="selectionChange"
+                >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
@@ -90,7 +99,7 @@
                             <span v-if="scope.row.status == 4">已完成</span>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="shopName" label="店铺名称" width="140"/>
+                    <el-table-column prop="shopName" label="店铺名称" width="140" />
                     <el-table-column prop="shopId" label="店铺ID" />
                     <el-table-column label="操作" align="center" fixed="right" width="100">
                         <template slot-scope="scope">
@@ -106,11 +115,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
                 <el-alert type="warning" class="defalult mt-20" :closable="false">
                     <div style="line-height: 30px" class="text-999">
                         <p class="font-16 font-weight">说明</p>

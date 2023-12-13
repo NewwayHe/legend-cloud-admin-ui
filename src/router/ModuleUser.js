@@ -38,7 +38,7 @@ const ModuleSystem = [
                         name: 'shopUserInfo',
                         meta: { title: '商家用户信息' },
                         hidden: true
-                    },
+                    }
                 ]
             },
             {

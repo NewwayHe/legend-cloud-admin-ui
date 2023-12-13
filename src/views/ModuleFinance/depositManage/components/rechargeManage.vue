@@ -96,7 +96,7 @@
                         <span :class="scope.row.state == 0 ? 'warning' : ''">{{ scope.row.state === 0 ? '未支付' : '已支付' }}</span>
                     </template>
                 </el-table-column>
-                <el-table-column prop="productName" label="操作" align="center"   show-overflow-tooltip>
+                <el-table-column prop="productName" label="操作" align="center" show-overflow-tooltip>
                     <template slot-scope="scope">
                         <el-button type="text" @click="showSeeDialog(scope.row)">查看</el-button>
                     </template>

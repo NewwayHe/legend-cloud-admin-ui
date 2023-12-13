@@ -13,7 +13,7 @@ import mainr from './components/main.vue'
 import dataTrends from './components/dataTrends.vue'
 import commodityData from './components/commodityData.vue'
 export default {
-    name: 'mCouponDetails',
+    name: 'MCouponDetails',
     components: {
         hearder,
         mainr,

@@ -271,7 +271,7 @@ export default {
         &:first-child {
             margin-left: 0 !important;
         }
-         .el-icon-close {
+        .el-icon-close {
             width: 16px;
             height: 16px;
             vertical-align: 2px;

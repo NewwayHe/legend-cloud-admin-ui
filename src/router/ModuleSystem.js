@@ -83,7 +83,7 @@ const ModuleSystem = [
                 path: 'baseSet',
                 component: () => import('@/views/ModuleSystem/baseSet/baseSet.vue'), // Parent router-view
                 name: 'baseSet',
-                meta: { title: '基本设置' },
+                meta: { title: '基本设置' }
             },
             {
                 path: 'deliveryManage',

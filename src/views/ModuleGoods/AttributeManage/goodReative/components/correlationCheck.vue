@@ -20,28 +20,31 @@
                 <el-table-column prop="prodName" label="商品名称" show-overflow-tooltip width="250">
                     <template slot-scope="scope">
                         <div class="d-flex">
-                            <ls-image
-                                style="flex: 0 0 40px"
-                                :src="scope.row.pic"
-                                :options="{ w: '40', h: '40', br: '6' }"
-                            />
-                            <div class="line-clamp2 ml-10" style="line-height:1.6">{{ scope.row.name }}</div>
+                            <ls-image style="flex: 0 0 40px" :src="scope.row.pic" :options="{ w: '40', h: '40', br: '6' }" />
+                            <div class="line-clamp2 ml-10" style="line-height: 1.6">{{ scope.row.name }}</div>
                             <!-- <el-link class="line-clamp2 ml-10" :underline="false">{{ scope.row.name }}</el-link>    -->
                         </div>
-                        
                     </template>
                 </el-table-column>
                 <el-table-column prop="status" label="状态">
                     <template slot-scope="scope">
-                        <span :class="associatedList.includes(scope.row.id) ? 'status-pass' : 'status-done'">{{ associatedList.includes(scope.row.id) ? '已选择' : '未选择' }}</span>
+                        <span :class="associatedList.includes(scope.row.id) ? 'status-pass' : 'status-done'">
+                            {{ associatedList.includes(scope.row.id) ? '已选择' : '未选择' }}
+                        </span>
                     </template>
                 </el-table-column>
                 <el-table-column prop="relationFlag" label="操作">
                     <template slot-scope="scope">
-                        <el-link v-if="!associatedList.includes(scope.row.id)" :underline="false" type="primary" @click="relateParams(scope.row.id)" class="font-12">
+                        <el-link
+                            v-if="!associatedList.includes(scope.row.id)"
+                            :underline="false"
+                            type="primary"
+                            class="font-12"
+                            @click="relateParams(scope.row.id)"
+                        >
                             关联
                         </el-link>
-                        <el-link v-else :underline="false" type="primary" @click="cancelRelateParams(scope.row.id)" class="font-12">取消关联</el-link>
+                        <el-link v-else :underline="false" type="primary" class="font-12" @click="cancelRelateParams(scope.row.id)">取消关联</el-link>
                     </template>
                 </el-table-column>
             </el-table>
@@ -198,7 +201,7 @@ export default {
 <!--
     表格内容过长显示tooltip时的最大宽度设置 不能使用scoped
 -->
-<style >
+<style>
 .el-tooltip__popper {
     max-width: 60vw;
 }

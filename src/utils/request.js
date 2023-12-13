@@ -74,12 +74,12 @@ service.interceptors.response.use(
     (error) => {
         console.log(JSON.parse(JSON.stringify(error)))
         console.log('err:' + error) // for debug
-		let err = JSON.parse(JSON.stringify(error))
-		let errTimeOut = ''
-		// 如果是超过了 timeout请求时间
-		if (err.message.indexOf("timeout of") != -1) {
-			errTimeOut = '请求超时，请刷新页面后重试！'
-		}
+        let err = JSON.parse(JSON.stringify(error))
+        let errTimeOut = ''
+        // 如果是超过了 timeout请求时间
+        if (err.message.indexOf('timeout of') != -1) {
+            errTimeOut = '请求超时，请刷新页面后重试！'
+        }
 
         singleMessage.showMessage(errTimeOut || error.response.data.msg || '网络请求异常, 请检查您的网络设置后刷新重试!')
         // Message({
@@ -147,15 +147,15 @@ export const request = {
         }
         return this.sendRequest(requestParmams, opt)
     },
-	postFile(url, data, opt) {
-		const requestParmams = {
-			url,
-			method: 'post',
-			data: data,
-		}
-		console.log('111~~~~~~~~~~')
-		return this.sendRequest(requestParmams, {...opt,addHeader:{ 'Content-Type': 'multipart/form-data' }})
-	},
+    postFile(url, data, opt) {
+        const requestParmams = {
+            url,
+            method: 'post',
+            data: data
+        }
+        console.log('111~~~~~~~~~~')
+        return this.sendRequest(requestParmams, { ...opt, addHeader: { 'Content-Type': 'multipart/form-data' } })
+    },
     put(url, data, opt) {
         const requestParmams = {
             url,
@@ -209,13 +209,14 @@ export const request = {
             },
             responseType: 'blob'
         }
-		const opt = {
-			addHeader: { 'Content-Type': 'application/json' },
-		}
-		this.sendRequest(requestParmams,opt)
+        const opt = {
+            addHeader: { 'Content-Type': 'application/json' }
+        }
+        this.sendRequest(requestParmams, opt)
             .then((res) => {
                 // 如果是二进制的，则进行下载
-                if(res.data.type==='application/vnd.ms-excel'){ //2022.4.26部分导出功能改为异步导出，故加判断。是excel文件则下载，否则就只弹提示
+                if (res.data.type === 'application/vnd.ms-excel') {
+                    //2022.4.26部分导出功能改为异步导出，故加判断。是excel文件则下载，否则就只弹提示
                     const fileContent = new Blob([res.data])
                     const link = document.createElement('a') // a标签下载
                     link.href = window.URL.createObjectURL(fileContent)
@@ -229,16 +230,14 @@ export const request = {
                         type: 'success',
                         duration: 5 * 1000
                     })
-                }else{
-                    
-                        Message({
-                            message: '文件正在生成中，请稍后前往右上角文件导出中心下载',
-                            type: 'success',
-                            duration: 5 * 1000
-                        })
-                    
+                } else {
+                    Message({
+                        message: '文件正在生成中，请稍后前往右上角文件导出中心下载',
+                        type: 'success',
+                        duration: 5 * 1000
+                    })
                 }
-                
+
                 // console.log(res,'fffffffffffffffffff')
             })
             .catch((err) => {
@@ -278,7 +277,8 @@ export const request = {
                 params.headers = {}
                 params.headers['serviceName'] = params.url.split('/')[1]
             }
-            if(options.addHeader) {     //是否需要增加请求头参数
+            if (options.addHeader) {
+                //是否需要增加请求头参数
                 Object.assign(params.headers, options.addHeader)
             }
             const defaultOptions = {

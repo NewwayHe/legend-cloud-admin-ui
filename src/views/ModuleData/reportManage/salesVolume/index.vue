@@ -26,12 +26,9 @@ export default {
     },
     mixins: [common, cud],
     data() {
-        return {
-			
-		}
+        return {}
     },
-    mounted() {
-    },
+    mounted() {},
     methods: {}
 }
 </script>

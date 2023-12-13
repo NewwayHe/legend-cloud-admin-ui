@@ -19,10 +19,10 @@
                 <el-table-column prop="propName" label="规格标题" />
                 <el-table-column prop="memo" label="规格副标题">
                     <template slot-scope="scope">
-                        {{ scope.row.memo || '-'}}
+                        {{ scope.row.memo || '-' }}
                     </template>
                 </el-table-column>
-                <el-table-column label="操作" align="center" >
+                <el-table-column label="操作" align="center">
                     <template slot-scope="scope">
                         <el-link class="font" :underline="false" type="primary" @click="chooseItem(scope.row)">选择</el-link>
                     </template>
@@ -78,9 +78,7 @@ export default {
             dialogTableList: []
         }
     },
-    mounted() {
-		
-	},
+    mounted() {},
     methods: {
         // 初始化数据
         dialogInit() {

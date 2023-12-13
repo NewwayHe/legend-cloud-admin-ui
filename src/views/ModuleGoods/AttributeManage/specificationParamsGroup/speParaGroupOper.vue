@@ -5,7 +5,7 @@
             <div class="formWarp">
                 <el-form ref="form" :model="form" :rules="formRules" label-width="150px" size="small">
                     <el-form-item label="规格参数分组标题：" prop="name">
-                        <el-input v-model="form.name" class="w-450p" maxlength="20" show-word-limit placeholder="请输入"/>
+                        <el-input v-model="form.name" class="w-450p" maxlength="20" show-word-limit placeholder="请输入" />
                         <span class="font text-999 ml-15">规格参数分组标题，不会显示在用户端</span>
                     </el-form-item>
                     <el-form-item label="关联商品类目：">
@@ -43,20 +43,8 @@
                 </el-row>
                 <el-row>
                     <!-- 四个表格 -->
-                    <speTable 
-                        v-if="status == '1'" 
-                        ref="speTable" 
-                        :table-list.sync="speTableList" 
-                        :is-edit="isEdit" 
-                        @disassociate="delItem" 
-                    />
-                    <paramTable
-                        v-if="status == '2'"
-                        ref="paramTable"
-                        :table-list.sync="paramTableList"
-                        :is-edit="isEdit"
-                        @disassociate="delItem"
-                    />
+                    <speTable v-if="status == '1'" ref="speTable" :table-list.sync="speTableList" :is-edit="isEdit" @disassociate="delItem" />
+                    <paramTable v-if="status == '2'" ref="paramTable" :table-list.sync="paramTableList" :is-edit="isEdit" @disassociate="delItem" />
                     <paramGroupTable
                         v-if="status == '3'"
                         ref="paramGroupTable"
@@ -64,13 +52,7 @@
                         :is-edit="isEdit"
                         @disassociate="delItem"
                     />
-                    <brandTable
-                        v-if="status == '4'"
-                        ref="brandTable"
-                        :table-list.sync="brandTableList"
-                        :is-edit="isEdit"
-                        @disassociate="delItem"
-                    />
+                    <brandTable v-if="status == '4'" ref="brandTable" :table-list.sync="brandTableList" :is-edit="isEdit" @disassociate="delItem" />
                 </el-row>
             </div>
         </el-card>
@@ -102,7 +84,7 @@
         </el-dialog>
         <Sticky>
             <el-button size="small" @click="goBack">返回</el-button>
-            <ls-button type="primary" size="small" :asyncFunction="dbnSubmit">{{ isEdit ? '保存' : '新增' }}</ls-button>
+            <ls-button type="primary" size="small" :async-function="dbnSubmit">{{ isEdit ? '保存' : '新增' }}</ls-button>
         </Sticky>
     </section>
 </template>
@@ -120,7 +102,7 @@ export default {
         speTable,
         paramTable,
         paramGroupTable,
-        brandTable,
+        brandTable
     },
     data() {
         return {
@@ -157,11 +139,11 @@ export default {
             isEdit: false // 编辑
         }
     },
-    beforeRouteEnter(to,from,next) {
-        if(to.query.type == 'edit') {
-            to.meta.title = '编辑规格参数分组'     //更改tab页同步标题
-        }else {
-            to.meta.title = '新增规格参数分组'     //更改tab页同步标题
+    beforeRouteEnter(to, from, next) {
+        if (to.query.type == 'edit') {
+            to.meta.title = '编辑规格参数分组' //更改tab页同步标题
+        } else {
+            to.meta.title = '新增规格参数分组' //更改tab页同步标题
         }
         next()
     },
@@ -196,77 +178,78 @@ export default {
 
         // 提交
         async dbnSubmit() {
-			await this.$refs.form.validate().then(async (res)=>{
-					if (this.isEdit) {
-						console.log('22222222222')
-						await this.edit()
-						console.log('33333333333')
-					} else {
-						await this.add()
-					}
-			}).catch(err=>{
-				
-			})
+            await this.$refs.form
+                .validate()
+                .then(async (res) => {
+                    if (this.isEdit) {
+                        console.log('22222222222')
+                        await this.edit()
+                        console.log('33333333333')
+                    } else {
+                        await this.add()
+                    }
+                })
+                .catch((err) => {})
         },
 
         // 新增
         add() {
-            return new Promise((resolve)=>{
+            return new Promise((resolve) => {
                 specificationParamsGroup
-                .add({
-                    name: this.form.name,
-                    categoryList: this.processData(this.form.categoryList, 'categoryId'),
-                    specificationList: this.processData(this.speTableList, 'propId'),
-                    paramList: this.processData(this.paramTableList, 'propId'),
-                    paramGroupList: this.processData(this.paramGroupTableList, 'groupId'),
-                    brandIdList: this.processData(this.brandTableList, 'brandId')
-                })
-                .then((res) => {
-                    this.$message({
-                        message: '新增成功',
-                        type: 'success',
+                    .add({
+                        name: this.form.name,
+                        categoryList: this.processData(this.form.categoryList, 'categoryId'),
+                        specificationList: this.processData(this.speTableList, 'propId'),
+                        paramList: this.processData(this.paramTableList, 'propId'),
+                        paramGroupList: this.processData(this.paramGroupTableList, 'groupId'),
+                        brandIdList: this.processData(this.brandTableList, 'brandId')
                     })
-                    this.$router.push({
-                        name: 'specificationParamsGroup'
+                    .then((res) => {
+                        this.$message({
+                            message: '新增成功',
+                            type: 'success'
+                        })
+                        this.$router.push({
+                            name: 'specificationParamsGroup'
+                        })
                     })
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
-                .finally(()=>{
-                    resolve()
-                })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+                    .finally(() => {
+                        resolve()
+                    })
             })
-            
         },
 
         // 编辑
         edit() {
-            return new Promise((resolve)=>{
-            specificationParamsGroup
-                .edit({
-                    id: this.form.id,
-                    name: this.form.name,
-                    categoryList: this.processData(this.form.categoryList, 'categoryId'),
-                    specificationList: this.processData(this.speTableList, 'propId'),
-                    paramList: this.processData(this.paramTableList, 'propId'),
-                    paramGroupList: this.processData(this.paramGroupTableList, 'groupId'),
-                    brandIdList: this.processData(this.brandTableList, 'brandId')
-                })
-                .then((res) => {
-                    this.$message({
-                        message: '编辑成功',
-                        type: 'success',
+            return new Promise((resolve) => {
+                specificationParamsGroup
+                    .edit({
+                        id: this.form.id,
+                        name: this.form.name,
+                        categoryList: this.processData(this.form.categoryList, 'categoryId'),
+                        specificationList: this.processData(this.speTableList, 'propId'),
+                        paramList: this.processData(this.paramTableList, 'propId'),
+                        paramGroupList: this.processData(this.paramGroupTableList, 'groupId'),
+                        brandIdList: this.processData(this.brandTableList, 'brandId')
                     })
-                    this.$router.push({
-                        name: 'specificationParamsGroup'
+                    .then((res) => {
+                        this.$message({
+                            message: '编辑成功',
+                            type: 'success'
+                        })
+                        this.$router.push({
+                            name: 'specificationParamsGroup'
+                        })
                     })
-                })
-                .catch((err) => {
-                    console.log(err)
-                }).finally(()=>{
-                    resolve()
-                })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+                    .finally(() => {
+                        resolve()
+                    })
             })
         },
 

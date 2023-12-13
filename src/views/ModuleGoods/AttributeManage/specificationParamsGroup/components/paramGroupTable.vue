@@ -8,8 +8,8 @@
                 <empty empty-type="pro" text="暂无关联信息" />
             </template>
             <el-table-column label="序号" type="index" width="48" />
-            <el-table-column prop="name" label="参数组标题"/>
-            <el-table-column prop="memo" label="参数组副标题"/>
+            <el-table-column prop="name" label="参数组标题" />
+            <el-table-column prop="memo" label="参数组副标题" />
             <el-table-column prop="propertyStr" label="关联参数" show-overflow-tooltip>
                 <template slot-scope="scope">
                     <span>{{ scope.row.paramsStr || scope.row.propertyStr || '-' }}</span>

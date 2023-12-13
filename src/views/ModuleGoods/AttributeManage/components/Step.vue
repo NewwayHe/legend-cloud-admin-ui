@@ -3,19 +3,21 @@
     <div class="lead">
         <h3>商品属性设置指引</h3>
         <div>
-            <p>平台需要设置规格/参数/参数组/品牌/类目后，使用类目关联规格/参数/参数组/品牌，商家才可以在发布商品时使用使用该类目关联的规格/参数/参数组；</p>
+            <p>
+                平台需要设置规格/参数/参数组/品牌/类目后，使用类目关联规格/参数/参数组/品牌，商家才可以在发布商品时使用使用该类目关联的规格/参数/参数组；
+            </p>
             <slot></slot>
         </div>
         <div class="font-0">
-            <el-button type="text" @click="$router.push({name:'specifications'})" size="small">设置规格</el-button>
-            <el-button type="text" @click="$router.push({name:'params'})" size="small">设置参数</el-button>
-            <el-button type="text" @click="$router.push({name:'commodityBrand'})" size="small">设置品牌</el-button>
-            <el-button type="text" @click="$router.push({name:'commodityCategory'})" size="small">设置类目</el-button>
-            <span class='mx-10 font-14 iconfont icon-a-nextstep text-ccc'></span>
-            <el-button type="text" @click="$router.push({name:'paramsGroup'})" size="small">设置参数组</el-button>
-            <span class='mx-10 font-14 iconfont icon-a-nextstep text-ccc'></span>
-            <el-button type="text" @click="$router.push({name:'specificationParamsGroup'})" size="small">类目关联规格/参数/参数组/品牌</el-button>
-            <span class='mx-10 font-14 iconfont icon-a-nextstep text-ccc'></span>
+            <el-button type="text" size="small" @click="$router.push({ name: 'specifications' })">设置规格</el-button>
+            <el-button type="text" size="small" @click="$router.push({ name: 'params' })">设置参数</el-button>
+            <el-button type="text" size="small" @click="$router.push({ name: 'commodityBrand' })">设置品牌</el-button>
+            <el-button type="text" size="small" @click="$router.push({ name: 'commodityCategory' })">设置类目</el-button>
+            <span class="mx-10 font-14 iconfont icon-a-nextstep text-ccc"></span>
+            <el-button type="text" size="small" @click="$router.push({ name: 'paramsGroup' })">设置参数组</el-button>
+            <span class="mx-10 font-14 iconfont icon-a-nextstep text-ccc"></span>
+            <el-button type="text" size="small" @click="$router.push({ name: 'specificationParamsGroup' })">类目关联规格/参数/参数组/品牌</el-button>
+            <span class="mx-10 font-14 iconfont icon-a-nextstep text-ccc"></span>
             <el-button type="text" class="text-333" size="small">商家发布商品</el-button>
         </div>
     </div>
@@ -27,7 +29,7 @@ export default {
 }
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 /* 修改popover样式 不能加scoped */
 .el-popover.atooltip {
     padding: 10px;

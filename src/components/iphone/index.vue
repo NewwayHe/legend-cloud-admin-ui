@@ -17,7 +17,7 @@
             :style="{ backgroundColor: backgroundColor, width: `${width}px`, height: `${height}px` }"
             @scroll="onScroll"
         >
-            <slot name="screen" v-bind:height="height"></slot>
+            <slot name="screen" :height="height"></slot>
         </div>
         <div class="buttons">
             <span class="on-off" />

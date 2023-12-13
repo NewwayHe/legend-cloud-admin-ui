@@ -1,7 +1,14 @@
 <!-- 退款金额 -->
 <template>
     <div class="table">
-        <el-table ref="multipleTable" v-loading="tableListLoading" :data="tableList" tooltip-effect="dark" class="w-100" header-row-class-name="headerRow">
+        <el-table
+            ref="multipleTable"
+            v-loading="tableListLoading"
+            :data="tableList"
+            tooltip-effect="dark"
+            class="w-100"
+            header-row-class-name="headerRow"
+        >
             <template slot="empty">
                 <empty empty-type="pro" />
             </template>
@@ -53,7 +60,7 @@ export default {
                 orderType: 2,
                 id: this.$route.query.id
             },
-            sonEffect: true,    //作用参考commom.js
+            sonEffect: true //作用参考commom.js
         }
     },
     watch: {

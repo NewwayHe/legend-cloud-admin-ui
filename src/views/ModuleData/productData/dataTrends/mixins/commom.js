@@ -7,27 +7,29 @@ export default {
             searchFilters: {}, // 搜索参数
             fixFilters: {}, // 固定参数
             tableList: [], // 表格列表
-            lineChartData: { // 折线图列表
+            lineChartData: {
+                // 折线图列表
                 totalDealAmount: [],
                 dealAmount: [],
-                dealGoodNum:[],
-                totalDealGoodNum:[],
-                date:[]
+                dealGoodNum: [],
+                totalDealGoodNum: [],
+                date: []
             },
             typeLink: setting.linkTag,
             tableListLoading: false, // 表格请求loading
-			isShowLoading:false, //表格是否有loading
+            isShowLoading: false, //表格是否有loading
             tableTotal: 0, // 表格列表总数
             page: {
                 // 表格页码
                 pageSize: 10,
                 curPage: 1
             },
-            orderBy: { // 排序
-            	prop:'',
-            	order:''
+            orderBy: {
+                // 排序
+                prop: '',
+                order: ''
             },
-			isMounted:false,
+            isMounted: false
         }
     },
     methods: {
@@ -99,19 +101,19 @@ export default {
             this.page.pageSize = size
             this.getData()
         },
-       /**
-        *  排序改变
-        */
+        /**
+         *  排序改变
+         */
         changeSort(val) {
             console.log(val)
             this.orderBy.prop = val.prop
             this.orderBy.order = val.order
 
-            if(val.order=='ascending'){
+            if (val.order == 'ascending') {
                 this.orderBy.order = 'asc'
-            }else if(val.order=='descending'){
+            } else if (val.order == 'descending') {
                 this.orderBy.order = 'desc'
-            }else{
+            } else {
                 this.orderBy.order = val.order
             }
             // this.page.curPage = 1
@@ -124,19 +126,19 @@ export default {
         }
     },
     mounted() {
-      // this.getData()
-      console.log('走mounted');
-  	  if(this.isMounted){
-  	  	this.getData()
-        this.getLine()
-  	  }
-	},
-	activated(){
-        console.log('走缓存');
-		if(!this.isMounted){
-			this.getData()
+        // this.getData()
+        console.log('走mounted')
+        if (this.isMounted) {
+            this.getData()
             this.getLine()
-		}
-	},
+        }
+    },
+    activated() {
+        console.log('走缓存')
+        if (!this.isMounted) {
+            this.getData()
+            this.getLine()
+        }
+    },
     created() {}
 }

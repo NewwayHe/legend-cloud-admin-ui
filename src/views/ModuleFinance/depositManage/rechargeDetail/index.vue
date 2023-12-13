@@ -6,7 +6,7 @@
         <el-card shadow>
             <!-- 搜索查询 -->
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="用户ID">
                         <el-input v-model="searchFilters.userId" placeholder="请输入" />
                     </el-form-item>
@@ -56,16 +56,16 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
                     <el-table-column label="序号" type="index" width="48" />
-                    <el-table-column prop="userId" label="用户ID"/>
-                    <el-table-column prop="nickName" label="用户名" min-width="100"/>
-                    <el-table-column prop="mobile" label="手机号码" min-width="100"/>
-                    <el-table-column prop="serialNo" label="充值流水号" show-overflow-tooltip min-width="160"/>
+                    <el-table-column prop="userId" label="用户ID" />
+                    <el-table-column prop="nickName" label="用户名" min-width="100" />
+                    <el-table-column prop="mobile" label="手机号码" min-width="100" />
+                    <el-table-column prop="serialNo" label="充值流水号" show-overflow-tooltip min-width="160" />
                     <el-table-column prop="amount" label="充值金额" show-overflow-tooltip width="115">
                         <template slot-scope="scope">
                             {{ scope.row.amount | priceFilter }}
@@ -80,7 +80,9 @@
                     <el-table-column prop="updateTime" label="支付时间" width="140" show-overflow-tooltip />
                     <el-table-column prop="state" label="支付状态" show-overflow-tooltip>
                         <template slot-scope="scope">
-                            <span :class="scope.row.state == 0 ? 'status-done' : 'status-pass'">{{ scope.row.state === 0 ? '未支付' : '已支付' }}</span>
+                            <span :class="scope.row.state == 0 ? 'status-done' : 'status-pass'">
+                                {{ scope.row.state === 0 ? '未支付' : '已支付' }}
+                            </span>
                         </template>
                     </el-table-column>
                     <el-table-column prop="productName" label="操作" show-overflow-tooltip fixed="right" width="100">
@@ -137,7 +139,7 @@ export default {
             },
             switchType: 'top',
             url: {
-                getData: '/pay/admin/wallet/page',
+                getData: '/pay/admin/wallet/page'
                 // getExcel: '/user/admin/count/amount/page/excel', // 有接口的时候更换
             },
             showDialogVisible: false, // 控制封装组件对话框的
@@ -196,5 +198,4 @@ export default {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

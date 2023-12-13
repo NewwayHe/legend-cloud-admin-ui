@@ -3,10 +3,10 @@
 */ -->
 <template>
     <section>
-        <el-card shadow :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card shadow :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 搜索查询 -->
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="用户ID">
                         <el-input v-model="searchFilters.userId" placeholder="请输入" />
                     </el-form-item>
@@ -74,16 +74,16 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
                     <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="userId" label="用户ID" />
-                    <el-table-column prop="nickName" label="用户名" min-width="100"/>
-                    <el-table-column prop="mobile" label="手机号码" min-width="100"/>
-                    <el-table-column prop="serialNo" label="充值流水号" show-overflow-tooltip min-width="160"/>
+                    <el-table-column prop="nickName" label="用户名" min-width="100" />
+                    <el-table-column prop="mobile" label="手机号码" min-width="100" />
+                    <el-table-column prop="serialNo" label="充值流水号" show-overflow-tooltip min-width="160" />
                     <el-table-column prop="amount" label="充值金额" show-overflow-tooltip width="115">
                         <template slot-scope="scope">
                             {{ scope.row.amount | priceFilter }}
@@ -91,7 +91,9 @@
                     </el-table-column>
                     <el-table-column prop="operationType" label="收支类型" show-overflow-tooltip>
                         <template slot-scope="scope">
-                            <span :class="scope.row.operationType == 'ADDITION' ? 'status-pass' : 'status-wait'">{{ scope.row.operationType == 'ADDITION' ? '收入' : '支出'}}</span>
+                            <span :class="scope.row.operationType == 'ADDITION' ? 'status-pass' : 'status-wait'">
+                                {{ scope.row.operationType == 'ADDITION' ? '收入' : '支出' }}
+                            </span>
                         </template>
                     </el-table-column>
                     <el-table-column prop="businessType" label="交易类型" show-overflow-tooltip>
@@ -102,11 +104,13 @@
                             <span v-else>-</span>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="createTime" label="创建时间" show-overflow-tooltip width="140"/>
-                    <el-table-column prop="updateTime" label="支付时间" show-overflow-tooltip width="140"/>
+                    <el-table-column prop="createTime" label="创建时间" show-overflow-tooltip width="140" />
+                    <el-table-column prop="updateTime" label="支付时间" show-overflow-tooltip width="140" />
                     <el-table-column prop="state" label="支付状态" show-overflow-tooltip>
                         <template slot-scope="scope">
-                            <span :class="scope.row.state == 0 ? 'status-done' : 'status-pass'">{{ scope.row.state === 0 ? '未支付' : '已支付' }}</span>
+                            <span :class="scope.row.state == 0 ? 'status-done' : 'status-pass'">
+                                {{ scope.row.state === 0 ? '未支付' : '已支付' }}
+                            </span>
                         </template>
                     </el-table-column>
                     <el-table-column prop="remarks" label="备注" show-overflow-tooltip min-width="120">
@@ -115,11 +119,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
         </el-card>
     </section>
@@ -130,11 +139,11 @@ import cud from '@/mixins/pages/cud.js'
 
 export default {
     name: 'DepositDetail',
-    components: { },
+    components: {},
     filters: {
         getStatusStr(status) {
             let statusStr = {
-                DISTRIBUTION_REWARDS: '佣金收益', // 分销奖励
+                DISTRIBUTION_REWARDS: '佣金收益' // 分销奖励
                 // SELF_DISTRIBUTION_REWARDS: '' ,     //自购返佣
                 // PAYMENT_RECHARGE:   '',       //付款充值
                 // PLATFORM_COMPENSATION:  '',      //平台返佣
@@ -178,7 +187,7 @@ export default {
             switchType: 'top',
             url: {
                 getData: '/pay/admin/wallet/page',
-                getExcel: '/pay/admin/wallet/excel',
+                getExcel: '/pay/admin/wallet/excel'
             },
             date: '', // 时间
             payDate: '' // 支付时间

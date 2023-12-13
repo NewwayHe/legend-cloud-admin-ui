@@ -116,7 +116,7 @@ const cpApi = {
     // 商家营销用户数据统计
     shopUserAmountCount: (data) => request.get('/data/admin/coupon/statement/shop/userAmountCount', data),
     // 商家营销数据趋势统计
-    shopUserDataCount: (data) => request.get('/data/admin/coupon/statement/shop/userDataCount', data),
+    shopUserDataCount: (data) => request.get('/data/admin/coupon/statement/shop/userDataCount', data)
 }
 
 export { psyApi, pssApi, ssyApi, csyApi, ussApi, utsApi, ossApi, urgApi, msApi, cpApi }

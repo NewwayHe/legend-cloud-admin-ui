@@ -11,7 +11,7 @@
                         <h1 class="order-status">{{ orderStatus }}</h1>
                         <p class="order-code">订单编号: {{ detailsInfo.sn }}</p>
                     </div>
-                    <div class="order-line"/>
+                    <div class="order-line" />
                     <div class="flex-1 d-flex j-center">
                         <el-steps
                             class="order-step w-100"
@@ -34,7 +34,7 @@
         <div class="mb-20">
             <el-card shadow="never">
                 <el-form label-width="90px" label-position="left" size="small" class="order-form formWarp">
-                    <div class="d-flex p-20" style="background-color: #F5F7FA;">
+                    <div class="d-flex p-20" style="background-color: #f5f7fa">
                         <div class="flex-1">
                             <div class="form-sub-title">店铺信息</div>
                             <el-form-item label="店铺ID：" size="small">{{ detailsInfo.shopId }}</el-form-item>
@@ -85,8 +85,13 @@
                                 &nbsp;+&nbsp;
                                 <span>
                                     {{ detailsInfo.redpackTotals }}
-                                    <el-tooltip class="item" effect="dark" content="平台优惠券总额 ：平台发出的平台优惠券金额，按用户消费的%" placement="top">
-                                        <span class="price-color">&emsp;(平台优惠券总额)</span> 
+                                    <el-tooltip
+                                        class="item"
+                                        effect="dark"
+                                        content="平台优惠券总额 ：平台发出的平台优惠券金额，按用户消费的%"
+                                        placement="top"
+                                    >
+                                        <span class="price-color">&emsp;(平台优惠券总额)</span>
                                     </el-tooltip>
                                 </span>
                                 &nbsp;-&nbsp;
@@ -128,11 +133,11 @@
                 </el-form>
             </el-card>
         </div>
-        
+
         <el-card shadow>
             <!-- 查询 -->
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="订单编号"><el-input v-model="searchFilters.orderNumber" placeholder="订单编号" /></el-form-item>
                     <el-form-item label="下单时间">
                         <el-date-picker
@@ -160,7 +165,6 @@
                     </el-form-item>
                 </el-form>
             </div>
-            
 
             <el-row type="flex" class="mb-20">
                 <el-col>
@@ -210,13 +214,13 @@ import { settle } from '@/api/ModuleFinance.js'
 import orderAmount from './components/orderAmount'
 import chargebackAmount from './components/chargebackAmount'
 import collectAmount from './components/collectAmount'
-import common from '@/mixins/pages/commom';
+import common from '@/mixins/pages/commom'
 export default {
     name: 'SettleInfo',
     components: {
         orderAmount,
         chargebackAmount,
-        collectAmount,
+        collectAmount
     },
     mixins: [common],
     data() {
@@ -233,7 +237,7 @@ export default {
             orderTypeList: {
                 orderAmount: 1,
                 chargebackAmount: 2,
-                collectAmount: 4,
+                collectAmount: 4
             },
             isVisible: false,
             ruleForm: {},

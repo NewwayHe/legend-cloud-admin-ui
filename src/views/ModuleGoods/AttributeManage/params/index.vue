@@ -3,14 +3,14 @@
 */ -->
 <template>
     <section>
-        <el-card shadow :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card shadow :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 指引 -->
-			<step>
-				<p>
-					<span>一个商品可以设置多种参数（例：产地、分辨率、功率等）</span>
-					<imgPreview placement="bottom-start" :src="require('@/assets/images/exampleImgs/ggcsfz.png')"/>
-				</p>
-			</step>
+            <step>
+                <p>
+                    <span>一个商品可以设置多种参数（例：产地、分辨率、功率等）</span>
+                    <imgPreview placement="bottom-start" :src="require('@/assets/images/exampleImgs/ggcsfz.png')" />
+                </p>
+            </step>
             <!-- 查询 -->
             <div class="search">
                 <el-form :inline="true" :model="searchFilters" size="small">
@@ -26,14 +26,16 @@
             <div class="table">
                 <el-row class="mb-20 font-0">
                     <el-button type="primary" size="medium" @click="toAdd">新增</el-button>
-                    <el-button v-show="showSimilar" type="primary" size="medium" @click="showSimilarDialog" class="v-bottom" style="height:36px;">
-                        <span>类似导入
+                    <el-button v-show="showSimilar" type="primary" size="medium" class="v-bottom" style="height: 36px" @click="showSimilarDialog">
+                        <span>
+                            类似导入
                             <el-popover
                                 class="ml-3"
                                 placement="bottom-start"
                                 popper-class="atooltip"
                                 trigger="hover"
-                                content="类似导入：选择已有的规格，并新增一个规则，自动填充选择的规格信息">
+                                content="类似导入：选择已有的规格，并新增一个规则，自动填充选择的规格信息"
+                            >
                                 <i slot="reference" class="iconfont icon-explain d-inline-block font-14" style="transform: rotate(180deg)"></i>
                             </el-popover>
                         </span>
@@ -47,8 +49,8 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
+                    header-row-class-name="headerRow"
                     @selection-change="selectionChange"
-					header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
@@ -83,19 +85,19 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<el-pagination
-							:page-sizes="[10, 30, 50, 100, 500, 1000]"
-							:page-size="10"
-							layout="total, sizes, prev, pager, next, jumper"
-							:current-page="page.curPage"
-							:total="tableTotal"
-							@size-change="pageSizeChange"
-							@current-change="currentPageChange"
-						/>
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <el-pagination
+                            :page-sizes="[10, 30, 50, 100, 500, 1000]"
+                            :page-size="10"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
 
             <dialog-similar ref="similarDialog" url="/product/admin/productProperty/page" attribute-type="P" @chooseItem="exportSimilar" />
@@ -212,7 +214,7 @@ export default {
     }
 }
 </script>
-<style lang='scss'>
+<style lang="scss">
 /* 修改popover样式 不能加scoped */
 .el-popover.atooltip {
     padding: 10px;
@@ -221,7 +223,7 @@ export default {
 <!--
     表格内容过长显示tooltip时的最大宽度设置 不能使用scoped
 -->
-<style >
+<style>
 .el-tooltip__popper {
     max-width: 60vw;
 }

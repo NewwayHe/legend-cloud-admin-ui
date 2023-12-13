@@ -3,7 +3,7 @@
 -->
 <template>
     <section class="">
-        <el-card class="mb-20 headerNumber" :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card class="mb-20 headerNumber" :body-style="{ padding: `20px 20px 10px 20px` }">
             <div class="text-left mr-60" style="margin-left: 20px; margin-right: 150px">
                 <div class="d-flex a-center">
                     <img src="@/assets/images/price_icon.png" style="width: 30px; height: 30px" alt="" />
@@ -36,7 +36,7 @@
         <!-- 查询 -->
         <el-card shadow>
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="收支类型">
                         <el-select v-model="searchFilters.flowType" placeholder="收支类型" clearable>
                             <el-option label="收入" :value="1" />
@@ -66,19 +66,29 @@
                     </el-form-item>
                     <el-form-item>
                         <el-button size="small" @click.stop="dbnSearch">搜索</el-button>
-                        <el-button size="small" @click.stop="exportReport(searchFilters.flowType, searchFilters.dealType, templateSearch.recDate)">导出报表</el-button>
+                        <el-button size="small" @click.stop="exportReport(searchFilters.flowType, searchFilters.dealType, templateSearch.recDate)">
+                            导出报表
+                        </el-button>
                     </el-form-item>
                 </el-form>
             </div>
             <div class="table">
-                <el-table ref="multipleTable" v-loading="tableListLoading" :data="tableList" tooltip-effect="dark" class="w-100" @selection-change="selectionChange" header-row-class-name="headerRow">
+                <el-table
+                    ref="multipleTable"
+                    v-loading="tableListLoading"
+                    :data="tableList"
+                    tooltip-effect="dark"
+                    class="w-100"
+                    header-row-class-name="headerRow"
+                    @selection-change="selectionChange"
+                >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
                     <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="paySettlementSn" label="支付流水号" min-width="130">
                         <template slot-scope="scope">
-                            {{ scope.row.paySettlementSn || '-'}}
+                            {{ scope.row.paySettlementSn || '-' }}
                         </template>
                     </el-table-column>
                     <el-table-column label="收支类型">
@@ -110,27 +120,33 @@
                     <el-table-column prop="remark" label="备注" min-width="200" />
                     <el-table-column label="操作" fixed="right" width="100">
                         <template slot-scope="scope">
-                            <el-link :underline="false" type="primary"><span @click="skipTypeDetail(scope.row.dealType, scope.row.detailId)">查看</span></el-link>
+                            <el-link :underline="false" type="primary">
+                                <span @click="skipTypeDetail(scope.row.dealType, scope.row.detailId)">查看</span>
+                            </el-link>
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
         </el-card>
     </section>
 </template>
 <script>
-import common from '@/mixins/pages/commom';
-import cud from '@/mixins/pages/cud.js';
-import { settle } from '@/api/ModuleFinance.js';
+import common from '@/mixins/pages/commom'
+import cud from '@/mixins/pages/cud.js'
+import { settle } from '@/api/ModuleFinance.js'
 export default {
     name: 'SettleDetail',
-    components: {
-    },
+    components: {},
     mixins: [common, cud],
     data() {
         return {
@@ -143,34 +159,34 @@ export default {
             priceAmount: {
                 sumPlateAmount: 0 // 平台总金额
             }
-        };
+        }
     },
     created() {
-        this.getSettleAmount();
+        this.getSettleAmount()
     },
 
     methods: {
         // 时间改变
         changeDate() {
             if (this.templateSearch.recDate) {
-                this.$set(this.searchFilters, 'startDate', this.$utils.time.parseTime(this.templateSearch.recDate[0], '{y}-{m}-{d}'));
-                this.$set(this.searchFilters, 'endDate', this.$utils.time.parseTime(this.templateSearch.recDate[1], '{y}-{m}-{d}'));
+                this.$set(this.searchFilters, 'startDate', this.$utils.time.parseTime(this.templateSearch.recDate[0], '{y}-{m}-{d}'))
+                this.$set(this.searchFilters, 'endDate', this.$utils.time.parseTime(this.templateSearch.recDate[1], '{y}-{m}-{d}'))
             } else {
-                this.$set(this.searchFilters, 'startDate', '');
-                this.$set(this.searchFilters, 'endDate', '');
+                this.$set(this.searchFilters, 'startDate', '')
+                this.$set(this.searchFilters, 'endDate', '')
             }
         },
         // 平台总金额查询
         getSettleAmount() {
-            settle.getSettleAmount().then(res => {
+            settle.getSettleAmount().then((res) => {
                 if (res.code === 1) {
-                    this.priceAmount = res.data;
+                    this.priceAmount = res.data
                 }
-            });
+            })
         },
         // 导出
         exportReport(flowType, dealType, recDate) {
-            console.log(recDate);
+            console.log(recDate)
 
             settle
                 .exportSettleAmount({
@@ -179,28 +195,28 @@ export default {
                     startDate: this.searchFilters.startDate,
                     endDate: this.searchFilters.endDate
                 })
-                .then(res => {
+                .then((res) => {
                     if (res.code == 1) {
-                        this.$message.success('导出成功');
+                        this.$message.success('导出成功')
                     }
-                });
+                })
         },
         // 查看（跳转详情）
         skipTypeDetail(type, detailId) {
-            let name = '';
-            let paramsKey = '';
+            let name = ''
+            let paramsKey = ''
             switch (Number(type)) {
                 case 1:
-                    name = 'settleInfo';
-                    paramsKey = 'id';
-                    break;
+                    name = 'settleInfo'
+                    paramsKey = 'id'
+                    break
 
                 case 7:
-                    name = 'orderDetail';
-                    paramsKey = 'DetailId';
-                    break;
+                    name = 'orderDetail'
+                    paramsKey = 'DetailId'
+                    break
                 default:
-                    break;
+                    break
             }
 
             this.$router.push({
@@ -208,10 +224,10 @@ export default {
                 query: {
                     [paramsKey]: detailId
                 }
-            });
+            })
         }
     }
-};
+}
 </script>
 <style lang="scss" scoped>
 ::v-deep .headerNumber .el-card__body {

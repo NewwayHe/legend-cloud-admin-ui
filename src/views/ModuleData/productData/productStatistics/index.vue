@@ -95,7 +95,13 @@
                         </el-col>
                         <el-col>
                             <div class="table">
-                                <el-table ref="multipleTable" :data="searchData" tooltip-effect="dark" class="w-100" header-row-class-name="headerRow">
+                                <el-table
+                                    ref="multipleTable"
+                                    :data="searchData"
+                                    tooltip-effect="dark"
+                                    class="w-100"
+                                    header-row-class-name="headerRow"
+                                >
                                     <template slot="empty">
                                         <empty empty-type="pro" />
                                     </template>
@@ -144,7 +150,13 @@
                         </el-col>
                         <el-col class="h-100">
                             <div class="table">
-                                <el-table ref="multipleTable" :data="skuCategory" tooltip-effect="dark" class="w-100" header-row-class-name="headerRow">
+                                <el-table
+                                    ref="multipleTable"
+                                    :data="skuCategory"
+                                    tooltip-effect="dark"
+                                    class="w-100"
+                                    header-row-class-name="headerRow"
+                                >
                                     <template slot="empty">
                                         <empty empty-type="pro" />
                                     </template>

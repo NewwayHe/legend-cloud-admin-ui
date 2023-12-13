@@ -68,7 +68,7 @@ const ModuleFinance = [
                 name: 'repeatPayList',
                 meta: {
                     title: '重复支付列表'
-                },
+                }
             }
         ]
     }

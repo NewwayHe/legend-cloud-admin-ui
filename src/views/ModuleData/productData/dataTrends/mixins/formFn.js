@@ -20,12 +20,10 @@ const toStringValue = (obj) => {
 }
 // toStringValue():给对象/对象数组的属性值为数值型的转为字符串型
 
-
-
 export function getDataFn(url, params = {}) {
     this.tableListLoading = true
     request
-        .get(url, params,{isShowLoading:this.isShowLoading})
+        .get(url, params, { isShowLoading: this.isShowLoading })
         .then((res) => {
             this.tableListLoading = false
             // this.tableTotal = res.data.count
@@ -45,25 +43,25 @@ export function getDataFn(url, params = {}) {
 export function getLineFn(url, params = {}) {
     this.tableListLoading = true
     request
-        .get(url, params,{isShowLoading:this.isShowLoading})
+        .get(url, params, { isShowLoading: this.isShowLoading })
         .then((res) => {
             this.lineChartData.totalDealAmount = []
             this.lineChartData.dealAmount = []
-			this.lineChartData.dealGoodNum = []
-			this.lineChartData.totalDealGoodNum = []
+            this.lineChartData.dealGoodNum = []
+            this.lineChartData.totalDealGoodNum = []
             this.lineChartData.date = []
             this.tableListLoading = false
             // this.tableTotal = res.data.count
             this.tableTotal = res.data.total
-            res.data.map(item=>{
+            res.data.map((item) => {
                 this.lineChartData.totalDealAmount.push(item.totalDealAmount)
                 this.lineChartData.dealAmount.push(item.dealAmount)
-				this.lineChartData.dealGoodNum.push(item.dealGoodNum)
-				this.lineChartData.totalDealGoodNum.push(item.totalDealGoodNum)
+                this.lineChartData.dealGoodNum.push(item.dealGoodNum)
+                this.lineChartData.totalDealGoodNum.push(item.totalDealGoodNum)
                 this.lineChartData.date.push(item.time)
             })
-            console.log(this.lineChartData.date,'this.lineChartData.date');
-            console.log(res);
+            console.log(this.lineChartData.date, 'this.lineChartData.date')
+            console.log(res)
         })
         .catch((e) => {
             // code=0,成功返回；反之，失败提示
@@ -88,9 +86,6 @@ export function getDataFn2(fn, param = {}) {
             this.tableListLoading = false
         })
 }
-
-
-
 
 function catchUrl(e, url, detail) {
     console.group(`Error found in doPost(${url})`)

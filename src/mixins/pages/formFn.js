@@ -82,9 +82,9 @@ export function getDataFn(url, params = {}) {
     request
         .get(url, params, { isShowLoading: this.isShowLoading })
         .then((res) => {
-            if(res.code) {
-				this.tableList = res?.data?.resultList || []
-                // 如果有自定义选择列时 tableDatas赋值必须写在tableList下面 
+            if (res.code) {
+                this.tableList = res?.data?.resultList || []
+                // 如果有自定义选择列时 tableDatas赋值必须写在tableList下面
                 // 因为下面语句会优先执行到双向数据监听
                 this.tableDatas = res?.data || ''
                 this.tableTotal = res?.data?.total || 0
@@ -102,13 +102,13 @@ export function getExcel(url, params = {}) {
 }
 
 export function mulDelFn(url, params = {}, message = '') {
-	if (!params.ids) {
-		if (!this.mulSels?.length) {
-			this.$message.warning('请选择至少一条数据')
-			// this.$alert('请选择要删除的数据', '提示')
-			return
-		}
-	}
+    if (!params.ids) {
+        if (!this.mulSels?.length) {
+            this.$message.warning('请选择至少一条数据')
+            // this.$alert('请选择要删除的数据', '提示')
+            return
+        }
+    }
     this.$confirm(message ? message : '确认删除该数据吗?', '提示', {
         type: 'warning'
     })
@@ -116,15 +116,17 @@ export function mulDelFn(url, params = {}, message = '') {
             request
                 .delete(url, {
                     ids: this.mulSels,
-					...params
+                    ...params
                 })
                 .then((res) => {
                     if (res.code) {
-						if(params.single && params.callback) {  //单删
-						    params.callback()
-						}else {     //批量删
-						    this.$refs.multipleTable && this.$refs.multipleTable.clearSelection()       //清除表格选择勾选行
-						}
+                        if (params.single && params.callback) {
+                            //单删
+                            params.callback()
+                        } else {
+                            //批量删
+                            this.$refs.multipleTable && this.$refs.multipleTable.clearSelection() //清除表格选择勾选行
+                        }
                         this.$message.success('删除成功')
                         this.getData()
                     }

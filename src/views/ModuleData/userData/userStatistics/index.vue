@@ -33,7 +33,9 @@
                         <i class="el-icon-question text-main font-16 ml-5"></i>
                     </el-tooltip>
                 </el-col>
-                <el-col :span="1" class="text-center"><el-button type="text" class="p-0" @click="jump('userTotalStatistics')">查看详情</el-button></el-col>
+                <el-col :span="1" class="text-center">
+                    <el-button type="text" class="p-0" @click="jump('userTotalStatistics')">查看详情</el-button>
+                </el-col>
             </el-row>
             <el-row type="flex" justify="center">
                 <el-radio-group v-model="radio3" size="small" class="text-center" @change="radioChange">
@@ -254,9 +256,9 @@
                     </el-row>
                     <!-- 柱状图 -->
                     <el-row>
-						<chart id="userBuyId" :chart-list="chartList1" v-if="chartList1&&chartList1.length"/>
-						<empty text="暂无数据" v-else/>
-					</el-row>
+                        <chart v-if="chartList1 && chartList1.length" id="userBuyId" :chart-list="chartList1" />
+                        <empty v-else text="暂无数据" />
+                    </el-row>
 
                     <div class="table">
                         <el-table ref="multipleTable" tooltip-effect="dark" class="w-100" :data="purchasingList" header-row-class-name="headerRow">
@@ -303,9 +305,9 @@
                     </el-row>
                     <!-- 柱状图 -->
                     <el-row>
-						<chart id="shopSaleId" :chart-list="chartList2" v-if="chartList2&&chartList2.length"/>
-						<empty text="暂无数据" v-else/>
-					</el-row>
+                        <chart v-if="chartList2 && chartList2.length" id="shopSaleId" :chart-list="chartList2" />
+                        <empty v-else text="暂无数据" />
+                    </el-row>
                     <div class="table">
                         <el-table ref="multipleTable" tooltip-effect="dark" class="w-100" :data="shopList" header-row-class-name="headerRow">
                             <template slot="empty">
@@ -313,7 +315,7 @@
                             </template>
                             <el-table-column label="序号" type="index" width="48" />
                             <el-table-column prop="shopId" label="店铺ID" />
-                            <el-table-column prop="shopName" label="店铺名称" width="140"/>
+                            <el-table-column prop="shopName" label="店铺名称" width="140" />
                             <el-table-column prop="money" label="累计成交订单金额">
                                 <template slot-scope="scope">
                                     {{ scope.row.money | priceFilter }}
@@ -409,7 +411,7 @@ export default {
         getPurchasing() {
             ussApi.getPurchasing().then((res) => {
                 this.purchasingList = res.data
-                this.chartList1 =  res.data.map((item) => {
+                this.chartList1 = res.data.map((item) => {
                     return {
                         value: item.money,
                         name: item.userId

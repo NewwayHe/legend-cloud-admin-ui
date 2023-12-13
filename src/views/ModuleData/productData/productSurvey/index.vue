@@ -99,7 +99,7 @@
 
             <div class="table mt-20">
                 <el-table ref="multipleTable" v-loading="tableListLoading" :data="tableList" tooltip-effect="dark"
-                    class="w-100" @sort-change="changeSort" header-row-class-name="headerRow">
+                    class="w-100" header-row-class-name="headerRow" @sort-change="changeSort">
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>

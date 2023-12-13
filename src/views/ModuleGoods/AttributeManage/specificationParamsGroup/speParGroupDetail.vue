@@ -22,7 +22,7 @@
             <div class="table px-20">
                 <el-row type="flex" class="mb-20">
                     <el-col>
-                        <el-radio-group v-model="status" size="large"  @change="changeStatus">
+                        <el-radio-group v-model="status" size="large" @change="changeStatus">
                             <el-radio-button label="1">关联规格</el-radio-button>
                             <el-radio-button label="2">关联参数</el-radio-button>
                             <el-radio-button label="3">关联参数组</el-radio-button>
@@ -31,7 +31,15 @@
                     </el-col>
                 </el-row>
                 <!--列表-->
-                <el-table ref="multipleTable" :key="num" v-loading="tableListLoading" :data="tableList" tooltip-effect="dark" class="w-100" header-row-class-name="headerRow">
+                <el-table
+                    ref="multipleTable"
+                    :key="num"
+                    v-loading="tableListLoading"
+                    :data="tableList"
+                    tooltip-effect="dark"
+                    class="w-100"
+                    header-row-class-name="headerRow"
+                >
                     <template slot="empty">
                         <empty empty-type="pro" text="暂无关联信息" />
                     </template>
@@ -75,7 +83,7 @@
                     <template v-if="status == 4">
                         <el-table-column prop="brandPic" label="品牌LOGO">
                             <template slot-scope="scope">
-                                <ls-image style="vertical-align: middle" :src="scope.row.brandPic" :options="{ w: '50', h: '50', br: '4' }"/>
+                                <ls-image style="vertical-align: middle" :src="scope.row.brandPic" :options="{ w: '50', h: '50', br: '4' }" />
                             </template>
                         </el-table-column>
                         <el-table-column prop="brandName" label="品牌名称" />
@@ -110,8 +118,7 @@ import { specificationParamsGroup } from '@/api/ModuleGoods'
 import { request } from '@/utils/request'
 
 export default {
-    components: {
-    },
+    components: {},
     data() {
         return {
             tableListLoading: false,
@@ -216,7 +223,7 @@ export default {
 <!--
     表格内容过长显示tooltip时的最大宽度设置 不能使用scoped
 -->
-<style >
+<style>
 .el-tooltip__popper {
     max-width: 60vw;
 }

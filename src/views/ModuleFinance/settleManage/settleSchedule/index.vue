@@ -30,13 +30,13 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
-                    @selection-change="selectionChange"
                     header-row-class-name="headerRow"
+                    @selection-change="selectionChange"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
-                    <el-table-column prop="flag" label="结算档期" width="140"/>
+                    <el-table-column prop="flag" label="结算档期" width="140" />
                     <el-table-column label="应结总额" width="115">
                         <template slot-scope="scope">
                             <div>{{ scope.row.resultTotalAmount | priceFilter }}</div>
@@ -67,7 +67,7 @@
                             <div>{{ scope.row.redpackTotals | priceFilter }}</div>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="recDate" label="创建时间" width="140"/>
+                    <el-table-column prop="recDate" label="创建时间" width="140" />
                     <el-table-column label="操作" fixed="right">
                         <template slot-scope="scope">
                             <el-link :underline="false" type="primary">
@@ -76,11 +76,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
                 <el-alert type="warning" class="defalult mt-20" :closable="false">
                     <div style="line-height: 30px" class="text-999">
                         <p class="font-16 font-weight">说明</p>
@@ -103,7 +108,7 @@ import cud from '@/mixins/pages/cud.js'
 import { settle } from '@/api/ModuleFinance.js'
 export default {
     name: 'SettleSchedule',
-    components: { },
+    components: {},
     filters: {
         // 日期过滤
         datefilter(val) {

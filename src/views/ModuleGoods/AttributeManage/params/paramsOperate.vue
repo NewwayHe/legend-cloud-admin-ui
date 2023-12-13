@@ -6,11 +6,11 @@
         <el-card>
             <el-form ref="form" :model="form" :rules="rules" label-width="132px" size="small">
                 <el-form-item label="参数标题：" prop="propName">
-                    <el-input v-model="form.propName" maxlength="20" show-word-limit class="w-450p" placeholder="请输入"/>
+                    <el-input v-model="form.propName" maxlength="20" show-word-limit class="w-450p" placeholder="请输入" />
                     <span class="ml-10 text-999">参数标题会显示在用户端的商品详情页中，最多20字</span>
                 </el-form-item>
                 <el-form-item label="参数副标题：" prop="memo">
-                    <el-input v-model="form.memo" class="w-450p" maxlength="50" show-word-limit placeholder="请输入"/>
+                    <el-input v-model="form.memo" class="w-450p" maxlength="50" show-word-limit placeholder="请输入" />
                     <span class="ml-10 text-999">
                         类似于备注的功能，不显示在用户端，仅显示在后台中，建议名称为 "将要绑定的商品类目全路径名称 + 标题"
                     </span>
@@ -40,7 +40,7 @@
                     <el-button type="primary" @click="addSpe">添加参数值</el-button>
                     <span class="ml-10 text-999">
                         一个参数可添加多个参数值（拖动可以改变顺序）
-						<imgPreview class="ml-10" :src="require('@/assets/images/exampleImgs/canshuzhi.png')" />
+                        <imgPreview class="ml-10" :src="require('@/assets/images/exampleImgs/canshuzhi.png')" />
                     </span>
                 </el-form-item>
                 <el-form-item class="btn_lastItem">
@@ -50,20 +50,20 @@
                         class="dialog-form-table w-450p"
                         tooltip-effect="dark"
                         size="mini"
-						:max-height="500"
+                        :max-height="500"
                         :data="form.groupList"
-					    header-row-class-name="headerRow"
+                        header-row-class-name="headerRow"
                     >
                         <el-table-column prop="name" label="参数值" align="center" width="300">
                             <template slot-scope="scope">
                                 <el-form :ref="'tableForm' + scope.$index" :key="scope.row.id" :model="scope.row" :rules="rules" size="small">
                                     <el-form-item prop="name">
-                                        <el-input v-model="scope.row.name" maxlength="50" show-word-limit placeholder="请输入"/>
+                                        <el-input v-model="scope.row.name" maxlength="50" show-word-limit placeholder="请输入" />
                                     </el-form-item>
                                 </el-form>
                             </template>
                         </el-table-column>
-                        <el-table-column prop="name" label="操作" align="center"  >
+                        <el-table-column prop="name" label="操作" align="center">
                             <template slot-scope="scope">
                                 <el-link :underline="false" type="primary" @click="delItem(scope)">删除</el-link>
                             </template>
@@ -72,10 +72,10 @@
                 </el-form-item>
             </el-form>
         </el-card>
-		<Sticky>
-			<el-button size="small" @click="onCancel">取消</el-button>
-			<el-button size="small" :loading="butLoading" type="primary" @click="onSubmit">{{ isEdit ? '保存' : '新增' }}</el-button>
-		</Sticky>
+        <Sticky>
+            <el-button size="small" @click="onCancel">取消</el-button>
+            <el-button size="small" :loading="butLoading" type="primary" @click="onSubmit">{{ isEdit ? '保存' : '新增' }}</el-button>
+        </Sticky>
 
         <dialog-group
             ref="groupDialog"
@@ -142,15 +142,15 @@ export default {
                 ]
             },
             isEdit: false,
-            butLoading:false,
+            butLoading: false,
             sortable: null // 拖拽的实例
         }
     },
     beforeRouteEnter(to, from, next) {
-        let type = to.query.type;
-        if(type === 'add' || type === 'similar') {
+        let type = to.query.type
+        if (type === 'add' || type === 'similar') {
             to.meta.title = '新增参数'
-        }else {
+        } else {
             to.meta.title = '编辑参数'
         }
         next()
@@ -367,14 +367,14 @@ export default {
 }
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 /* 修改popover样式 不能加scoped */
 .el-popover.atooltip {
     padding: 10px;
 }
 </style>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 /* 由于使用了字数提示 但是ELEMENT并未做好处理 当输入过长时 输入的字符会被字数提示(position:absolute)给遮挡 */
 .el-input {
     ::v-deep .el-input__inner {

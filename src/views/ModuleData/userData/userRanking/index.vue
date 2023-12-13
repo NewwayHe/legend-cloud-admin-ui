@@ -84,7 +84,7 @@
                     </el-form-item>
                 </el-form>
             </div>
-            
+
             <chart height="700px" :all-list="allList" />
 
             <div class="table mt-20">
@@ -94,16 +94,16 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
+                    header-row-class-name="headerRow"
                     @sort-change="changeSort"
-					header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
                     <el-table-column label="序号" type="index" width="48" />
                     <el-table-column prop="userId" label="用户ID " />
-                    <el-table-column prop="nickName" label="昵称" min-width="100"/>
-                    <el-table-column prop="mobile" label="手机号码" min-width="100"/>
+                    <el-table-column prop="nickName" label="昵称" min-width="100" />
+                    <el-table-column prop="mobile" label="手机号码" min-width="100" />
                     <el-table-column prop="totalAmount" sortable="custom" label="下单订单金额" min-width="120">
                         <template slot-scope="scope">
                             {{ scope.row.totalAmount | priceFilter }}
@@ -159,7 +159,7 @@
                             {{ scope.row.cumulationDealAmount | priceFilter }}
                         </template>
                     </el-table-column>
-                    <el-table-column prop="cumulationDealQuantity" sortable="custom" label="累计成交订单数量" min-width="140"/>
+                    <el-table-column prop="cumulationDealQuantity" sortable="custom" label="累计成交订单数量" min-width="140" />
                     <el-table-column prop="customerPrice" sortable="custom" label="客单价" min-width="115">
                         <template slot-scope="scope">
                             {{ scope.row.customerPrice | priceFilter }}

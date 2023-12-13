@@ -42,7 +42,7 @@
                     <!-- <el-image  :src="$photoServer + tempUrl"  /> -->
                     <ls-image
                         v-if="!isHiddenImg && !multiple && tempUrl"
-                        :isPreview="false"
+                        :is-preview="false"
                         :os-options="{ w: '100', h: '100' }"
                         mode="contain"
                         :src="tempUrl"
@@ -296,10 +296,10 @@ export default {
     align-items: center;
     flex-wrap: wrap;
     line-height: 1 !important;
-	span {
-	    font-size: 0;
-	    display: flex;
-	}
+    span {
+        font-size: 0;
+        display: flex;
+    }
     .draggable {
         span {
             display: flex;
@@ -360,12 +360,11 @@ export default {
         color: #c0c4d6;
         font-size: 18px;
     }
-	.d-none {
-	    color: #999999;
-	    &:hover {
-	        color: #666666;
-	    }
-	}
+    .d-none {
+        color: #999999;
+        &:hover {
+            color: #666666;
+        }
+    }
 }
-
 </style>

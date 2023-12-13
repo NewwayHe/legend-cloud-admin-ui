@@ -8,21 +8,27 @@
                     <span v-if="form.grade == 3">三级类目</span>
                 </el-form-item>
                 <el-form-item label="类目名称：" prop="name">
-                    <el-input v-model.trim="form.name" class="w-450p" maxlength="6" placeholder="请输入" show-word-limit/>
+                    <el-input v-model.trim="form.name" class="w-450p" maxlength="6" placeholder="请输入" show-word-limit />
                     <span class="m-20 text-999">类目名称，会显示在用户端给用户查看</span>
-					<imgPreview placement="bottom" :src="require(`@/assets/images/exampleImgs/leimuName${form.grade}.png`)" v-if="form.grade"/>
-				</el-form-item>
+                    <imgPreview v-if="form.grade" placement="bottom" :src="require(`@/assets/images/exampleImgs/leimuName${form.grade}.png`)" />
+                </el-form-item>
                 <el-form-item label="权重：" prop="seq">
-					<lsInput class="w-450p" placeholder='请输入' v-model="form.seq" textAlign="left" :precision="0" :min="0" :max="999999"/>
+                    <lsInput v-model="form.seq" class="w-450p" placeholder="请输入" text-align="left" :precision="0" :min="0" :max="999999" />
                     <span class="m-20 text-999">设置类目权重</span>
                 </el-form-item>
                 <!-- <el-form-item v-if="form.grade == 1" label="选择图标：" prop="icon"> -->
                 <el-form-item label="选择图标：" prop="icon">
                     <div class="d-flex a-end">
                         <imgCenter v-model="form.icon"></imgCenter>
-                        <span class="mx-20 text-999">图标展示在用户端{{form.grade == 1?'一':(form.grade == 2?'二':'三')}}级类目，建议尺寸120*120px</span>
-						<imgPreview class="ml-20" placement="bottom" :src="require(`@/assets/images/exampleImgs/label${form.grade == 1||form.grade == 2?'2':'3'}.png`)" />
-						<imgPreview class="ml-20" placement="top" text="PC用户端示例" :src="require('@/assets/images/exampleImgs/label.png')" />
+                        <span class="mx-20 text-999">
+                            图标展示在用户端{{ form.grade == 1 ? '一' : form.grade == 2 ? '二' : '三' }}级类目，建议尺寸120*120px
+                        </span>
+                        <imgPreview
+                            class="ml-20"
+                            placement="bottom"
+                            :src="require(`@/assets/images/exampleImgs/label${form.grade == 1 || form.grade == 2 ? '2' : '3'}.png`)"
+                        />
+                        <imgPreview class="ml-20" placement="top" text="PC用户端示例" :src="require('@/assets/images/exampleImgs/label.png')" />
                     </div>
                 </el-form-item>
                 <el-form-item label="关联规格参数分组：" prop="aggId">
@@ -34,9 +40,9 @@
                 <el-form-item label="退货有效时间：" prop="returnValidPeriod">
                     <div class="refundPeriod">
                         <div class="d-flex a-center w-450p">
-							<lsInput class="flex-1" placeholder='请输入天数' v-model="form.returnValidPeriod" :precision="0" :min="0" :max="999999">
-								<span class="" slot="append">天</span>
-							</lsInput>
+                            <lsInput v-model="form.returnValidPeriod" class="flex-1" placeholder="请输入天数" :precision="0" :min="0" :max="999999">
+                                <span slot="append" class="">天</span>
+                            </lsInput>
                         </div>
                         <span class="mx-20 text-999">若没设置类别有效时间，则使用平台有效时间</span>
                     </div>
@@ -49,9 +55,7 @@
                 </el-form-item>
                 <el-form-item class="btnArea">
                     <el-button @click="onCancel">取消</el-button>
-                    <el-button v-ls-loading type="primary" @click="onSubmit">
-						保存
-					</el-button>
+                    <el-button v-ls-loading type="primary" @click="onSubmit">保存</el-button>
                 </el-form-item>
             </el-form>
         </el-card>
@@ -88,11 +92,11 @@ export default {
             isEdit: false // 编辑标识
         }
     },
-    beforeRouteEnter(to,from,next) {
-        if(to.query.status == 'edit') {
-            to.meta.title = '编辑商品类目'     //更改tab页同步标题
-        }else {
-            to.meta.title = '新增商品类目'     //更改tab页同步标题
+    beforeRouteEnter(to, from, next) {
+        if (to.query.status == 'edit') {
+            to.meta.title = '编辑商品类目' //更改tab页同步标题
+        } else {
+            to.meta.title = '新增商品类目' //更改tab页同步标题
         }
         next()
     },
@@ -203,12 +207,12 @@ export default {
             } else {
                 callback()
             }
-        },
+        }
     }
 }
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 /* 修改popover样式 不能加scoped */
 .el-popover.atooltip {
     padding: 10px;
@@ -229,13 +233,12 @@ export default {
         border-bottom-right-radius: 0;
         text-align: left;
     }
-    .custom-day {   
-        border: 1px solid #dcdfe6; 
-        line-height: 32px; 
-        height: 32px; 
+    .custom-day {
+        border: 1px solid #dcdfe6;
+        line-height: 32px;
+        height: 32px;
         border-radius: 0 4px 4px 0;
         margin-left: -1px;
     }
 }
-
 </style>

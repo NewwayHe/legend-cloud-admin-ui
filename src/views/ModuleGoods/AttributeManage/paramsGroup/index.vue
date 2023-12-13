@@ -3,9 +3,11 @@
 */ -->
 <template>
     <section>
-        <el-card shadow :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card shadow :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 指引 -->
-			<step><p><span>将多个参数进行归组整合，再关联到规格参数分组。</span></p></step>
+            <step>
+                <p><span>将多个参数进行归组整合，再关联到规格参数分组。</span></p>
+            </step>
             <!-- 查询 -->
             <div class="search">
                 <el-form :inline="true" :model="searchFilters" size="small">
@@ -30,8 +32,8 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
+                    header-row-class-name="headerRow"
                     @selection-change="selectionChange"
-					header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
@@ -62,19 +64,19 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<el-pagination
-							:page-sizes="[10, 30, 50, 100, 500, 1000]"
-							:page-size="10"
-							layout="total, sizes, prev, pager, next, jumper"
-							:current-page="page.curPage"
-							:total="tableTotal"
-							@size-change="pageSizeChange"
-							@current-change="currentPageChange"
-						/>
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <el-pagination
+                            :page-sizes="[10, 30, 50, 100, 500, 1000]"
+                            :page-size="10"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
         </el-card>
         <!-- 关联分组 -->
@@ -101,11 +103,11 @@
                     size="small"
                 >
                     <el-form-item label="参数组标题：" prop="name">
-                        <el-input v-model="formData.name" class="w-450p" maxlength="20" show-word-limit placeholder="请输入"/>
+                        <el-input v-model="formData.name" class="w-450p" maxlength="20" show-word-limit placeholder="请输入" />
                         <span class="ml-5 text-999 font">参数组标题，显示在用户端界面中</span>
                     </el-form-item>
                     <el-form-item label="参数组副标题：" prop="memo">
-                        <el-input v-model="formData.memo" class="w-450p" maxlength="50" show-word-limit placeholder="请输入"/>
+                        <el-input v-model="formData.memo" class="w-450p" maxlength="50" show-word-limit placeholder="请输入" />
                         <span class="ml-5 text-999 font">参数组副标题，类似于备注，不显示在用户端界面中</span>
                     </el-form-item>
                     <el-form-item label="关联参数：" prop="paramsList" :inline-message="true">
@@ -128,7 +130,7 @@
                     <el-table-column prop="propName" label="参数标题" />
                     <el-table-column prop="memo" label="参数副标题">
                         <template slot-scope="scope">
-                            {{ scope.row.memo || '-'}}
+                            {{ scope.row.memo || '-' }}
                         </template>
                     </el-table-column>
                     <el-table-column prop="name" label="状态">
@@ -156,7 +158,7 @@
             </el-row>
             <div slot="footer" class="dialog-footer">
                 <el-button size="small" @click="closeHandle">取 消</el-button>
-                <ls-button size="small" type="primary" :asyncFunction="()=>submit()">保 存</ls-button>
+                <ls-button size="small" type="primary" :async-function="() => submit()">保 存</ls-button>
             </div>
         </el-dialog>
     </section>
@@ -224,23 +226,23 @@ export default {
                 ]
             },
             paramsList: [], // 参数表格数据
-            relatedParamsList: [],      //缓存已关联的参数[{id,propName}] 用于编辑回显
+            relatedParamsList: [], //缓存已关联的参数[{id,propName}] 用于编辑回显
             paramsGroupId: null
         }
     },
     computed: {
         paramsNameArr() {
-            return this.relatedParamsList.map(item => item.propName).join()
+            return this.relatedParamsList.map((item) => item.propName).join()
         }
     },
     watch: {
-        'relatedParamsList'(nL){
-            this.formData.paramsList = nL.map(item => item.id)
+        relatedParamsList(nL) {
+            this.formData.paramsList = nL.map((item) => item.id)
         },
-        'dialogVisible' (nV){
-            if(!nV) {
-               this.relatedParamsList = [];    //清空回显
-               this.dialog.searchName = ''; //清空输入
+        dialogVisible(nV) {
+            if (!nV) {
+                this.relatedParamsList = [] //清空回显
+                this.dialog.searchName = '' //清空输入
             }
         }
     },
@@ -286,7 +288,6 @@ export default {
             this.dialog.pageNo = 1
             console.log(this.formData)
             return new Promise((resolve) => {
-                
                 this.$refs.dialogForm.validate((valid) => {
                     if (valid) {
                         if (this.formData.id) {
@@ -303,7 +304,8 @@ export default {
                                     // this.closeHandle()
                                     this.dialogVisible = false
                                     this.getData()
-                                }).finally(()=>{
+                                })
+                                .finally(() => {
                                     return resolve()
                                 })
                         } else {
@@ -319,7 +321,8 @@ export default {
                                     this.$message.success('新增成功')
                                     this.closeHandle()
                                     this.getData()
-                                }).finally(()=>{
+                                })
+                                .finally(() => {
                                     return resolve()
                                 })
                         }
@@ -329,8 +332,6 @@ export default {
                     }
                 })
             })
-            
-                
         },
 
         // 打开新增
@@ -359,10 +360,10 @@ export default {
             paramGroup
                 .paramsGroupDeatail(id)
                 .then((res) => {
-                    if(res.code) {
-                        this.formData = res?.data || this.$options.data().formData;
-                        let paramsList = (res?.data?.params || []).map(item => ({ id:item.id, propName: item.propName }))
-                        this.relatedParamsList = paramsList;
+                    if (res.code) {
+                        this.formData = res?.data || this.$options.data().formData
+                        let paramsList = (res?.data?.params || []).map((item) => ({ id: item.id, propName: item.propName }))
+                        this.relatedParamsList = paramsList
                     }
                     this.getParamsList(id)
                 })
@@ -383,7 +384,7 @@ export default {
                     paramsGroupId: id
                 })
                 .then((res) => {
-                    if(res.code) {
+                    if (res.code) {
                         this.paramsList = res?.data?.resultList || []
                         this.dialog.total = res?.data?.total || 0
                         if (this.formData.paramsList.length !== 0) {
@@ -414,8 +415,8 @@ export default {
         cancelRelateParams(scope) {
             this.$set(scope.row, 'related', 0)
             let index = this.formData.paramsList.indexOf(scope.row.id)
-            if(index > -1) {
-                this.relatedParamsList.splice(index, 1);
+            if (index > -1) {
+                this.relatedParamsList.splice(index, 1)
             }
         },
 
@@ -440,7 +441,7 @@ export default {
         },
         // 关闭对话框清空和重置表单
         closeHandle() {
-            this.$refs.dialogForm.resetFields();
+            this.$refs.dialogForm.resetFields()
             this.dialogVisible = false
         }
     }
@@ -449,7 +450,7 @@ export default {
 <!--
     表格内容过长显示tooltip时的最大宽度设置 不能使用scoped
 -->
-<style >
+<style>
 .el-tooltip__popper {
     max-width: 60vw;
 }

@@ -16,6 +16,6 @@ const getToken = (data) => request.get('/shop/admin/grass/article/preview', data
 // 小程序
 const miniWxApi = {
     // 小程序码接口
-    getMiniQrCode: (data) => request.get('/basic/wx/getMiniQrCode', { flag: false, ...data }),
+    getMiniQrCode: (data) => request.get('/basic/wx/getMiniQrCode', { flag: false, ...data })
 }
 export { uploadApi, addressApi, search, getDomainApi, getToken, miniWxApi }

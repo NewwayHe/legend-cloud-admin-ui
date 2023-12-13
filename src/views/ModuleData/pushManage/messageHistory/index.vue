@@ -6,7 +6,7 @@
         <el-card shadow>
             <!-- 查询 -->
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <!-- <el-form-item label="用户ID">
                         <el-input v-model="searchFilters.custName" placeholder="客户名" />
                     </el-form-item> -->
@@ -44,7 +44,7 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
@@ -70,7 +70,7 @@
                             {{ scope.row.content || '--' }}
                         </template>
                     </el-table-column>
-                    <el-table-column prop="createTime" label="发送时间" width="140"/>
+                    <el-table-column prop="createTime" label="发送时间" width="140" />
                     <el-table-column prop="type" label="短信类型" />
                     <el-table-column prop="response" label="响应码" />
                     <el-table-column prop="status" label="发送状态">
@@ -79,11 +79,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
                 <el-alert type="warning" class="defalult mt-20" :closable="false">
                     <div style="line-height: 30px" class="text-999">
                         <p class="font-16 font-weight">说明</p>

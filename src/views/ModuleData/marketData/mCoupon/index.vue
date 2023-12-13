@@ -42,7 +42,7 @@
                     <el-table-column prop="shopId" label="累计访问次数" />
                     <el-table-column prop="shopId" label="累计访问用户数" />
                     <el-table-column prop="shopId" label="转化率" />
-                    <el-table-column prop="shopId" label="操作" align="center" >
+                    <el-table-column prop="shopId" label="操作" align="center">
                         <template slot-scope="scope">
                             <el-button type="text" size="small" @click.native.prevent="deleteRow(scope.$index, tableData)">查看</el-button>
                         </template>
@@ -55,7 +55,7 @@
 
 <script>
 export default {
-    name: 'mCoupon',
+    name: 'MCoupon',
     data() {
         return {
             date: '',

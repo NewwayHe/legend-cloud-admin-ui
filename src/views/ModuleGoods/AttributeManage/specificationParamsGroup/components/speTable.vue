@@ -27,7 +27,6 @@
                 </template>
             </el-table-column>
         </el-table>
-        
 
         <dialog-table
             ref="speDialogTable"
@@ -107,7 +106,7 @@ export default {
 <!--
     表格内容过长显示tooltip时的最大宽度设置 不能使用scoped
 -->
-<style >
+<style>
 .el-tooltip__popper {
     max-width: 60vw;
 }

@@ -30,21 +30,20 @@ const couponApi = {
 const popupAdvertApi = {
     // 弹窗广告详情/shop/advertise/{id}
     // queryAdvertise:(data) => request.get('/shop/advertise/query/queryAdvertise',data),
-    queryAdvertise:(id) => request.get(`/shop/advertise/${id}`),
+    queryAdvertise: (id) => request.get(`/shop/advertise/${id}`),
 
     // 弹窗图表数据
-    advertiseDataReport:(data) => request.get('/shop/advertise/advertise/advertiseDataReport',data),
+    advertiseDataReport: (data) => request.get('/shop/advertise/advertise/advertiseDataReport', data),
 
     // 新增弹窗广告
-    addAdvertise:(data)=>request.post('/shop/advertise',data),
-    
-    // 修改弹窗广告
-    editAdvertise:(data)=>request.post('/shop/advertise/updateAdvertise',data),
-    // 修改弹窗广告
-    advertiseUpdateStatus:(data)=>request.post('/shop/advertise/updateAdvertise',data),
+    addAdvertise: (data) => request.post('/shop/advertise', data),
 
-    advertiseCount:(data)=>request.get('/shop/advertise/advertise/advertiseCount',data)
+    // 修改弹窗广告
+    editAdvertise: (data) => request.post('/shop/advertise/updateAdvertise', data),
+    // 修改弹窗广告
+    advertiseUpdateStatus: (data) => request.post('/shop/advertise/updateAdvertise', data),
 
+    advertiseCount: (data) => request.get('/shop/advertise/advertise/advertiseCount', data)
 }
 
 export { couponApi, popupAdvertApi }

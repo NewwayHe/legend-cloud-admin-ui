@@ -3,10 +3,10 @@
 */ -->
 <template>
     <section>
-        <el-card shadow :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card shadow :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 搜索查询 -->
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="用户ID">
                         <el-input v-model="searchFilters.userId" placeholder="请输入" />
                     </el-form-item>
@@ -48,14 +48,14 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
+                    header-row-class-name="headerRow"
                     @selection-change="selectionChange"
-					header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" text="暂无提现记录" />
                     </template>
                     <el-table-column label="序号" type="index" width="48" />
-                    <el-table-column prop="userId" label="用户ID" show-overflow-tooltip/>
+                    <el-table-column prop="userId" label="用户ID" show-overflow-tooltip />
                     <el-table-column label="昵称/电话" min-width="100">
                         <template slot-scope="scope">
                             <p>{{ scope.row.nickName }}</p>
@@ -75,12 +75,24 @@
                     </el-table-column>
                     <el-table-column label="审核状态">
                         <template slot-scope="scope">
-                            <span :class="scope.row.opStatus == -1 ? 'status-veto' : scope.row.opStatus == 1 ? 'status-pass' : 'status-wait' ">{{ scope.row.opStatus === -1 ? '拒绝' : scope.row.opStatus === 1 ? '通过' : '待审核' }}</span>
+                            <span :class="scope.row.opStatus == -1 ? 'status-veto' : scope.row.opStatus == 1 ? 'status-pass' : 'status-wait'">
+                                {{ scope.row.opStatus === -1 ? '拒绝' : scope.row.opStatus === 1 ? '通过' : '待审核' }}
+                            </span>
                         </template>
                     </el-table-column>
                     <el-table-column label="支付状态">
                         <template slot-scope="scope">
-                            <span :class="scope.row.state === 1 ? 'status-pass' : scope.row.state === 0 ? 'status-done' : scope.row.state === 2 ? 'status-wait' : 'status-veto'">
+                            <span
+                                :class="
+                                    scope.row.state === 1
+                                        ? 'status-pass'
+                                        : scope.row.state === 0
+                                        ? 'status-done'
+                                        : scope.row.state === 2
+                                        ? 'status-wait'
+                                        : 'status-veto'
+                                "
+                            >
                                 {{ scope.row.state === 1 ? '已支付' : scope.row.state === 0 ? '-' : scope.row.state === 2 ? '处理中' : '支付失败' }}
                             </span>
                         </template>
@@ -93,8 +105,15 @@
                     <el-table-column label="操作" fixed="right" width="180">
                         <template slot-scope="scope">
                             <span class="table__action">
-                                <el-link type="primary" :underline='false' @click="showSeeDialog(scope.row)">查看</el-link>
-                                <el-link v-if="scope.row.opStatus != -1 && scope.row.opStatus != 1" type="primary" :underline='false' @click="examine(scope.row)">审核</el-link>
+                                <el-link type="primary" :underline="false" @click="showSeeDialog(scope.row)">查看</el-link>
+                                <el-link
+                                    v-if="scope.row.opStatus != -1 && scope.row.opStatus != 1"
+                                    type="primary"
+                                    :underline="false"
+                                    @click="examine(scope.row)"
+                                >
+                                    审核
+                                </el-link>
                                 <el-link
                                     v-if="(scope.row.state === -999 || scope.row.state === -1) && scope.row.opStatus === 1"
                                     :underline="false"
@@ -107,11 +126,16 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <pagination
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
             <seeDialog :info="infoData" :show-dialog-visible.sync="showDialogVisible" @changeDialog="changeDialogVisible"></seeDialog>
             <dialog-audit
@@ -143,7 +167,7 @@ export default {
             switchType: 'top',
             url: {
                 getData: '/pay/admin/wallet/page',
-                getExcel: '/pay/admin/wallet/excel',
+                getExcel: '/pay/admin/wallet/excel'
             },
             showDialogVisible: false, // 控制封装组件对话框的
             infoData: {}, // 传递给查看对话框组件的数据
@@ -211,7 +235,7 @@ export default {
 <!--
     表格内容过长显示tooltip时的最大宽度设置 不能使用scoped
 -->
-<style >
+<style>
 .el-tooltip__popper {
     max-width: 60vw;
 }

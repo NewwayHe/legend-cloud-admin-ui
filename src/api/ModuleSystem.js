@@ -96,16 +96,16 @@ const version = {
 const basic = {
     get: () => request.get('/basic/admin/system/config'), // 基本信息查询
     edit: (data) => request.put('/basic/admin/system/config', data), // 编辑
-	systemConfig: () => request.get('/shop/systemConfig'), // 【用户】获取ICP备案号以及商城名称等
-	contactInformationGet: (data) => request.get('/shop/contactInformation/infoByShopId',data), // 【商家，平台】根据当前登录用户id查询商家或平台微信联系方式存储表
-	contactInformationSave: (data) => request.post('/shop/contactInformation/admin/save',data), // 【平台】保存平台微信联系方式
-    excelPage:(data)=>request.get('/basic/admin/export/excel/page',data),   // 文件导出分页查询
-    excelDownload:(data) => request.getFile('/basic/export/excel/download',data),
-    
-    getUnread:(data) => request.get('/basic/admin/msg/unread',data),   //获取未读消息数
-    getUnreadList:(data) => request.get('/basic/admin/msg/page',data),   //获取未读消息数列表
-    getUnreadDetail:(data) => request.get('/basic/admin/msg',data),   //获取未读消息数详情
-    cleanUnread:(data) => request.get('/basic/admin/msg/cleanUnread',data),   //【后台】一键清除消息未读标记
+    systemConfig: () => request.get('/shop/systemConfig'), // 【用户】获取ICP备案号以及商城名称等
+    contactInformationGet: (data) => request.get('/shop/contactInformation/infoByShopId', data), // 【商家，平台】根据当前登录用户id查询商家或平台微信联系方式存储表
+    contactInformationSave: (data) => request.post('/shop/contactInformation/admin/save', data), // 【平台】保存平台微信联系方式
+    excelPage: (data) => request.get('/basic/admin/export/excel/page', data), // 文件导出分页查询
+    excelDownload: (data) => request.getFile('/basic/export/excel/download', data),
+
+    getUnread: (data) => request.get('/basic/admin/msg/unread', data), //获取未读消息数
+    getUnreadList: (data) => request.get('/basic/admin/msg/page', data), //获取未读消息数列表
+    getUnreadDetail: (data) => request.get('/basic/admin/msg', data), //获取未读消息数详情
+    cleanUnread: (data) => request.get('/basic/admin/msg/cleanUnread', data) //【后台】一键清除消息未读标记
 }
 
 const orderSet = {
@@ -139,14 +139,14 @@ const areaManage = {
 const materialCenter = {
     getResourceList: (data) => request.get('/basic/admin/file/queryPageByShop', data), //获取文件夹及多媒体资源列表
     changeResourceName: (data) => request.get('/basic/admin/file/updateFileFolderName', data, { isShowMessage: false }), //修改文件夹或图片名字
-    tempUpload: (data) => request.postFile('/basic/admin/file/uploadNew',data), //临时上传
+    tempUpload: (data) => request.postFile('/basic/admin/file/uploadNew', data), //临时上传
     confirmUpload: (data) => request.put('/basic/admin/file/updateManagedFlage', data), //确认上传
     deleteResource: (data) => request.delete(`/basic/admin/file/delectFileByIdList`, data), //删除文件夹或多媒体资源
     createFloder: (data) => request.post('/basic/admin/file/saveFileFolder', data),
     getParentFloderList: (data) => request.get('/basic/admin/file/getIdList', data),
     getFloderTree: (data) => request.get('/basic/admin/file/queryPageAllFolder', data), //获取文件夹列表树
     moveResource: (data) => request.put('/basic/admin/file/updateFileFolderList', data),
-    getSaveHistory: (data) => request.post('/basic/file/saveHistoryNew', data),//图片中心历史记录
+    getSaveHistory: (data) => request.post('/basic/file/saveHistoryNew', data) //图片中心历史记录
 }
 
 export {

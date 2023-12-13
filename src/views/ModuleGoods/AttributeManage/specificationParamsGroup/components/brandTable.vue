@@ -10,7 +10,7 @@
             <el-table-column label="序号" type="index" width="48" />
             <el-table-column prop="brandPic" label="品牌LOGO">
                 <template slot-scope="scope">
-                    <ls-image class="v-middle" :src="scope.row.brandPic" :options="{ w: '50', h: '50', br: '4' }"/>
+                    <ls-image class="v-middle" :src="scope.row.brandPic" :options="{ w: '50', h: '50', br: '4' }" />
                 </template>
             </el-table-column>
             <el-table-column prop="brandName" label="品牌名称" />

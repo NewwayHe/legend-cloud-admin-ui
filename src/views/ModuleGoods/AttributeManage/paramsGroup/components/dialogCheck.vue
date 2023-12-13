@@ -22,8 +22,8 @@
                 :data="paramsList"
                 header-row-class-name="headerRow"
             >
-                <el-table-column prop="propName" label="参数标题"/>
-                <el-table-column prop="prodPropStr" label="参数值"/>
+                <el-table-column prop="propName" label="参数标题" />
+                <el-table-column prop="prodPropStr" label="参数值" />
             </el-table>
         </div>
         <el-row type="flex" justify="end" align="middle" class="mt-10">

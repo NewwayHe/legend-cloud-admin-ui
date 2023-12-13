@@ -16,14 +16,18 @@
 		</submitBottom>
 -->
 <template>
-    <div class="content-box app-wrapper" :style="{height:`${conHeight-deductHeight}px`}">
-		<!-- 下面这个1366，是跟.app-wrapper里的width:1366px相对应的，如果.app-wrapper里的width改了，下面这个1366也要跟着改 -->
+    <div class="content-box app-wrapper" :style="{ height: `${conHeight - deductHeight}px` }">
+        <!-- 下面这个1366，是跟.app-wrapper里的width:1366px相对应的，如果.app-wrapper里的width改了，下面这个1366也要跟着改 -->
         <div
+            ref="contentBox"
             class="position-fixed bottom-0 border-top bg-fff zindex-99"
-            :style="{ left: device === 'mobile'? `20px` : (sidebar.opened ? `230px` : `74px`), right: `${clientWidth>=1366?20:0}px`,transition: 'all 0.28s'}"
-			ref="contentBox"
+            :style="{
+                left: device === 'mobile' ? `20px` : sidebar.opened ? `230px` : `74px`,
+                right: `${clientWidth >= 1366 ? 20 : 0}px`,
+                transition: 'all 0.28s'
+            }"
         >
-            <div class="flex-center py-10 content-box" >
+            <div class="flex-center py-10 content-box">
                 <slot></slot>
             </div>
         </div>
@@ -35,48 +39,48 @@
 import { mapGetters } from 'vuex'
 // :is-active="sidebar.opened"
 export default {
-    name: 'submitBottom',
-	props: {
-		deductHeight: {
-			// 由于.app-main里有一个padding-bottom:20px，所以这个20px要外面传进来，让占位符的框减少20px
-			type: [Number,String],
-			default: 20
-		},
-	},
+    name: 'SubmitBottom',
     components: {},
+    props: {
+        deductHeight: {
+            // 由于.app-main里有一个padding-bottom:20px，所以这个20px要外面传进来，让占位符的框减少20px
+            type: [Number, String],
+            default: 20
+        }
+    },
     data() {
         return {
-			clientWidth:1920,//这个变量是为了解决屏幕太小时出现间隙的问题
-			conHeight:56,
-		}
+            clientWidth: 1920, //这个变量是为了解决屏幕太小时出现间隙的问题
+            conHeight: 56
+        }
     },
     computed: {
         // elementUI配色
         // variables() {
         //     return variables
         // },
-		device() {
-		    return this.$store.state.app.device
-		},
+        device() {
+            return this.$store.state.app.device
+        },
         ...mapGetters(['sidebar'])
     },
     watch: {},
     created() {},
     destroyed() {},
     mounted() {
-		this.clientWidth = document.documentElement.clientWidth
-		window.onresize = () => {
-			// console.log(11,document.documentElement.clientWidth)
-			this.clientWidth = document.documentElement.clientWidth
-		};
-		// this.$nextTick(()=>{
-			// console.log(11,[this.$refs.contentBox]);
-			// console.log(22,this.$refs.contentBox.getBoundingClientRect().height); // 注意:不能用this.$refs.contentBox.clientHeight来取值,因为它输出的是向下取整的值,会比实际少1px
-			// console.log(33,window.getComputedStyle(this.$refs.contentBox).height);
-			// 另一个取到准确值的方法：this.conHeight = Math.ceil(parseFloat(window.getComputedStyle(this.$refs.contentBox).height)) // Math.ceil(parseFloat(52.2188px)) = 53
-			this.conHeight = this.$refs.contentBox.getBoundingClientRect().height
-		// })
-	},
+        this.clientWidth = document.documentElement.clientWidth
+        window.onresize = () => {
+            // console.log(11,document.documentElement.clientWidth)
+            this.clientWidth = document.documentElement.clientWidth
+        }
+        // this.$nextTick(()=>{
+        // console.log(11,[this.$refs.contentBox]);
+        // console.log(22,this.$refs.contentBox.getBoundingClientRect().height); // 注意:不能用this.$refs.contentBox.clientHeight来取值,因为它输出的是向下取整的值,会比实际少1px
+        // console.log(33,window.getComputedStyle(this.$refs.contentBox).height);
+        // 另一个取到准确值的方法：this.conHeight = Math.ceil(parseFloat(window.getComputedStyle(this.$refs.contentBox).height)) // Math.ceil(parseFloat(52.2188px)) = 53
+        this.conHeight = this.$refs.contentBox.getBoundingClientRect().height
+        // })
+    },
     methods: {}
 }
 </script>

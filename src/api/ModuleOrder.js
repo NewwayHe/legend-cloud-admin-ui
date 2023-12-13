@@ -6,9 +6,9 @@ const orderList = {
     getOrderDetails: (data) => request.get('/order/admin/order/get', data), //订单详情
 
     // 订单商家列表
-    shopDetailQuerySelect2: (data) => request.get('/shop/shopDetail/querySelect2',data), //订单详情
+    shopDetailQuerySelect2: (data) => request.get('/shop/shopDetail/querySelect2', data), //订单详情
     orderExport: (data) => request.getFile('/order/admin/order/export', data), //订单导出
-	getShopList: (data) => request.post('/shop/shopDetail/getShopList', data),//根据后台选择店铺显示店铺列表,
+    getShopList: (data) => request.post('/shop/shopDetail/getShopList', data) //根据后台选择店铺显示店铺列表,
 }
 
 // 售后
@@ -28,15 +28,15 @@ const serviceOrderApi = {
     // 售后订单详情备注
     refundRemake: (data) => request.postForm('/order/admin/order/refund/insert/remake', data),
     // 获取申请退款原因
-    refundReason:() => request.post('/order/admin/order/refund/cancel/reason'),
+    refundReason: () => request.post('/order/admin/order/refund/cancel/reason'),
     // 商家申请售后列表
     orderRefundPageCancelOrder: (data) => request.get('/order/admin/order/refund/pageCancelOrder', data),
     // 审核商家申请售后
-    confirmRefundCancel:(data) => request.post('/order/admin/order/refund/confirm/refund/cancel',data),
+    confirmRefundCancel: (data) => request.post('/order/admin/order/refund/confirm/refund/cancel', data),
     // 审核商家申请售后批量
-    confirmRefundCancelList:(data) => request.post('/order/admin/order/refund/confirm/refund/cancelList',data),
+    confirmRefundCancelList: (data) => request.post('/order/admin/order/refund/confirm/refund/cancelList', data),
     // 退款退货原因列表
-    afterSalesReason:(data) => request.postForm('/order/admin/order/refund/afterSales/reason',data)
+    afterSalesReason: (data) => request.postForm('/order/admin/order/refund/afterSales/reason', data)
 }
 // 评论
 const commentList = {

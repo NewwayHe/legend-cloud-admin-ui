@@ -124,8 +124,7 @@ import { deposit } from '@/api/ModuleFinance.js'
 import common from '@/mixins/pages/commom'
 import cud from '@/mixins/pages/cud.js'
 export default {
-    components: {
-    },
+    components: {},
     filters: {
         getStatusStr(status) {
             let statusStr = {

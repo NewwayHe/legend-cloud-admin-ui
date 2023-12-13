@@ -40,7 +40,7 @@
                     <el-table-column prop="productName" label="统计日期" />
                     <el-table-column prop="productName" label="订单数量" />
                     <el-table-column prop="productName" label="订单金额" />
-                    <el-table-column prop="productName" label="操作" align="center" >
+                    <el-table-column prop="productName" label="操作" align="center">
                         <template slot-scope="scope">
                             <span class="table__action">
                                 <el-link :underline="false" type="primary">查看</el-link>

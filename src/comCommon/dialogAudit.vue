@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="审核" custom-class="dialog-form-small"  :visible.sync="isVisible" @close="handleClose">
+    <el-dialog title="审核" custom-class="dialog-form-small" :visible.sync="isVisible" @close="handleClose">
         <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="98px" size="small">
             <el-form-item label="审核结果：" prop="status">
                 <el-radio-group v-model="ruleForm.status">
@@ -16,12 +16,12 @@
                     trigger: 'blur'
                 }"
             >
-                <el-input v-model="ruleForm.content" type="textarea" placeholder="请输入" maxlength="50" show-word-limit autosize/>
+                <el-input v-model="ruleForm.content" type="textarea" placeholder="请输入" maxlength="50" show-word-limit autosize />
             </el-form-item>
         </el-form>
         <div slot="footer" class="font-0">
             <el-button size="small" @click="isVisible = false">取 消</el-button>
-            <ls-button type="primary" size="small" :asyncFunction="submitForm">确 定</ls-button>
+            <ls-button type="primary" size="small" :async-function="submitForm">确 定</ls-button>
         </div>
     </el-dialog>
 </template>
@@ -73,22 +73,26 @@ export default {
         },
 
         submitForm() {
-            return new Promise((resolve)=>{
+            return new Promise((resolve) => {
                 this.$refs.ruleForm.validate((valid) => {
                     if (valid) {
-                            request.put(this.url, {
+                        request
+                            .put(this.url, {
                                 [this.userParams['ids']]: this.id,
                                 [this.userParams['status']]: Number(this.ruleForm.status),
                                 [this.userParams['content']]: this.ruleForm.content
-                            }).then((res) => {
+                            })
+                            .then((res) => {
                                 if (res.code) {
                                     this.$message.success('操作成功')
                                     this.isVisible = false
                                     this.$emit('finish')
                                 }
-                            }).catch((err) => {
+                            })
+                            .catch((err) => {
                                 this.$message.error(err.msg)
-                            }).finally(_=>{
+                            })
+                            .finally((_) => {
                                 return resolve()
                             })
                     } else {

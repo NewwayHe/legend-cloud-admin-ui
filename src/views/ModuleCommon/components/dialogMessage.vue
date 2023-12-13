@@ -13,7 +13,7 @@
             </el-col>
             <el-col class="mt-10">
                 <!-- 1:商品[审核] 2：订单 3:售后 0：其他 -->
-                <el-link v-if="list.type == 1" style="color: #006dc7" :underline="false" class="font-12" @click="goPage(list.detailId,list.type)">
+                <el-link v-if="list.type == 1" style="color: #006dc7" :underline="false" class="font-12" @click="goPage(list.detailId, list.type)">
                     去查看&nbsp;&gt;&gt;
                 </el-link>
             </el-col>
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { basic } from '@/api/ModuleSystem';
+import { basic } from '@/api/ModuleSystem'
 export default {
     name: 'DialogMessage',
     props: {
@@ -53,11 +53,11 @@ export default {
             this.$emit('closeMsg')
         },
         // 跳转页面
-        goPage(id,MsgType) {
+        goPage(id, MsgType) {
             //1:商品 2：订单 3:售后 0：其他
-            if(MsgType == 1){
+            if (MsgType == 1) {
                 this.isVisible = false
-                this.$router.push({name:'aduitList'})
+                this.$router.push({ name: 'aduitList' })
             }
         },
         // 获取数据

@@ -3,7 +3,7 @@
 */ -->
 <template>
     <section>
-        <el-card shadow :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card shadow :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 指引 -->
             <div class="lead">
                 <h3>商品分组</h3>
@@ -11,10 +11,10 @@
                     <p>一个商品可以添加多个商品分组，可以对商品进行分组管理</p>
                 </div>
                 <div class="font-0">
-                    <el-button type="text" @click="$router.push({name:'goodReative'})" size="small">设置分组</el-button>
-                    <span class='mx-10 font-14 iconfont icon-a-nextstep text-ccc'></span>
+                    <el-button type="text" size="small" @click="$router.push({ name: 'goodReative' })">设置分组</el-button>
+                    <span class="mx-10 font-14 iconfont icon-a-nextstep text-ccc"></span>
                     <el-button type="text" class="text-333" size="small">添加商品，对商品进行分组管理</el-button>
-                    <span class='mx-10 font-14 iconfont icon-a-nextstep text-ccc'></span>
+                    <span class="mx-10 font-14 iconfont icon-a-nextstep text-ccc"></span>
                     <el-button type="text" class="text-333" size="small">首页装修商品列表组件添加分组，直接填充分组的商品列表</el-button>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                     <el-form-item>
                         <el-button size="small" @click.stop="dbnSearch">搜索</el-button>
                         <el-button size="small" @click.stop="dbnResetSearch">重置</el-button>
-						<el-button size="small" type="primary" @click="handleCreate">新增</el-button>
+                        <el-button size="small" type="primary" @click="handleCreate">新增</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -45,7 +45,7 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
-					header-row-class-name="headerRow"
+                    header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
@@ -60,10 +60,10 @@
                     </el-table-column>
                     <el-table-column prop="description" label="分组描述" show-overflow-tooltip>
                         <template slot-scope="scope">
-                            {{ scope.row.description || '-'}}
+                            {{ scope.row.description || '-' }}
                         </template>
                     </el-table-column>
-                    <el-table-column label="操作" fixed="right" width="250" >
+                    <el-table-column label="操作" fixed="right" width="250">
                         <template slot-scope="scope">
                             <span v-if="scope.row.type == 1" class="table__action flex-center">
                                 <el-link :underline="false" type="primary" @click.stop="handleEdit(scope.row, scope.column, scope.$index)">
@@ -79,19 +79,19 @@
                         </template>
                     </el-table-column>
                 </el-table>
-				<LsSticky :data="tableList">
-					<el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
-						<el-pagination
-						    :page-sizes="[10, 30, 50, 100, 500, 1000]"
-						    :page-size="10"
-						    layout="total, sizes, prev, pager, next, jumper"
-						    :current-page="page.curPage"
-						    :total="tableTotal"
-						    @size-change="pageSizeChange"
-						    @current-change="currentPageChange"
-						/>
-					</el-row>
-				</LsSticky>
+                <LsSticky :data="tableList">
+                    <el-row type="flex" justify="end" class="w-100 overflow-h py-10 mt-10 bg-white">
+                        <el-pagination
+                            :page-sizes="[10, 30, 50, 100, 500, 1000]"
+                            :page-size="10"
+                            layout="total, sizes, prev, pager, next, jumper"
+                            :current-page="page.curPage"
+                            :total="tableTotal"
+                            @size-change="pageSizeChange"
+                            @current-change="currentPageChange"
+                        />
+                    </el-row>
+                </LsSticky>
             </div>
 
             <!-- 关联分组 -->
@@ -99,7 +99,14 @@
 
             <!-- 新增-编辑 -->
             <el-dialog :title="dialogForm.title" custom-class="dialog-form-small" :visible.sync="dialogForm.isVisible" destroy-on-close>
-                <el-form ref="myForm" :model="dialogForm.formData" :rules="dialogForm.formRule" label-width="98px" label-position="right" size="small">
+                <el-form
+                    ref="myForm"
+                    :model="dialogForm.formData"
+                    :rules="dialogForm.formRule"
+                    label-width="98px"
+                    label-position="right"
+                    size="small"
+                >
                     <el-form-item label="分组名称：" prop="name">
                         <el-input v-model="dialogForm.formData.name" maxlength="20" placeholder="请输入" />
                     </el-form-item>
@@ -129,7 +136,7 @@ import correlationCheck from './components/correlationCheck'
 export default {
     name: 'GoodReative',
     components: {
-        correlationCheck,
+        correlationCheck
     },
     mixins: [common, cud],
     data() {

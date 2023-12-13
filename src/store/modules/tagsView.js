@@ -1,24 +1,26 @@
 const state = {
     visitedViews: [],
-    cachedViews:[]
+    cachedViews: []
 }
 
 const mutations = {
-    INIT_CACHED_VIEW: (state,views) => {
-        state.cachedViews = views;
+    INIT_CACHED_VIEW: (state, views) => {
+        state.cachedViews = views
     },
     ADD_VISITED_VIEW: (state, view) => {
-        if (state.visitedViews.some((v) => {
-            // 新增/编辑时 导航栏做区分 
-            // example: 商城管理->消息管理->公告管理->新增/编辑公告
-            if(v.path === view.path) {
-                v.title = view.meta.title
-                return true;
-            }else {
-                return false;
-            }
-        })) {
-            return;
+        if (
+            state.visitedViews.some((v) => {
+                // 新增/编辑时 导航栏做区分
+                // example: 商城管理->消息管理->公告管理->新增/编辑公告
+                if (v.path === view.path) {
+                    v.title = view.meta.title
+                    return true
+                } else {
+                    return false
+                }
+            })
+        ) {
+            return
         }
         state.visitedViews.push(
             Object.assign({}, view, {
@@ -82,7 +84,7 @@ const mutations = {
 
 const actions = {
     initCachedViews({ commit }, views) {
-        commit('INIT_CACHED_VIEW',views)
+        commit('INIT_CACHED_VIEW', views)
     },
     addView({ dispatch }, view) {
         dispatch('addVisitedView', view)

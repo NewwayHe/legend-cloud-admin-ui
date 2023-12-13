@@ -3,10 +3,10 @@
 */ -->
 <template>
     <section class="">
-        <el-card shadow :body-style="{padding:`20px 20px 10px 20px`}">
+        <el-card shadow :body-style="{ padding: `20px 20px 10px 20px` }">
             <!-- 查询 -->
             <div class="search">
-                <el-form :inline="true" :model="searchFilters" size="small" ref="formWrapBtn">
+                <el-form ref="formWrapBtn" :inline="true" :model="searchFilters" size="small">
                     <el-form-item label="商品名称">
                         <el-input v-model="searchFilters.name" placeholder="商品名称" />
                     </el-form-item>
@@ -38,7 +38,16 @@
                     </el-col>
                 </el-row>
                 <!--列表-->
-				<el-table ref="multipleTable" v-loading="tableListLoading" :data="tableList" tooltip-effect="dark" class="w-100" header-row-class-name="headerRow" row-key="id" @selection-change="selectionChange">
+                <el-table
+                    ref="multipleTable"
+                    v-loading="tableListLoading"
+                    :data="tableList"
+                    tooltip-effect="dark"
+                    class="w-100"
+                    header-row-class-name="headerRow"
+                    row-key="id"
+                    @selection-change="selectionChange"
+                >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
@@ -68,52 +77,63 @@
                         </template>
                     </el-table-column>
                     <el-table-column sortable prop="buys" label="销量" />
-                    <el-table-column prop="siteName" label="店铺名称" width="140"/>
+                    <el-table-column prop="siteName" label="店铺名称" width="140" />
                     <el-table-column prop="status" label="状态">
                         <template slot-scope="scope">
                             <span v-if="scope.row.opStatus == -1 || scope.row.draftStatus == -1" class="status-veto">审核不通过</span>
                             <span v-if="scope.row.draftStatus == 0" class="status-wait">待审核</span>
-                            <span v-if="(scope.row.opStatus == 1 && scope.row.draftStatus==null) || scope.row.draftStatus == 1" class="status-pass">通过审核</span>
+                            <span v-if="(scope.row.opStatus == 1 && scope.row.draftStatus == null) || scope.row.draftStatus == 1" class="status-pass">
+                                通过审核
+                            </span>
                         </template>
                     </el-table-column>
                     <el-table-column prop="updateTime" width="140" label="更新时间">
                         <template slot-scope="scope">
-							{{ scope.row.updateTime | formatDateTimeByDash}}
-						</template>
+                            {{ scope.row.updateTime | formatDateTimeByDash }}
+                        </template>
                     </el-table-column>
                     <el-table-column label="操作" fixed="right" width="140">
                         <template slot-scope="scope">
                             <span class="table__action">
-                                <el-link v-if="scope.row.draftStatus === 0" :underline="false" type="primary" @click.stop="auditItem(scope.row)">审核</el-link>
+                                <el-link v-if="scope.row.draftStatus === 0" :underline="false" type="primary" @click.stop="auditItem(scope.row)">
+                                    审核
+                                </el-link>
                                 <el-link :underline="false" type="primary" @click="auditHistory(scope.row.id)">审核历史</el-link>
                             </span>
                         </template>
                     </el-table-column>
                 </el-table>
             </div>
-			<LsSticky :data="tableList">
-				<el-row type="flex" justify="space-between" class="w-100 overflow-h py-10 mt-10 bg-white">
-					<el-col class="text-nowrap flex-start">
-						<template v-if="searchFilters.opStatus == 0">
-						    <el-button size="mini" class="allCheck">
-						        <el-checkbox v-model="checkAll" label="全选" size="small" @change="selAll" :indeterminate="checkHalf" :disabled='!selectableList.length'/>
-						    </el-button>
-						    <el-button size="small" @click="batchAudit">批量审核</el-button>
-						</template>
-					</el-col>
-					<pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
-				</el-row>
-			</LsSticky>
+            <LsSticky :data="tableList">
+                <el-row type="flex" justify="space-between" class="w-100 overflow-h py-10 mt-10 bg-white">
+                    <el-col class="text-nowrap flex-start">
+                        <template v-if="searchFilters.opStatus == 0">
+                            <el-button size="mini" class="allCheck">
+                                <el-checkbox
+                                    v-model="checkAll"
+                                    label="全选"
+                                    size="small"
+                                    :indeterminate="checkHalf"
+                                    :disabled="!selectableList.length"
+                                    @change="selAll"
+                                />
+                            </el-button>
+                            <el-button size="small" @click="batchAudit">批量审核</el-button>
+                        </template>
+                    </el-col>
+                    <pagination :current-page="page.curPage" :total="tableTotal" @size-change="pageSizeChange" @current-change="currentPageChange" />
+                </el-row>
+            </LsSticky>
         </el-card>
-		<dialog-audit
-		    :id="auditList"
-		    ref="auditDialog"
-		    url="/product/admin/product/audit"
-		    :user-params="{ ids: 'idList', status: 'opStatus', content: 'auditOpinion' }"
-		    @finish="finish"
-		/>
-		<dialogAuditHistoryTable ref="auditHistoryDialog" :product-id="currentProdId" />
-		<dialogPreview ref="dialogPreview"/>
+        <dialog-audit
+            :id="auditList"
+            ref="auditDialog"
+            url="/product/admin/product/audit"
+            :user-params="{ ids: 'idList', status: 'opStatus', content: 'auditOpinion' }"
+            @finish="finish"
+        />
+        <dialogAuditHistoryTable ref="auditHistoryDialog" :product-id="currentProdId" />
+        <dialogPreview ref="dialogPreview" />
     </section>
 </template>
 <script>
@@ -131,7 +151,7 @@ export default {
         DialogAudit,
         groupManage,
         dialogAuditHistoryTable,
-        dialogPreview,
+        dialogPreview
     },
     mixins: [common, cud],
     data() {
@@ -151,15 +171,14 @@ export default {
             }
         }
     },
-    watch: {
-    },
+    watch: {},
     mounted() {
         this.getShop()
         this.getBrand()
     },
     methods: {
         proPreview(row) {
-            this.$refs.dialogPreview.showDialog({id:row.id,viewDraft:true});
+            this.$refs.dialogPreview.showDialog({ id: row.id, viewDraft: true })
         },
         auditHistory(id) {
             this.currentProdId = id
@@ -263,13 +282,13 @@ export default {
         // 切换状态
         changeStatus() {
             this.page.curPage = 1
-            this.$refs.multipleTable.clearSelection()       //清除表格选择勾选行
+            this.$refs.multipleTable.clearSelection() //清除表格选择勾选行
             this.getData()
         },
-		finish(){
-			this.getData()
-			this.$refs.multipleTable && this.$refs.multipleTable.clearSelection()       //清除表格选择勾选行
-		} 
+        finish() {
+            this.getData()
+            this.$refs.multipleTable && this.$refs.multipleTable.clearSelection() //清除表格选择勾选行
+        }
     }
 }
 </script>

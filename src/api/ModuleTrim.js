@@ -20,8 +20,8 @@ const decorate = {
     // 营销组件加载数据专用
     couponReceivable: (data) => request.get(`/activity/coupon/receivable`, data), //【用户】用户可领取优惠券列表(店铺、skuId)
 
-    getThemeColor: (data) => request.get('/shop/mobile/theme/color', data),     //获取移动端主题颜色
-    getCateList: (data) => request.get('/shop/admin/decoratePage/list', data),      //获取对于分类的列表
+    getThemeColor: (data) => request.get('/shop/mobile/theme/color', data), //获取移动端主题颜色
+    getCateList: (data) => request.get('/shop/admin/decoratePage/list', data) //获取对于分类的列表
 }
 
 export { decorate }

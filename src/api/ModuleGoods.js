@@ -14,7 +14,7 @@ const GoodsManage = {
     batchUpdateDelStatus: (data) => request.put('/product/admin/product/batchUpdateDelStatus', data), // 批量更新商品删除状态
     proPreview: (data) => request.get('/product/admin/product/preview', data), // 预览商品生成标识
     test: (data) => request.get('/product/admin/product/index/info', data),
-    reIndexCount:(data)=> request.post('/search/admin/search/index/reIndexCount/count')
+    reIndexCount: (data) => request.post('/search/admin/search/index/reIndexCount/count')
 }
 
 // 商品举报
@@ -32,12 +32,12 @@ const reportType = {
 
 // 类目
 const category = {
-	productCategory: (data) => request.get('/product/category', data), // 商品类目(装修专用，只返回正在上线的分类)
+    productCategory: (data) => request.get('/product/category', data), // 商品类目(装修专用，只返回正在上线的分类)
     page: (data) => request.get('/product/admin/category', data), // 商品类目
     detail: (id) => request.get(`/product/admin/category/${id}`), // 类目详情
     page2: (data) => request.get(`/product/admin/category/product`, data), // 类目下的商品
     delete: (id) => request.delete(`/product/admin/category/${id}`), // 删除
-    changeStatus: (id, status,includeProduct) => request.put(`/product/admin/category/changeStatus/${id}/${status}`,includeProduct), // 类目上下线
+    changeStatus: (id, status, includeProduct) => request.put(`/product/admin/category/changeStatus/${id}/${status}`, includeProduct), // 类目上下线
     add: (data) => request.post('/product/admin/category', data), // 商品类目
     edit: (data) => request.put('/product/admin/category', data), // 商品类目
     aggListAll: () => request.get('/product/admin/productPropertyAgg/listAll') // 获取所有规格参数分组
@@ -72,7 +72,7 @@ const paramGroup = {
 const commodityBrand = {
     updateStatus: (data) => request.put('/product/admin/brand/updateStatus', data), // 更新状态
     brandExport: (data, vueThat) => request.getFile('/product/admin/brand/export', data, vueThat), // 导出
-	brandAll: (data) => request.get('/product/brand/all', data), // 【通用】查询所有在线的品牌
+    brandAll: (data) => request.get('/product/brand/all', data) // 【通用】查询所有在线的品牌
 }
 
 // 商品品牌

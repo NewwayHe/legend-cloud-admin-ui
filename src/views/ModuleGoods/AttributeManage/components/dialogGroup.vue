@@ -15,16 +15,24 @@
                 tooltip-effect="dark"
                 size="small"
                 :data="groupList"
+                header-row-class-name="headerRow"
                 @select-all="selectAll"
                 @select="selectRow"
-                header-row-class-name="headerRow"
             >
                 <el-table-column type="selection" width="42" :selectable="checkRow" />
-                <el-table-column prop="name" label="参数规格分组标题"/>
+                <el-table-column prop="name" label="参数规格分组标题" />
             </el-table>
         </div>
         <el-row class="dialog-paging mt-10" type="flex" justify="space-between" align="middle">
-            <el-checkbox class="pl-10 font-12" v-model="group.checked" @change="checkedAll" :indeterminate="group.halfChecked" :disabled='!groupList.length'>全选</el-checkbox>
+            <el-checkbox
+                v-model="group.checked"
+                class="pl-10 font-12"
+                :indeterminate="group.halfChecked"
+                :disabled="!groupList.length"
+                @change="checkedAll"
+            >
+                全选
+            </el-checkbox>
             <el-pagination
                 small
                 layout="prev, pager, next"
@@ -67,19 +75,6 @@ export default {
             }
         }
     },
-     watch: {
-        'group.selectedRow.length'(nL) {
-            if(nL) {
-                if(!this.group.checked) {
-                    this.group.halfChecked = true;
-                }else {
-                    this.group.halfChecked = false;
-                }
-            }else {
-                this.group.halfChecked = false;
-            }
-        }
-    },
     data() {
         return {
             group: {
@@ -87,7 +82,7 @@ export default {
                 pageNo: 1,
                 pageSize: 5,
                 total: 5,
-                checked: false,     //全选
+                checked: false, //全选
                 halfChecked: false, //半选
                 selectedRow: [] // 选中的行
             },
@@ -97,6 +92,19 @@ export default {
             },
             groupList: [], // 表格数据
             tableListLoading: false
+        }
+    },
+    watch: {
+        'group.selectedRow.length'(nL) {
+            if (nL) {
+                if (!this.group.checked) {
+                    this.group.halfChecked = true
+                } else {
+                    this.group.halfChecked = false
+                }
+            } else {
+                this.group.halfChecked = false
+            }
         }
     },
     methods: {

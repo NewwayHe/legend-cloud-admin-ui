@@ -61,8 +61,8 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100 mt-50 mb-30"
-                    @sort-change="changeSort"
                     header-row-class-name="headerRow"
+                    @sort-change="changeSort"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
@@ -80,11 +80,11 @@
                     <el-table-column prop="h5Frequency" sortable="custom" width="180" label="H5端搜索次数" />
                     <el-table-column prop="h5People" sortable="custom" width="180" label="H5端搜索人数" />
                     <el-table-column prop="figureLastYear" width="180" label="总搜索次数同比" fixed="right">
-						<template slot-scope="scope">{{scope.row.figureLastYear}}%</template>
-					</el-table-column>
+                        <template slot-scope="scope">{{ scope.row.figureLastYear }}%</template>
+                    </el-table-column>
                     <el-table-column prop="figureLastMonth" width="180" label="总搜索次数环比" fixed="right">
-					<template slot-scope="scope">{{scope.row.figureLastMonth}}%</template>
-					</el-table-column>
+                        <template slot-scope="scope">{{ scope.row.figureLastMonth }}%</template>
+                    </el-table-column>
                     <!-- <el-table-column label="操作" fixed="right" width="180px" align="center">
                   <template slot-scope="scope">
                     <span class="table__action">
@@ -107,7 +107,7 @@
 import common from './mixins/commom'
 import lineChart from './charts/lineChart'
 import wordcloud from './charts/wordcloud'
-import { formatNumber } from '@/utils/utils.js';
+import { formatNumber } from '@/utils/utils.js'
 import { ssyApi } from '@/api/ModuleData'
 export default {
     name: 'SearchSurvey',

@@ -54,14 +54,14 @@
                     :data="tableList"
                     tooltip-effect="dark"
                     class="w-100"
+                    header-row-class-name="headerRow"
                     @sort-change="changeSort"
-					header-row-class-name="headerRow"
                 >
                     <template slot="empty">
                         <empty empty-type="pro" />
                     </template>
                     <el-table-column label="序号" type="index" width="48" />
-                    <el-table-column prop="createTime" label="日期" width="140"/>
+                    <el-table-column prop="createTime" label="日期" width="140" />
                     <el-table-column prop="peopleAmount" sortable="custom" label="累计用户人数" />
                     <el-table-column prop="peopleNew" sortable="custom" label="全渠道新增用户人数" />
                     <!-- <el-table-column prop="mpNew" sortable="custom" label="公众号新增用户人数" />

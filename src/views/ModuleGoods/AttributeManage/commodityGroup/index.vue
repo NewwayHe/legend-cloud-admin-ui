@@ -37,9 +37,7 @@
                 </el-row>
                 <el-row class="mb-20">
                     <el-alert type="warning" class="theme" :closable="false" show-icon>
-                        <p>
-                            商品类目,用于管理商品,需要先创建一级类目,再创建二级类目,再创建三级类目
-                        </p>
+                        <p>商品类目,用于管理商品,需要先创建一级类目,再创建二级类目,再创建三级类目</p>
                     </el-alert>
                 </el-row>
 
@@ -59,7 +57,7 @@
                     <el-table-column prop="name" label="分组名称" />
                     <el-table-column label="分组类型" />
                     <el-table-column label="分组描述" />
-                    <el-table-column label="操作" align="center"  fixed="right" width="200px">
+                    <el-table-column label="操作" align="center" fixed="right" width="200px">
                         <template slot-scope="scope">
                             <span class="table__action">
                                 <el-link :underline="false" type="primary">编辑</el-link>

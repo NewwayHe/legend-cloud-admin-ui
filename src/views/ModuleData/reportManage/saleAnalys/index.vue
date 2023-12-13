@@ -112,7 +112,7 @@ export default {
     data() {
         return {
             lineChartData: lineChartData.newVisitis,
-            activeName: 'second',
+            activeName: 'second'
         }
     },
     methods: {

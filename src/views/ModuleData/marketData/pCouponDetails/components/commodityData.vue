@@ -48,7 +48,7 @@
                     <el-table-column prop="image" label="商品" min-width="150" align="center">
                         <template slot-scope="scope">
                             <div class="d-flex a-center">
-                                <ls-image style="flex: 0 0 50px" :src="scope.row.image" :options="{ w: '50', h: '50', br: '6' }"/>
+                                <ls-image style="flex: 0 0 50px" :src="scope.row.image" :options="{ w: '50', h: '50', br: '6' }" />
                                 <el-popover placement="top-start" trigger="hover" :content="scope.row.name" class="d-flex flex-column a-start">
                                     <template slot="reference">
                                         <el-link class="ml-5" :underline="false" type="primary" style="height: 45px">

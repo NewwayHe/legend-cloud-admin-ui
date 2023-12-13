@@ -8,9 +8,13 @@
                 </el-radio-group>
             </el-form-item>
             <el-form-item v-if="modelParams.upload == 1" key="pic" label="本地图片" :rules="rules.pic" prop="pic">
-				<upload ref="upload" key="modelParamsUpload" v-model="modelParams.pic" :floder-id="floderId" :limit="limit" />
-				<div style="color: #999; font-size: 12px">当次最多可上传&ensp;{{ limit }}&ensp;张，仍可上传<span style="color: #F56C6C; font-weight: 500;">&ensp;{{ limit - modelParams.pic.length }}&ensp;</span>张，支持jpg、png、gif等格式</div>
-			</el-form-item>
+                <upload ref="upload" key="modelParamsUpload" v-model="modelParams.pic" :floder-id="floderId" :limit="limit" />
+                <div style="color: #999; font-size: 12px">
+                    当次最多可上传&ensp;{{ limit }}&ensp;张，仍可上传
+                    <span style="color: #f56c6c; font-weight: 500">&ensp;{{ limit - modelParams.pic.length }}&ensp;</span>
+                    张，支持jpg、png、gif等格式
+                </div>
+            </el-form-item>
 
             <el-form-item v-if="modelParams.upload == 2" key="networkPic" label="网络图片" :rules="rules.networkPic" prop="networkPic">
                 <div class="d-flex">
@@ -51,11 +55,11 @@ export default {
             type: [String, Number],
             default: ''
         },
-		// 当前次可上传张数
-		limit: {
-		    type: Number,
-		    default: 15
-		}
+        // 当前次可上传张数
+        limit: {
+            type: Number,
+            default: 15
+        }
     },
     data() {
         return {
@@ -152,8 +156,8 @@ export default {
         },
         // resetFields会失效 使用这个resetData
         resetData() {
-            if(this.$refs.upload){
-                this.$refs.upload.clearFiles();
+            if (this.$refs.upload) {
+                this.$refs.upload.clearFiles()
             }
             this.modelParams = {
                 TreeValue: 0,
